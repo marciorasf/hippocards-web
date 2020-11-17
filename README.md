@@ -1,5 +1,13 @@
-# flashcards-web
+# Flashcards WEB
 
-Check it out on <https://marciorasf-flashcards.herokuapp.com>
+I'll write this README as soon as I finish the main pendencies.
 
-I'll write it as soon as I finish the main pendencies.
+Check the application running on <https://marciorasf-flashcards.herokuapp.com>
+
+## TODO
+
+- [ ] Improve error handling and messages
+- [ ] Implement tests
+- [ ] Configure a CI/CD
+
+## BUGS 
