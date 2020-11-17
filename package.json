@@ -4,13 +4,10 @@
   "private": true,
   "scripts": {
     "start": "react-scripts start",
-    "dev": "NODE_ENV=development react-scripts start",
-    "dev:build": "NODE_ENV=development react-scripts build",
     "build": "react-scripts build",
-    "production:move": "rm -rf ../production/dist/react && mkdir ../production/dist/react && cp -r build/** ../production/dist/react/",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "lint-fix": "eslint src/**.tsx --fix"
+    "lint": "eslint src/**.tsx --fix"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -42,7 +39,6 @@
     "react-toastify": "^6.0.8"
   },
   "devDependencies": {
-    "@types/axios": "^0.14.0",
     "@types/react-select": "^3.0.17",
     "@types/react": "^16.9.0",
     "@types/react-dom": "^16.9.0",

@@ -1,3 +1,4 @@
+import { nodeEnv } from "../config";
 import { Notify } from "../hooks/Notify";
 
 function handleErrorDevelopment(error: Error, errorMessage: string) {
@@ -17,7 +18,7 @@ export default function handleError(error: Error, errorMessage?: string) {
   const errorMessageWithDefault =
     errorMessage === undefined ? "Something bad happened!" : errorMessage;
 
-  if (process.env.NODE_ENV === "development") {
+  if (nodeEnv) {
     handleErrorDevelopment(error, errorMessageWithDefault);
   } else {
     handleErrorProduction(error, errorMessageWithDefault);
