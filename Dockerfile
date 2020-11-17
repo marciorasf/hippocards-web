@@ -4,14 +4,14 @@ WORKDIR /app
 
 ENV PATH="./node_modules/.bin:$PATH"
 
-COPY package*.json ./
-RUN npm install
+COPY package.json yarn.lock ./
+RUN yarn
 
 COPY . .
 
 ENV REACT_APP_API_URL=https://marciorasf-flashcards-api.herokuapp.com/api
 
-RUN npm run build
+RUN yarn build
 
 FROM nginx:1.17-alpine
 
