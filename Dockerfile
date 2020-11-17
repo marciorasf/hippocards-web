@@ -8,6 +8,9 @@ COPY package*.json ./
 RUN npm install
 
 COPY . .
+
+ENV REACT_APP_API_URL=https://marciorasf-flashcards-api.herokuapp.com/api
+
 RUN npm run build
 
 FROM nginx:1.17-alpine
