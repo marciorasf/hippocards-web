@@ -1,6 +1,6 @@
 import React, { useState, ChangeEvent, FormEvent } from "react";
 
-import { Button } from "@material-ui/core";
+import { Button, Link as MuiLink } from "@material-ui/core";
 
 import { PageContent, MainContainer } from "../../assets/styles/global";
 import CustomInput from "../../components/CustomInput";
@@ -8,7 +8,7 @@ import Divider from "../../components/Divider";
 import { Notify } from "../../hooks/Notify";
 import api from "../../services/api";
 import handleError from "../../services/ErrorHandler";
-import { Title, Description } from "./styles";
+import { Title, Description, LinkContainer, Link } from "./styles";
 
 const ERRORS = {
   USER_NOT_FOUND: "User not found!",
@@ -74,6 +74,14 @@ export default function ForgotPassword() {
           >
             Send email
           </Button>
+
+          <Divider height="1rem" />
+
+          <LinkContainer>
+            <MuiLink component={Link} to="/login" color="secondary">
+              Go back to login
+            </MuiLink>
+          </LinkContainer>
         </form>
       </MainContainer>
     </PageContent>
