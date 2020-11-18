@@ -8,6 +8,7 @@ Check the application running on <https://marciorasf-flashcards.herokuapp.com>
 
 - [ ] Improve error handling and messages
 - [ ] Implement tests
-- [ ] Configure a CI/CD
+- [ ] Footer
+- [ ] Onboarding
 
 ## BUGS 
