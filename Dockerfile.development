@@ -7,8 +7,6 @@ EXPOSE 3000
 
 WORKDIR /usr/app
 
-COPY package.json yarn.lock ./
-
 RUN yarn add react-scripts@3.4.1 -g
 
 COPY . .
