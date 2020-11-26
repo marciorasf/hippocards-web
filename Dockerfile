@@ -1,8 +1,6 @@
-FROM node:13-alpine AS builder
+FROM node:12-alpine AS builder
 
-WORKDIR /app
-
-ENV PATH="./node_modules/.bin:$PATH"
+WORKDIR /usr/app
 
 COPY package.json yarn.lock ./
 RUN yarn
@@ -24,4 +22,4 @@ COPY ./nginx.config /etc/nginx/nginx.template
 
 CMD ["/bin/sh", "-c", "envsubst < /etc/nginx/nginx.template > /etc/nginx/conf.d/default.conf && nginx -g 'daemon off;'"]
 
-COPY --from=builder /app/build /usr/share/nginx/html
+COPY --from=builder /usr/app/build /usr/share/nginx/html

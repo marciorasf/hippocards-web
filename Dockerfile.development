@@ -1,13 +1,16 @@
-FROM node:13-alpine
+# Some practices done in this file is not suitable for production environmnents or can cause bugs
+# The main reason to change the standard way is to make container node_modules available for host
+# this way vscode intellisense works correctly
+FROM node:12-alpine
 
-WORKDIR /app
+EXPOSE 3000
 
-ENV PATH /app/node_modules/.bin:$PATH
+WORKDIR /usr/app
 
-COPY package*.json ./
-RUN yarn install
-RUN yarn install react-scripts@3.4.1 -g
+COPY package.json yarn.lock ./
+
+RUN yarn add react-scripts@3.4.1 -g
 
 COPY . .
 
-CMD ["yarn", "start"]
+CMD yarn && yarn start

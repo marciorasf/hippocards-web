@@ -1,5 +1,8 @@
 node_modules
-Dockerfile
-Dockerfile.development
 .dockerignore
 .editorconfig
+node_modules
+*Dockerfile*
+*docker-compose*
+.vscode
+dist
