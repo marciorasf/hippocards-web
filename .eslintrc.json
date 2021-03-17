@@ -26,6 +26,7 @@
     "eslint-plugin-import-helpers"
   ],
   "rules": {
+    "react/prop-types":[0],
     "func-names": "off",
     "no-new": "off",
     "no-prototype-builtins": "off",
@@ -93,8 +94,7 @@
           "ignoreCase": true
         }
       }
-    ],
-    "react/prop-types": "warn"
+    ]
   },
   "settings": {
     "import/resolver": {
@@ -111,7 +111,8 @@
       "createClass": "createReactClass",
       "pragma": "React",
       "version": "detect",
-      "flowVersion": "0.53"
+      "flowVersion": "0.53",
+      "prop-types": "no"
     },
     "propWrapperFunctions": [
       "forbidExtraProps",
