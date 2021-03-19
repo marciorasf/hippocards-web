@@ -1,5 +1,5 @@
 import React, { useState, FormEvent, useEffect } from "react";
-import { useHistory } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 
 import { Button } from "@material-ui/core";
 
@@ -10,7 +10,6 @@ import { Notify } from "../../hooks/Notify";
 import { Category } from "../../interfaces/Category";
 import { FlashcardCreateInput } from "../../interfaces/Flashcard";
 import api from "../../services/api";
-import AuthService from "../../services/auth";
 import handleError from "../../services/error-handler";
 import { QuestionTextarea, AnswerTextarea, ButtonsContainer } from "./styles";
 
@@ -32,14 +31,7 @@ export default function CreateFlashcard(props: any) {
 
   const [categories, setCategories] = useState<Category[]>([]);
 
-  function resetFlashcard() {
-    setFlashcard({
-      ...flashcard,
-      ...emptyFlashcard,
-    });
-  }
-
-  function handleNavigateToStudy() {
+  function goToStudyPage() {
     history.push("/study");
   }
 
@@ -61,7 +53,6 @@ export default function CreateFlashcard(props: any) {
   async function getFlashcardData() {
     try {
       const response = await api.get("/flashcard", {
-        headers: AuthService.getAuthHeader(),
         params: {
           flashcardId,
         },
@@ -77,18 +68,12 @@ export default function CreateFlashcard(props: any) {
 
   async function addCard() {
     try {
-      await api.post(
-        "/flashcard",
-        {
-          ...flashcard,
-          category: processCategoryData(flashcard.category),
-        },
-        {
-          headers: AuthService.getAuthHeader(),
-        }
-      );
+      await api.post("/flashcard", {
+        ...flashcard,
+        category: processCategoryData(flashcard.category),
+      });
       Notify.success("Flashcard added!");
-      resetFlashcard();
+      goToStudyPage();
     } catch (error) {
       handleError(error, "Could not add your flashcard");
     }
@@ -97,7 +82,6 @@ export default function CreateFlashcard(props: any) {
   async function updateCard() {
     try {
       await api.put("/flashcard", flashcard, {
-        headers: AuthService.getAuthHeader(),
         params: {
           flashcardId,
         },
@@ -120,9 +104,7 @@ export default function CreateFlashcard(props: any) {
 
   async function getAndUpdateCategories() {
     try {
-      const response = await api.get("/categories", {
-        headers: AuthService.getAuthHeader(),
-      });
+      const response = await api.get("/categories");
       setCategories(response.data.categories);
     } catch (error) {
       handleError(error, "Could not get categories.");
@@ -181,7 +163,8 @@ export default function CreateFlashcard(props: any) {
               color="secondary"
               type="button"
               fullWidth
-              onClick={handleNavigateToStudy}
+              component={Link}
+              to="/study"
             >
               go back
             </Button>

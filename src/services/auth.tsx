@@ -1,43 +1,27 @@
+import cookies from "browser-cookies";
+
 import api from "./api";
 
+const authTokenCookieName = "@flashcards/auth-token";
+
 async function login(data: { email: string; password: string }) {
-  const response = await api.post("/authenticate", data);
-
-  const { user, token } = response?.data;
-  if (user && token) {
-    sessionStorage.setItem("@flashcards/user", JSON.stringify(user));
-    sessionStorage.setItem("@flashcards/token", JSON.stringify(token));
-  }
-
-  return user;
+  api.post("/authenticate", data);
 }
 
 function logout() {
-  sessionStorage.removeItem("@flashcards/user");
-  sessionStorage.removeItem("@flashcards/token");
+  cookies.erase(authTokenCookieName);
 }
 
-function getUser() {
-  const user = sessionStorage.getItem("@flashcards/user");
-  return user ? JSON.parse(user) : null;
-}
-
-function getToken() {
-  const token = sessionStorage.getItem("@flashcards/token");
-  return token ? JSON.parse(token) : null;
+function getAuthToken() {
+  return cookies.get(authTokenCookieName);
 }
 
 function isAuthenticated() {
-  return Boolean(getToken() && getUser());
+  return Boolean(getAuthToken());
 }
 
-function getAuthHeader() {
-  const token = getToken();
-
-  if (token) {
-    return { "x-access-token": token };
-  }
-  return {};
-}
-
-export default { login, logout, getCurrentUser: getUser, getAuthHeader, isAuthenticated };
+export default {
+  login,
+  logout,
+  isAuthenticated,
+};

@@ -7,8 +7,8 @@ import { PageContent, MainContainer } from "../../assets/styles/global";
 import CustomInput from "../../components/CustomInput";
 import CustomPasswordInput from "../../components/CustomPasswordInput";
 import Divider from "../../components/Divider";
-import AuthService from "../../services/auth";
-import handleError from "../../services/error-handler";
+import auth from "../../services/auth";
+import errorHandler from "../../services/error-handler";
 import { Title, Link, LinksContainer } from "./styles";
 
 const blankFormData = {
@@ -17,8 +17,8 @@ const blankFormData = {
 };
 
 const ERRORS = {
-  WRONG_PASSWORD: "Wrong password!",
-  USER_NOT_FOUND: "User not found!",
+  wrong_password: "Wrong password!",
+  user_not_found: "User not found!",
 };
 
 export default function Login() {
@@ -37,14 +37,14 @@ export default function Login() {
     event.preventDefault();
 
     try {
-      await AuthService.login(formData);
+      await auth.login(formData);
       history.push("/");
-    } catch (error) {
-      const errorCode = error?.response?.data?.message as
-        | "USER_NOT_FOUND"
-        | "WRONG_PASSWORD";
+    } catch (err) {
+      const errorCode = err?.response?.data?.message as
+        | "user_not_found"
+        | "wrong_password";
       const errorMessage = ERRORS[errorCode];
-      handleError(error, errorMessage);
+      errorHandler(err, errorMessage);
     }
   }
 

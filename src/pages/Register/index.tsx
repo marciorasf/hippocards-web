@@ -18,7 +18,7 @@ const blankFormData = {
 };
 
 const ERRORS = {
-  EMAIL_IN_USE: "Email already in use!",
+  email_in_use: "Email already in use!",
 };
 
 export default function Register() {
@@ -42,7 +42,7 @@ export default function Register() {
       history.push("/login");
       Notify.success("Congratulations! Now you can log in.");
     } catch (error) {
-      const errorCode = error?.response?.data?.message as "EMAIL_IN_USE";
+      const errorCode = error?.response?.data?.message as "email_in_use";
       const errorMessage = ERRORS[errorCode];
       handleError(error, errorMessage);
     }

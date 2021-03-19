@@ -21,7 +21,6 @@ import { Notify } from "../../hooks/Notify";
 import { Category } from "../../interfaces/Category";
 import { Flashcard } from "../../interfaces/Flashcard";
 import api from "../../services/api";
-import AuthService from "../../services/auth";
 import handleError from "../../services/error-handler";
 import {
   Card,
@@ -63,7 +62,6 @@ export default function Study() {
 
   async function getRandomCard() {
     const response = await api.get("/flashcard/random", {
-      headers: AuthService.getAuthHeader(),
       params: {
         currentFlashcardId: card.id,
         ...filters,
@@ -123,9 +121,7 @@ export default function Study() {
 
   async function getAndUpdateCategories() {
     try {
-      const response = await api.get("/categories", {
-        headers: AuthService.getAuthHeader(),
-      });
+      const response = await api.get("/categories");
       setCategories(response.data.categories);
     } catch (error) {
       handleError(error, "Could not get categories.");
@@ -170,7 +166,6 @@ export default function Study() {
           isKnown: newValue,
         },
         {
-          headers: AuthService.getAuthHeader(),
           params: {
             flashcardId: card?.id,
           },
@@ -197,7 +192,6 @@ export default function Study() {
         },
         {
           params: {
-            headers: AuthService.getAuthHeader(),
             flashcardId: card?.id,
           },
         }
@@ -214,7 +208,6 @@ export default function Study() {
   async function handleDeleteCard() {
     try {
       await api.delete("/flashcard", {
-        headers: AuthService.getAuthHeader(),
         params: {
           flashcardId: card.id,
         },

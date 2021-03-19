@@ -3,14 +3,14 @@ import { Route, Redirect, Switch } from "react-router-dom";
 
 import CardForm from "../pages/CardForm";
 import Study from "../pages/Study";
-import AuthService from "../services/auth";
+import auth from "../services/auth";
 
 function PrivateRoute({ component: Component, ...rest }: any) {
   return (
     <Route
       {...rest}
       render={(props) =>
-        AuthService.isAuthenticated() ? (
+        auth.isAuthenticated() ? (
           <Component {...props} />
         ) : (
           <Redirect
