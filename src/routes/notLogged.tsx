@@ -4,7 +4,7 @@ import { Route, Switch, Redirect } from "react-router-dom";
 import RecoverPassword from "../pages/ForgotPassword";
 import Login from "../pages/Login";
 import Register from "../pages/Register";
-import AuthService from "../services/AuthService";
+import AuthService from "../services/auth";
 
 function NotLoggedRoute({ component: Component, ...rest }: any) {
   return (

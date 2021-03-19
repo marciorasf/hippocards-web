@@ -26,7 +26,9 @@
     "eslint-plugin-import-helpers"
   ],
   "rules": {
-    "react/prop-types":[0],
+    "react/prop-types": [
+      0
+    ],
     "func-names": "off",
     "no-new": "off",
     "no-prototype-builtins": "off",
@@ -62,6 +64,7 @@
     ],
     "no-underscore-dangle": "off",
     "@typescript-eslint/camelcase": "off",
+    "camelcase": "off",
     "@typescript-eslint/no-empty-interface": "off",
     "prettier/prettier": "error",
     "class-methods-use-this": "off",
@@ -74,7 +77,7 @@
         "ts": "never",
         "tsx": "never"
       }
-   ],
+    ],
     "import-helpers/order-imports": [
       "warn",
       {

@@ -1,3 +1,5 @@
-export const nodeEnv = process.env.NODE_ENV;
+import "dotenv";
 
-export const apiUrl = process.env.REACT_APP_API_URL;
+export const __node_env__ = process.env.NODE_ENV;
+
+export const __api_url__ = process.env.REACT_APP_API_URL;

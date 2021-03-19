@@ -21,8 +21,8 @@ import { Notify } from "../../hooks/Notify";
 import { Category } from "../../interfaces/Category";
 import { Flashcard } from "../../interfaces/Flashcard";
 import api from "../../services/api";
-import AuthService from "../../services/AuthService";
-import handleError from "../../services/ErrorHandler";
+import AuthService from "../../services/auth";
+import handleError from "../../services/error-handler";
 import {
   Card,
   CardTitle,

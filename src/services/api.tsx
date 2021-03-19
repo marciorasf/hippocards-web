@@ -1,9 +1,9 @@
 import axios from "axios";
 
-import { apiUrl } from "../config";
+import { __api_url__ } from "../config";
 
-const baseURL = apiUrl;
-console.log(apiUrl);
+const baseURL = __api_url__;
+console.log(__api_url__);
 
 const api = axios.create({
   baseURL,

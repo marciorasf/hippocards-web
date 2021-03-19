@@ -2,7 +2,7 @@ import React from "react";
 import { useHistory } from "react-router-dom";
 
 import BrandImage from "../../assets/images/lightning.png";
-import AuthService from "../../services/AuthService";
+import AuthService from "../../services/auth";
 import {
   Header,
   Nav,

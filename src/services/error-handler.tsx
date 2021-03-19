@@ -1,4 +1,4 @@
-import { nodeEnv } from "../config";
+import { __node_env__ } from "../config";
 import { Notify } from "../hooks/Notify";
 
 function handleErrorDevelopment(error: Error, errorMessage: string) {
@@ -8,7 +8,7 @@ function handleErrorDevelopment(error: Error, errorMessage: string) {
   }
 }
 
-function handleErrorProduction(error: Error, errorMessage: string) {
+function handleErrorProduction(_error: Error, errorMessage: string) {
   if (errorMessage) {
     Notify.error(errorMessage);
   }
@@ -18,7 +18,7 @@ export default function handleError(error: Error, errorMessage?: string) {
   const errorMessageWithDefault =
     errorMessage === undefined ? "Something bad happened!" : errorMessage;
 
-  if (nodeEnv) {
+  if (__node_env__) {
     handleErrorDevelopment(error, errorMessageWithDefault);
   } else {
     handleErrorProduction(error, errorMessageWithDefault);

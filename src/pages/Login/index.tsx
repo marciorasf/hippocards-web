@@ -7,8 +7,8 @@ import { PageContent, MainContainer } from "../../assets/styles/global";
 import CustomInput from "../../components/CustomInput";
 import CustomPasswordInput from "../../components/CustomPasswordInput";
 import Divider from "../../components/Divider";
-import AuthService from "../../services/AuthService";
-import handleError from "../../services/ErrorHandler";
+import AuthService from "../../services/auth";
+import handleError from "../../services/error-handler";
 import { Title, Link, LinksContainer } from "./styles";
 
 const blankFormData = {

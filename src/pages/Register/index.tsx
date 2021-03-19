@@ -9,7 +9,7 @@ import CustomPasswordInput from "../../components/CustomPasswordInput";
 import Divider from "../../components/Divider";
 import { Notify } from "../../hooks/Notify";
 import api from "../../services/api";
-import handleError from "../../services/ErrorHandler";
+import handleError from "../../services/error-handler";
 import { Title, LinksContainer, Link } from "./styles";
 
 const blankFormData = {

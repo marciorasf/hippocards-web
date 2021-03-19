@@ -7,7 +7,7 @@ import CustomInput from "../../components/CustomInput";
 import Divider from "../../components/Divider";
 import { Notify } from "../../hooks/Notify";
 import api from "../../services/api";
-import handleError from "../../services/ErrorHandler";
+import handleError from "../../services/error-handler";
 import { Title, Description, LinkContainer, Link } from "./styles";
 
 const ERRORS = {

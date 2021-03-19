@@ -8,7 +8,7 @@ import CustomPasswordInput from "../../components/CustomPasswordInput";
 import Divider from "../../components/Divider";
 import { Notify } from "../../hooks/Notify";
 import api from "../../services/api";
-import handleError from "../../services/ErrorHandler";
+import handleError from "../../services/error-handler";
 import { Title } from "./styles";
 
 export default function ChangePassword(props: any) {
