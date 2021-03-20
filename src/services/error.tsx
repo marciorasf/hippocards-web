@@ -2,17 +2,17 @@ import { __is_dev_env__ } from "../config";
 
 function _handleErrorDevelopment(error: Error, errorMessage: string) {
   if (errorMessage) {
-    console.log({ error });
+    console.error({ error });
   }
 }
 
 function _handleErrorProduction(_error: Error, errorMessage: string) {
   if (errorMessage) {
-    console.log({ _error });
+    console.error({ _error });
   }
 }
 
-export default {
+const errorService = {
   handle(error: Error, errorMessage?: string) {
     const errorMessageWithDefault =
       errorMessage === undefined ? "Something bad happened!" : errorMessage;
@@ -24,3 +24,5 @@ export default {
     }
   },
 };
+
+export default errorService;

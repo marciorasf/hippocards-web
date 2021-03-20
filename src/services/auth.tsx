@@ -1,14 +1,14 @@
-import api from "./api";
+import apiService from "./api";
 
 type LoginData = {
   email: string;
   password: string;
 };
 
-export default {
+const authService = {
   async login(data: LoginData) {
     try {
-      await api.post("/login", data);
+      await apiService.post("/login", data);
       return true;
     } catch (err) {
       return false;
@@ -17,19 +17,12 @@ export default {
 
   async logout() {
     try {
-      await api.get("logout");
-      return true;
-    } catch (err) {
-      return false;
-    }
-  },
-
-  async isAuthenticated() {
-    try {
-      api.get("/check");
+      await apiService.get("logout");
       return true;
     } catch (err) {
       return false;
     }
   },
 };
+
+export default authService;

@@ -12,7 +12,7 @@ export interface UserContext {
 
 const UserStore = createContext<UserContext>({} as UserContext);
 
-export const useGlobalStateStore = () => useContext(UserStore);
+export const useUserStore = () => useContext(UserStore);
 
 const UserStoreProvider: React.FC = (props) => {
   const { children } = props;

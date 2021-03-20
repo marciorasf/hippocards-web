@@ -1,30 +1,10 @@
 import React from "react";
-import { Route, Redirect, Switch } from "react-router-dom";
+import { Route } from "react-router-dom";
 
-import auth from "../services/auth";
+import Categories from "../pages/Categories";
 
-function PrivateRoute({ component: Component, ...rest }: any) {
-  return (
-    <Route
-      {...rest}
-      render={(props) =>
-        auth.isAuthenticated() ? (
-          <Component {...props} />
-        ) : (
-          <Redirect
-            to={{
-              pathname: "/login",
-              state: { from: props.location },
-            }}
-          />
-        )
-      }
-    />
-  );
-}
+const privateRoutes = [
+  <Route key="categories" exact path="/categories" component={Categories} />,
+];
 
-function PrivateRoutes() {
-  return <Switch></Switch>;
-}
-
-export default PrivateRoutes;
+export default privateRoutes;
