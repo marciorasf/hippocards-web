@@ -1,8 +1,6 @@
 import React from "react";
 import { Route, Redirect, Switch } from "react-router-dom";
 
-import CardForm from "../pages/CardForm";
-import Study from "../pages/Study";
 import auth from "../services/auth";
 
 function PrivateRoute({ component: Component, ...rest }: any) {
@@ -26,14 +24,7 @@ function PrivateRoute({ component: Component, ...rest }: any) {
 }
 
 function PrivateRoutes() {
-  return (
-    <Switch>
-      <PrivateRoute path="/" exact component={Study} />
-      <PrivateRoute path="/study" exact component={Study} />
-      <PrivateRoute path="/add-card" exact component={CardForm} />
-      <PrivateRoute path="/edit-card/:flashcardId" component={CardForm} />
-    </Switch>
-  );
+  return <Switch></Switch>;
 }
 
 export default PrivateRoutes;

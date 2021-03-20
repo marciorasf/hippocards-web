@@ -1,16 +1,8 @@
 import React from "react";
-import { Route, Switch } from "react-router-dom";
-
-import ChangePassword from "../pages/ChangePassword";
-import Landing from "../pages/Landing";
+import { Switch } from "react-router-dom";
 
 function PublicRoutes() {
-  return (
-    <Switch>
-      <Route path="/landing" exact component={Landing} />
-      <Route path="/change-password/:token" exact component={ChangePassword} />
-    </Switch>
-  );
+  return <Switch></Switch>;
 }
 
 export default PublicRoutes;

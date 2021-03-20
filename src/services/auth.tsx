@@ -1,27 +1,35 @@
-import cookies from "browser-cookies";
-
 import api from "./api";
 
-const authTokenCookieName = "@flashcards/auth-token";
-
-async function login(data: { email: string; password: string }) {
-  api.post("/authenticate", data);
-}
-
-function logout() {
-  cookies.erase(authTokenCookieName);
-}
-
-function getAuthToken() {
-  return cookies.get(authTokenCookieName);
-}
-
-function isAuthenticated() {
-  return Boolean(getAuthToken());
-}
+type LoginData = {
+  email: string;
+  password: string;
+};
 
 export default {
-  login,
-  logout,
-  isAuthenticated,
+  async login(data: LoginData) {
+    try {
+      await api.post("/login", data);
+      return true;
+    } catch (err) {
+      return false;
+    }
+  },
+
+  async logout() {
+    try {
+      await api.get("logout");
+      return true;
+    } catch (err) {
+      return false;
+    }
+  },
+
+  async isAuthenticated() {
+    try {
+      api.get("/check");
+      return true;
+    } catch (err) {
+      return false;
+    }
+  },
 };

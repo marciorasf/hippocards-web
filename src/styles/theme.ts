@@ -11,12 +11,12 @@ const theme = createMuiTheme({
       main: colors.secondary,
     },
   },
-  typography:{
-    button:{
+  typography: {
+    button: {
       fontFamily: "Rubik",
-      fontWeight: 500
-    }
-  }
+      fontWeight: 500,
+    },
+  },
 });
 
 export default theme;
