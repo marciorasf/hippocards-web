@@ -1,23 +1,23 @@
-import React from "react";
+import React from "react"
 
-import { CircularProgress, Grid, Fade, makeStyles } from "@material-ui/core";
+import { CircularProgress, Grid, Fade, makeStyles } from "@material-ui/core"
 
 const useStyles = makeStyles({
   container: {
     height: "100%",
   },
-});
+})
 
 type LoadingProps = {
   loading: boolean;
 };
 
 const Loading: React.FC<LoadingProps> = (props) => {
-  const { children, loading } = props;
+  const { children, loading } = props
 
-  const classes = useStyles();
+  const classes = useStyles()
 
-  let component;
+  let component
 
   if (loading) {
     component = (
@@ -29,12 +29,12 @@ const Loading: React.FC<LoadingProps> = (props) => {
       >
         <CircularProgress color="secondary" />
       </Grid>
-    );
+    )
   } else {
-    component = <Fade in={!loading}>{children as React.ReactElement}</Fade>;
+    component = <Fade in={!loading}>{children as React.ReactElement}</Fade>
   }
 
-  return component as React.ReactElement;
-};
+  return component as React.ReactElement
+}
 
-export default Loading;
+export default Loading

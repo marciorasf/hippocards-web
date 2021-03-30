@@ -1,4 +1,4 @@
-import apiService from "./api";
+import apiService from "./api"
 
 type LoginData = {
   email: string;
@@ -8,21 +8,21 @@ type LoginData = {
 const authService = {
   async login(data: LoginData) {
     try {
-      await apiService.post("/login", data);
-      return true;
+      await apiService.post("/login", data)
+      return true
     } catch (err) {
-      return false;
+      return false
     }
   },
 
   async logout() {
     try {
-      await apiService.get("logout");
-      return true;
+      await apiService.get("logout")
+      return true
     } catch (err) {
-      return false;
+      return false
     }
   },
-};
+}
 
-export default authService;
+export default authService
