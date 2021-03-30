@@ -2,7 +2,7 @@ import { Formik, Form } from "formik"
 import React from "react"
 import { useHistory } from "react-router-dom"
 
-import { Button, Container } from "@material-ui/core"
+import { Button, Container, Grid } from "@material-ui/core"
 
 import InputField from "../../components/InputField"
 import apiService from "../../services/api"
@@ -27,26 +27,51 @@ const Login: React.FC = () => {
 
             history.push("/categories")
           } catch (err) {
-            errorService.handle(err)
-            const { data } = err.response
-            setErrors(data.login.errors)
+            errorService.handle(err.response)
+            const { message } = err.response.data
+
+            if (message === "user_not_found") {
+              return setErrors({
+                email: "Email not found",
+              })
+            }
+
+            if (message === "wrong_password") {
+              return setErrors({
+                password: "Wrong password",
+              })
+            }
           }
         }}
       >
         {({ isSubmitting }) => (
           <Form>
-            <InputField name="email" label="Email" required />
+            <Grid container direction="column" spacing={2}>
+              <Grid item>
+                <InputField name="email" label="Email" type="email" required />
+              </Grid>
 
-            <InputField
-              name="password"
-              label="Password"
-              type="password"
-              required
-            />
+              <Grid item>
+                <InputField
+                  name="password"
+                  label="Password"
+                  type="password"
+                  required
+                />
+              </Grid>
 
-            <Button type="submit" disabled={isSubmitting}>
-              login
-            </Button>
+              <Grid item>
+                <Button
+                  variant="contained"
+                  color="primary"
+                  fullWidth
+                  type="submit"
+                  disabled={isSubmitting}
+                >
+                  login
+                </Button>
+              </Grid>
+            </Grid>
           </Form>
         )}
       </Formik>

@@ -8,7 +8,7 @@ function _handleErrorDevelopment(error: Error, errorMessage: string) {
 
 function _handleErrorProduction(_error: Error, errorMessage: string) {
   if (errorMessage) {
-    console.error({ _error })
+    console.error({ error: _error })
   }
 }
 

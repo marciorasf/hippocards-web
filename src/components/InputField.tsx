@@ -9,9 +9,9 @@ import {
 } from "@material-ui/core"
 
 type InputFieldProps = InputHTMLAttributes<HTMLInputElement> & {
-  name: string;
-  label: string;
-};
+  name: string
+  label: string
+}
 
 const InputField: React.FC<InputFieldProps> = ({
   label,
@@ -21,7 +21,7 @@ const InputField: React.FC<InputFieldProps> = ({
 }) => {
   const [field, { error }] = useField(props)
   return (
-    <FormControl error={!!error}>
+    <FormControl fullWidth error={!!error}>
       <InputLabel htmlFor={field.name}>{label}</InputLabel>
       <Input {...field} type={type} required={required} id={field.name} />
       {error ? <FormHelperText>{error}</FormHelperText> : null}

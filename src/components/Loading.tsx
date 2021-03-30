@@ -9,8 +9,8 @@ const useStyles = makeStyles({
 })
 
 type LoadingProps = {
-  loading: boolean;
-};
+  loading: boolean
+}
 
 const Loading: React.FC<LoadingProps> = (props) => {
   const { children, loading } = props

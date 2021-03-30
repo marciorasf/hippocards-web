@@ -39,6 +39,7 @@
     "no-restricted-syntax": "off",
     "max-classes-per-file": "off",
     "@typescript-eslint/no-explicit-any": "off",
+    "consistent-return": "off",
     "no-console": "off",
     "import/prefer-default-export": "off",
     "@typescript-eslint/explicit-function-return-type": [
@@ -70,7 +71,6 @@
     "@typescript-eslint/camelcase": "off",
     "camelcase": "off",
     "@typescript-eslint/no-empty-interface": "off",
-    "prettier/prettier": "off",
     "class-methods-use-this": "off",
     "import/extensions": [
       "error",

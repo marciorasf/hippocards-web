@@ -1,13 +1,13 @@
 import React, { createContext, useContext, useState } from "react"
 
 type UserProps = {
-  id: number;
-  email: string;
-};
+  id: number
+  email: string
+}
 
 export interface UserContext {
-  user: UserProps;
-  setUser: (data: Partial<UserProps>) => void;
+  user: UserProps
+  setUser: (data: Partial<UserProps>) => void
 }
 
 const UserStore = createContext<UserContext>({} as UserContext)
