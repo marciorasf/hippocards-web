@@ -11,12 +11,7 @@ import { useUserStore } from "../../store/user";
 
 const Login: React.FC = () => {
   const userStore = useUserStore();
-
   const history = useHistory();
-
-  async function login(data: any) {
-    return apiService.post("/login", data);
-  }
 
   return (
     <Container>
@@ -24,10 +19,12 @@ const Login: React.FC = () => {
         initialValues={{ email: "", password: "" }}
         onSubmit={async (values, { setErrors }) => {
           try {
-            const { data } = await login(values);
+            const { data } = await apiService.post("/login", values);
+
             userStore.setUser({
               email: data.email,
             });
+
             history.push("/categories");
           } catch (err) {
             errorService.handle(err);
