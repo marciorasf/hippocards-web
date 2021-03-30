@@ -31,6 +31,12 @@ const Landing: React.FC<LandingProps> = () => {
           Logout
         </Button>
       </Grid>
+
+      <Grid item>
+        <Button component={Link} to="/categories">
+          Categories
+        </Button>
+      </Grid>
     </Grid>
   );
 };

@@ -1,8 +1,12 @@
 import React from "react";
 
-import { CircularProgress, Grid, Fade } from "@material-ui/core";
+import { CircularProgress, Grid, Fade, makeStyles } from "@material-ui/core";
 
-import useStyles from "./styles";
+const useStyles = makeStyles({
+  container: {
+    height: "100%",
+  },
+});
 
 type LoadingProps = {
   loading: boolean;
