@@ -5,9 +5,7 @@ import { Button, Grid } from "@material-ui/core";
 
 import authService from "../../services/auth";
 
-type LandingProps = {};
-
-const Landing: React.FC<LandingProps> = () => {
+const Landing: React.FC = () => {
   function handleLogout() {
     authService.logout();
   }

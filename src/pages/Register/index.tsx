@@ -2,9 +2,7 @@ import React from "react";
 
 import { Container } from "@material-ui/core";
 
-type RegisterProps = {};
-
-const Register: React.FC<RegisterProps> = () => {
+const Register: React.FC = () => {
   return <Container>Register</Container>;
 };
 
