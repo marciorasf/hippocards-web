@@ -8,3 +8,9 @@ export type Category = {
 export type CategoryWithFlashcards = Category & {
   flashcards: Flashcard[]
 }
+
+export type CreateCategoryData = {
+  name: string
+}
+
+export type UpdateCategoryData = CreateCategoryData

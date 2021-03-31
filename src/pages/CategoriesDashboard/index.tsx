@@ -1,4 +1,3 @@
-import { Formik, Form } from "formik"
 import React, { useState } from "react"
 import { useHistory } from "react-router-dom"
 
@@ -12,11 +11,6 @@ import {
   CardActions,
   IconButton,
   CardActionArea,
-  Dialog,
-  DialogTitle,
-  DialogContent,
-  DialogActions,
-  Button,
 } from "@material-ui/core"
 import {
   EditOutlined as EditIcon,
@@ -24,15 +18,15 @@ import {
   Add as AddIcon,
 } from "@material-ui/icons"
 
-import InputField from "../../components/InputField"
 import useDidMount from "../../hooks/useDidMount"
-import { Category } from "../../interfaces/category"
+import {
+  Category,
+  CreateCategoryData,
+  UpdateCategoryData,
+} from "../../interfaces/category"
 import apiService from "../../services/api"
 import errorService from "../../services/error"
-
-type CreateCategoryData = {
-  name: string
-}
+import CategoryDialog from "./CategoryDialog"
 
 async function getCategories() {
   try {
@@ -44,9 +38,15 @@ async function getCategories() {
   }
 }
 
+type DialogName = "create" | "edit"
+
 const CategoriesDashboard: React.FC = () => {
   const [userCategories, setUserCategories] = useState<Category[]>([])
-  const [openDialog, setOpenDialog] = useState(false)
+  const [openDialog, setOpenDialog] = useState<DialogName | null>(null)
+  const [
+    currentCategoryOnEdition,
+    setCurrentCategoryOnEdition,
+  ] = useState<Category>()
 
   const history = useHistory()
 
@@ -64,7 +64,15 @@ const CategoriesDashboard: React.FC = () => {
     }
   }
 
-  function handleEditCategory() {}
+  async function handleEditCategory(categoryData: UpdateCategoryData) {
+    const categoryId = currentCategoryOnEdition?.id
+    try {
+      await apiService.put(`/categories/${categoryId}`, categoryData)
+      getAndUpdateCategories()
+    } catch (err) {
+      errorService.handle(err)
+    }
+  }
 
   async function handleDeleteCategory(categoryId: number) {
     try {
@@ -83,12 +91,12 @@ const CategoriesDashboard: React.FC = () => {
     getAndUpdateCategories()
   })
 
-  function handleOpenDialog() {
-    setOpenDialog(true)
+  function handleOpenDialog(dialog: DialogName) {
+    setOpenDialog(dialog)
   }
 
   function handleCloseDialog() {
-    setOpenDialog(false)
+    setOpenDialog(null)
   }
 
   return (
@@ -98,70 +106,31 @@ const CategoriesDashboard: React.FC = () => {
       <Grid container>
         <Grid item>
           <Card>
-            <CardActionArea onClick={handleOpenDialog}>
+            <CardActionArea onClick={() => handleOpenDialog("create")}>
               <CardContent>
                 <AddIcon />
               </CardContent>
             </CardActionArea>
           </Card>
-
-          <Dialog
-            open={openDialog}
-            onClose={handleCloseDialog}
-            aria-labelledby="form-dialog-title"
-          >
-            <Formik
-              initialValues={{ name: "" }}
-              onSubmit={async (values) => {
-                await handleCreateCategory(values)
-                handleCloseDialog()
-              }}
-            >
-              {({ isSubmitting }) => (
-                <Form>
-                  <DialogTitle id="form-dialog-title">Add category</DialogTitle>
-                  <DialogContent>
-                    <InputField name="name" label="Name" required />
-                  </DialogContent>
-                  <DialogActions>
-                    <Button
-                      disabled={isSubmitting}
-                      onClick={handleCloseDialog}
-                      color="secondary"
-                    >
-                      Cancel
-                    </Button>
-                    <Button
-                      disabled={isSubmitting}
-                      variant="contained"
-                      color="primary"
-                      type="submit"
-                    >
-                      Add
-                    </Button>
-                  </DialogActions>
-                </Form>
-              )}
-            </Formik>
-          </Dialog>
         </Grid>
 
         {userCategories.map((category) => {
           return (
             <Grid key={category.id} item>
               <Card>
-                <CardActionArea
-                  onClick={() => {
-                    goToCategoryPage(category.id)
-                  }}
-                >
+                <CardActionArea onClick={() => goToCategoryPage(category.id)}>
                   <CardHeader title={category.name} />
 
                   <CardContent>{category.name}</CardContent>
                 </CardActionArea>
 
                 <CardActions>
-                  <IconButton onClick={handleEditCategory}>
+                  <IconButton
+                    onClick={() => {
+                      setCurrentCategoryOnEdition(category)
+                      handleOpenDialog("edit")
+                    }}
+                  >
                     <EditIcon />
                   </IconButton>
 
@@ -174,6 +143,23 @@ const CategoriesDashboard: React.FC = () => {
           )
         })}
       </Grid>
+
+      <CategoryDialog
+        title="Add category"
+        open={openDialog === "create"}
+        onClose={handleCloseDialog}
+        onOk={handleCreateCategory}
+        okButtonLabel="add"
+      />
+
+      <CategoryDialog
+        title="Edit category"
+        open={openDialog === "edit"}
+        onClose={handleCloseDialog}
+        onOk={handleEditCategory}
+        okButtonLabel="save"
+        initialValues={{ name: currentCategoryOnEdition?.name || "" }}
+      />
     </Container>
   )
 }
