@@ -1,17 +1,20 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React from "react"
+import { Link } from "react-router-dom"
 
-import { Button, Grid } from "@material-ui/core";
+import { Button, Grid, Typography } from "@material-ui/core"
 
-import authService from "../../services/auth";
+import authService from "../../services/auth"
 
 const Landing: React.FC = () => {
   function handleLogout() {
-    authService.logout();
+    authService.logout()
   }
 
   return (
     <Grid container spacing={2}>
+      <Grid item xs={12}>
+        <Typography>Landing</Typography>
+      </Grid>
       <Grid item>
         <Button component={Link} to="/register">
           Register
@@ -36,7 +39,7 @@ const Landing: React.FC = () => {
         </Button>
       </Grid>
     </Grid>
-  );
-};
+  )
+}
 
-export default Landing;
+export default Landing
