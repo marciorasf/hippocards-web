@@ -1,18 +1,11 @@
 version: "3"
 
 services:
-  web:
-    container_name: flashcards_web
-    build:
-      context: .
-      dockerfile: Dockerfile.development
-    restart: unless-stopped
-    volumes:
-      - .:/usr/app
+  ngrok:
+    image: wernight/ngrok:latest
     ports:
-      - 3000:3000
+      - 3001:4040
     environment:
-      - CHOKIDAR_USEPOLLING=true
-      - REACT_APP_API_URL=http://localhost:3333/api
-    stdin_open: true
-    
+      DEBUG: "true"
+      NGROK_PROTOCOL: http
+      NGROK_PORT: 3000
