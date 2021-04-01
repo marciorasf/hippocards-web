@@ -2,7 +2,7 @@ import React from "react"
 
 import { Typography, Container, Grid } from "@material-ui/core"
 
-import Spacing from "../../../components/Spacing"
+import Spacing from "@components/Spacing"
 
 const TypographyDemo = () => {
   return (

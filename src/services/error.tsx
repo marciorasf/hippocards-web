@@ -1,4 +1,4 @@
-import { __is_dev_env__ } from "../config"
+import { __is_dev_env__ } from "@/config"
 
 function _handleErrorDevelopment(error: Error, errorMessage: string) {
   if (errorMessage) {

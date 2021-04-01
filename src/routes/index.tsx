@@ -1,15 +1,15 @@
 import React, { useState } from "react"
 import { Route, Switch, useHistory } from "react-router-dom"
 
-import Loading from "../components/Loading"
-import { __is_dev_env__ } from "../config"
-import useDidMount from "../hooks/useDidMount"
-import apiService from "../services/api"
-import errorService from "../services/error"
-import { useUserStore } from "../store/user"
-import developmentRoutes from "./development"
-import privateRoutes from "./private"
-import publicRoutes from "./public"
+import { __is_dev_env__ } from "@/config"
+import Loading from "@components/Loading"
+import useDidMount from "@hooks/useDidMount"
+import developmentRoutes from "@routes/development"
+import privateRoutes from "@routes/private"
+import publicRoutes from "@routes/public"
+import apiService from "@services/api"
+import errorService from "@services/error"
+import { useUserStore } from "@stores/user"
 
 const PrivateComponent = () => {
   const [loading, setLoading] = useState(true)

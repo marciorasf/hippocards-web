@@ -4,11 +4,11 @@ import { useHistory } from "react-router-dom"
 
 import { Button, Container, Grid } from "@material-ui/core"
 
-import InputField from "../../components/InputField"
-import Spacing from "../../components/Spacing"
-import apiService from "../../services/api"
-import errorService from "../../services/error"
-import { useUserStore } from "../../store/user"
+import InputField from "@components/InputField"
+import Spacing from "@components/Spacing"
+import apiService from "@services/api"
+import errorService from "@services/error"
+import { useUserStore } from "@stores/user"
 
 type LoginData = {
   email: string

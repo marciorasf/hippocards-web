@@ -1,6 +1,13 @@
 import React, { useState } from "react"
 import { useParams } from "react-router-dom"
 
+import useDidMount from "@hooks/useDidMount"
+import { CategoryWithFlashcards } from "@interfaces/category"
+import {
+  CreateFlashcardData,
+  Flashcard,
+  UpdateFlashcardData,
+} from "@interfaces/flashcard"
 import {
   Container,
   Grid,
@@ -16,17 +23,9 @@ import {
   DeleteOutlined as DeleteIcon,
   Add as AddIcon,
 } from "@material-ui/icons"
-
-import useDidMount from "../../hooks/useDidMount"
-import { CategoryWithFlashcards } from "../../interfaces/category"
-import {
-  CreateFlashcardData,
-  Flashcard,
-  UpdateFlashcardData,
-} from "../../interfaces/flashcard"
-import apiService from "../../services/api"
-import errorService from "../../services/error"
-import FlashcardDialog from "./FlashcardDialog"
+import FlashcardDialog from "@pages/Category/FlashcardDialog"
+import apiService from "@services/api"
+import errorService from "@services/error"
 
 async function getCategory(categoryId: number) {
   try {

@@ -1,6 +1,8 @@
 import { Formik, Form } from "formik"
 import React from "react"
 
+import InputField from "@components/InputField"
+import { CreateCategoryData, UpdateCategoryData } from "@interfaces/category"
 import {
   Dialog,
   DialogTitle,
@@ -8,12 +10,6 @@ import {
   DialogActions,
   Button,
 } from "@material-ui/core"
-
-import InputField from "../../../components/InputField"
-import {
-  CreateCategoryData,
-  UpdateCategoryData,
-} from "../../../interfaces/category"
 
 type CategoryDialogProps = {
   open: boolean

@@ -1,4 +1,4 @@
-import apiService from "./api"
+import apiService from "@services/api"
 
 type LoginData = {
   email: string

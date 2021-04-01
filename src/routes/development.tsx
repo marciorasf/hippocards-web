@@ -1,7 +1,7 @@
 import React from "react"
 import { Route } from "react-router-dom"
 
-import TypographyDemo from "../pages/Development/Typography"
+import TypographyDemo from "@pages/Development/Typography"
 
 const developmentRoutes = [
   <Route

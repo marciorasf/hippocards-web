@@ -1,6 +1,8 @@
 import { Formik, Form } from "formik"
 import React from "react"
 
+import InputField from "@components/InputField"
+import { CreateFlashcardData, UpdateFlashcardData } from "@interfaces/flashcard"
 import {
   Dialog,
   DialogTitle,
@@ -8,12 +10,6 @@ import {
   DialogActions,
   Button,
 } from "@material-ui/core"
-
-import InputField from "../../../components/InputField"
-import {
-  CreateFlashcardData,
-  UpdateFlashcardData,
-} from "../../../interfaces/flashcard"
 
 type FlashcardDialogProps = {
   open: boolean

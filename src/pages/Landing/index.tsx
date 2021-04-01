@@ -3,7 +3,7 @@ import { Link } from "react-router-dom"
 
 import { Button, Grid, Typography } from "@material-ui/core"
 
-import authService from "../../services/auth"
+import authService from "@services/auth"
 
 const Landing: React.FC = () => {
   function handleLogout() {

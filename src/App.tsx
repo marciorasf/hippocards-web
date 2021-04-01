@@ -1,8 +1,7 @@
 import React from "react"
 
+import Routes from "@/routes"
 import { Container } from "@material-ui/core"
-
-import Routes from "./routes"
 
 function App() {
   return (

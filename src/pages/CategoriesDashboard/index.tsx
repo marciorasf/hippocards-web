@@ -1,6 +1,12 @@
 import React, { useState } from "react"
 import { useHistory } from "react-router-dom"
 
+import useDidMount from "@hooks/useDidMount"
+import {
+  Category,
+  CreateCategoryData,
+  UpdateCategoryData,
+} from "@interfaces/category"
 import {
   CardContent,
   CardHeader,
@@ -17,16 +23,9 @@ import {
   DeleteOutlined as DeleteIcon,
   Add as AddIcon,
 } from "@material-ui/icons"
-
-import useDidMount from "../../hooks/useDidMount"
-import {
-  Category,
-  CreateCategoryData,
-  UpdateCategoryData,
-} from "../../interfaces/category"
-import apiService from "../../services/api"
-import errorService from "../../services/error"
-import CategoryDialog from "./CategoryDialog"
+import CategoryDialog from "@pages/CategoriesDashboard/CategoryDialog"
+import apiService from "@services/api"
+import errorService from "@services/error"
 
 async function getCategories() {
   try {

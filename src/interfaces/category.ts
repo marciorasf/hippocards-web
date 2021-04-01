@@ -1,4 +1,4 @@
-import { Flashcard } from "./flashcard"
+import { Flashcard } from "@interfaces/flashcard"
 
 export type Category = {
   id: number
