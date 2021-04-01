@@ -38,11 +38,11 @@ async function getCategories() {
   }
 }
 
-type DialogName = "create" | "edit"
+type Dialog = "create" | "edit"
 
 const CategoriesDashboard: React.FC = () => {
   const [userCategories, setUserCategories] = useState<Category[]>([])
-  const [openDialog, setOpenDialog] = useState<DialogName | null>(null)
+  const [openDialog, setOpenDialog] = useState<Dialog | null>(null)
   const [
     currentCategoryOnEdition,
     setCurrentCategoryOnEdition,
@@ -87,17 +87,17 @@ const CategoriesDashboard: React.FC = () => {
     history.push(`/categories/${categoryId}`)
   }
 
-  useDidMount(() => {
-    getAndUpdateCategories()
-  })
-
-  function handleOpenDialog(dialog: DialogName) {
+  function handleOpenDialog(dialog: Dialog) {
     setOpenDialog(dialog)
   }
 
   function handleCloseDialog() {
     setOpenDialog(null)
   }
+
+  useDidMount(() => {
+    getAndUpdateCategories()
+  })
 
   return (
     <Container>
