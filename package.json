@@ -3,10 +3,10 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject",
+    "dev": "react-app-rewired start",
+    "build": "react-app-rewired build",
+    "test": "react-app-rewired test",
+    "eject": "react-app-rewired eject",
     "lint": "eslint src/*/*.tsx --fix"
   },
   "eslintConfig": {
@@ -48,6 +48,7 @@
     "eslint-config-airbnb-base": "^14.2.0",
     "eslint-config-prettier": "^6.11.0",
     "eslint-config-react-app": "^5.2.1",
+    "eslint-import-resolver-typescript": "^2.4.0",
     "eslint-plugin-flowtype": "^5.2.0",
     "eslint-plugin-import": "^2.21.2",
     "eslint-plugin-import-helpers": "^1.1.0",
@@ -56,6 +57,7 @@
     "eslint-plugin-react": "^7.20.5",
     "eslint-plugin-react-hooks": "^4.0.8",
     "prettier": "^2.0.5",
+    "react-app-rewired": "^2.1.8",
     "typescript": "~3.7.2"
   }
 }

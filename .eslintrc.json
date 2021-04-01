@@ -105,6 +105,7 @@
   },
   "settings": {
     "import/resolver": {
+      "typescript": {},
       "node": {
         "extensions": [
           ".js",
