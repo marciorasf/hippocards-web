@@ -14,18 +14,13 @@ import {
   Card,
   CardActionArea,
   CardContent,
-  CardHeader,
-  CardActions,
-  IconButton,
 } from "@material-ui/core"
-import {
-  EditOutlined as EditIcon,
-  DeleteOutlined as DeleteIcon,
-  Add as AddIcon,
-} from "@material-ui/icons"
+import { Add as AddIcon } from "@material-ui/icons"
 import FlashcardDialog from "@pages/Category/FlashcardDialog"
 import apiService from "@services/api"
 import errorService from "@services/error"
+
+import FlashcardCard from "./FlashcardCard"
 
 async function getCategory(categoryId: number) {
   try {
@@ -54,6 +49,14 @@ const Categories: React.FC = () => {
     setCategory(categoryData)
   }
 
+  function handleOpenDialog(dialog: Dialog) {
+    setOpenDialog(dialog)
+  }
+
+  function handleCloseDialog() {
+    setOpenDialog(null)
+  }
+
   async function handleCreateFlashcard(flashcardData: CreateFlashcardData) {
     try {
       await apiService.post("/flashcards", {
@@ -66,6 +69,11 @@ const Categories: React.FC = () => {
     }
   }
 
+  function handleClickEditFlashcard(flashcard: Flashcard) {
+    setCurrentFlashcardOnEdition(flashcard)
+    handleOpenDialog("edit")
+  }
+
   async function handleEditFlashcard(flashcardData: UpdateFlashcardData) {
     const flashcardId = currentFlashcardOnEdition?.id
     try {
@@ -76,22 +84,16 @@ const Categories: React.FC = () => {
     }
   }
 
-  async function handleDeleteFlashcard(flashcardId: number) {
+  async function handleDeleteFlashcard(flashcard: Flashcard) {
     try {
-      await apiService.delete(`/flashcards/${flashcardId}`)
+      await apiService.delete(`/flashcards/${flashcard.id}`)
       getAndUpdateCategory()
     } catch (err) {
       errorService.handle(err)
     }
   }
 
-  function handleOpenDialog(dialog: Dialog) {
-    setOpenDialog(dialog)
-  }
-
-  function handleCloseDialog() {
-    setOpenDialog(null)
-  }
+  function handleClickFlashcardCard(_flashcard: Flashcard) {}
 
   useDidMount(() => {
     getAndUpdateCategory()
@@ -110,36 +112,17 @@ const Categories: React.FC = () => {
           </Card>
         </Grid>
 
-        {category?.flashcards?.map((flashcard) => {
-          return (
-            <Grid key={flashcard.id} item>
-              <Card>
-                <CardActionArea>
-                  <CardHeader title={flashcard.question} />
-
-                  <CardContent>{flashcard.answer}</CardContent>
-                </CardActionArea>
-
-                <CardActions>
-                  <IconButton
-                    onClick={() => {
-                      setCurrentFlashcardOnEdition(flashcard)
-                      handleOpenDialog("edit")
-                    }}
-                  >
-                    <EditIcon />
-                  </IconButton>
-
-                  <IconButton
-                    onClick={() => handleDeleteFlashcard(flashcard.id)}
-                  >
-                    <DeleteIcon />
-                  </IconButton>
-                </CardActions>
-              </Card>
-            </Grid>
-          )
-        })}
+        {category?.flashcards?.map((flashcard) => (
+          <Grid key={flashcard.id} item>
+            <FlashcardCard
+              key={flashcard.id}
+              flashcard={flashcard}
+              handleClickCard={handleClickFlashcardCard}
+              handleClickEdit={handleClickEditFlashcard}
+              handleClickDelete={handleDeleteFlashcard}
+            />
+          </Grid>
+        ))}
       </Grid>
 
       <FlashcardDialog
