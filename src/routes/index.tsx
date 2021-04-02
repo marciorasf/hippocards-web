@@ -7,7 +7,7 @@ import useDidMount from "@hooks/useDidMount"
 import developmentRoutes from "@routes/development"
 import privateRoutes from "@routes/private"
 import publicRoutes from "@routes/public"
-import apiService from "@services/api"
+import authService from "@services/auth"
 import errorService from "@services/error"
 import { useUserStore } from "@stores/user"
 
@@ -19,11 +19,11 @@ const PrivateComponent = () => {
 
   const getInitialData = async () => {
     try {
-      const { data }: any = await apiService.get("/ok")
+      const user = await authService.ok()
 
       userStore.setUser({
-        id: data.id,
-        email: data.email,
+        id: user.id,
+        email: user.email,
       })
     } catch (error) {
       errorService.handle(error)

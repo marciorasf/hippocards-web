@@ -10,6 +10,8 @@ type LoginResponse = {
   user: User
 }
 
+type OkResponse = LoginResponse
+
 const authService = {
   async login(loginData: LoginInput) {
     const response = await apiService.post("/login", loginData)
@@ -18,7 +20,13 @@ const authService = {
   },
 
   async logout() {
-    await apiService.get("logout")
+    return apiService.get("logout")
+  },
+
+  async ok() {
+    const response = await apiService.get("/ok")
+    const data = response.data as OkResponse
+    return data.user
   },
 }
 
