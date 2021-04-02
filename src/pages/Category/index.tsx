@@ -53,7 +53,7 @@ const Categories: React.FC = () => {
   async function handleCreateFlashcard(flashcardData: CreateFlashcardInput) {
     try {
       await flashcardService.create(+categoryId, flashcardData)
-      getAndUpdateCategory()
+      await getAndUpdateCategory()
     } catch (err) {
       errorService.handle(err)
     }
@@ -70,7 +70,7 @@ const Categories: React.FC = () => {
     if (flashcardId) {
       try {
         await flashcardService.update(+flashcardId, flashcardData)
-        getAndUpdateCategory()
+        await getAndUpdateCategory()
       } catch (err) {
         errorService.handle(err)
       }
@@ -80,7 +80,7 @@ const Categories: React.FC = () => {
   async function handleDeleteFlashcard(flashcard: Flashcard) {
     try {
       await flashcardService.delete(flashcard.id)
-      getAndUpdateCategory()
+      await getAndUpdateCategory()
     } catch (err) {
       errorService.handle(err)
     }

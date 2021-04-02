@@ -50,7 +50,7 @@ const categoryService = {
   },
 
   async delete(categoryId: number) {
-    apiService.delete(`/categories/${categoryId}`)
+    await apiService.delete(`/categories/${categoryId}`)
   },
 }
 

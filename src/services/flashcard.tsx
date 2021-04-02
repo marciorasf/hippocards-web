@@ -54,7 +54,7 @@ const flashcardService = {
   },
 
   async delete(flashcardId: number) {
-    apiService.delete(`/flashcards/${flashcardId}`)
+    await apiService.delete(`/flashcards/${flashcardId}`)
   },
 }
 

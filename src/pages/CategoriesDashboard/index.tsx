@@ -61,7 +61,7 @@ const CategoriesDashboard: React.FC = () => {
   async function handleCreateCategory(categoryData: CreateCategoryInput) {
     try {
       await categoryService.create(categoryData)
-      getAndUpdateCategories()
+      await getAndUpdateCategories()
     } catch (err) {
       errorService.handle(err)
     }
@@ -77,7 +77,7 @@ const CategoriesDashboard: React.FC = () => {
     if (categoryId) {
       try {
         await categoryService.update(categoryId, categoryData)
-        getAndUpdateCategories()
+        await getAndUpdateCategories()
       } catch (err) {
         errorService.handle(err)
       }
@@ -87,7 +87,7 @@ const CategoriesDashboard: React.FC = () => {
   async function handleDeleteCategory(category: Category) {
     try {
       await categoryService.delete(category.id)
-      getAndUpdateCategories()
+      await getAndUpdateCategories()
     } catch (err) {
       errorService.handle(err)
     }

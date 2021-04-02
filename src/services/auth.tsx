@@ -20,7 +20,7 @@ const authService = {
   },
 
   async logout() {
-    return apiService.get("logout")
+    await apiService.get("logout")
   },
 
   async ok() {
