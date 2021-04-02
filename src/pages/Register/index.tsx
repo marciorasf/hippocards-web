@@ -2,6 +2,7 @@ import { Formik, Form } from "formik"
 import React from "react"
 import { useHistory } from "react-router-dom"
 
+import Header from "@components/Header"
 import InputField from "@components/InputField"
 import Spacing from "@components/Spacing"
 import { Button, Grid } from "@material-ui/core"
@@ -48,6 +49,10 @@ const Register: React.FC = () => {
 
   return (
     <Grid container>
+      <Grid item>
+        <Header />
+      </Grid>
+
       <Grid item xs={12}>
         <Spacing orientation="horizontal" size={4} />
 

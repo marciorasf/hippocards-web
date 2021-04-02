@@ -11,37 +11,41 @@ const Landing: React.FC = () => {
   }
 
   return (
-    <Grid container spacing={2}>
+    <Grid container>
       <Grid item xs={12}>
         <Header />
       </Grid>
 
       <Grid item xs={12}>
-        <Typography>Landing</Typography>
-      </Grid>
+        <Grid container spacing={2}>
+          <Grid item xs={12}>
+            <Typography>Landing</Typography>
+          </Grid>
 
-      <Grid item>
-        <Button component={Link} to="/register">
-          Register
-        </Button>
-      </Grid>
+          <Grid item>
+            <Button component={Link} to="/register">
+              Register
+            </Button>
+          </Grid>
 
-      <Grid item>
-        <Button component={Link} to="/login">
-          Login
-        </Button>
-      </Grid>
+          <Grid item>
+            <Button component={Link} to="/login">
+              Login
+            </Button>
+          </Grid>
 
-      <Grid item>
-        <Button variant="contained" onClick={handleLogout}>
-          Logout
-        </Button>
-      </Grid>
+          <Grid item>
+            <Button variant="contained" onClick={handleLogout}>
+              Logout
+            </Button>
+          </Grid>
 
-      <Grid item>
-        <Button component={Link} to="/categories">
-          Categories
-        </Button>
+          <Grid item>
+            <Button component={Link} to="/categories">
+              Categories
+            </Button>
+          </Grid>
+        </Grid>
       </Grid>
     </Grid>
   )
