@@ -2,7 +2,6 @@ import { Formik, Form } from "formik"
 import React from "react"
 
 import InputField from "@components/InputField"
-import { CreateCategoryData, UpdateCategoryData } from "@interfaces/category"
 import {
   Dialog,
   DialogTitle,
@@ -10,14 +9,15 @@ import {
   DialogActions,
   Button,
 } from "@material-ui/core"
+import { CreateCategoryInput, UpdateCategoryInput } from "@services/category"
 
 type CategoryDialogProps = {
   open: boolean
   title: string
   onClose: () => void
-  onOk: (data: CreateCategoryData | UpdateCategoryData) => Promise<void>
+  onOk: (data: CreateCategoryInput | UpdateCategoryInput) => Promise<void>
   okButtonLabel: string
-  initialValues?: CreateCategoryData | UpdateCategoryData
+  initialValues?: CreateCategoryInput | UpdateCategoryInput
 }
 
 const CategoryDialog: React.FC<CategoryDialogProps> = ({

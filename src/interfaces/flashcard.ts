@@ -5,10 +5,3 @@ export type Flashcard = {
   isBookmarked: boolean
   isKnown: boolean
 }
-
-export type CreateFlashcardData = {
-  question: string
-  answer: string
-}
-
-export type UpdateFlashcardData = CreateFlashcardData
