@@ -3,11 +3,7 @@ import { useHistory } from "react-router-dom"
 
 import Header from "@components/Header"
 import useDidMount from "@hooks/useDidMount"
-import {
-  Category,
-  CreateCategoryData,
-  UpdateCategoryData,
-} from "@interfaces/category"
+import { Category } from "@interfaces/category"
 import {
   CardContent,
   Grid,
@@ -18,13 +14,15 @@ import {
 import { Add as AddIcon } from "@material-ui/icons"
 import CategoryCard from "@pages/CategoriesDashboard/CategoryCard"
 import CategoryDialog from "@pages/CategoriesDashboard/CategoryDialog"
-import apiService from "@services/api"
+import categoryService, {
+  CreateCategoryInput,
+  UpdateCategoryInput,
+} from "@services/category"
 import errorService from "@services/error"
 
 async function getCategories() {
   try {
-    const { data } = await apiService.get("/categories")
-    return data.categories as Category[]
+    return await categoryService.retrieveAll()
   } catch (err) {
     errorService.handle(err)
     return []
@@ -60,9 +58,9 @@ const CategoriesDashboard: React.FC = () => {
     setOpenDialog(null)
   }
 
-  async function handleCreateCategory(categoryData: CreateCategoryData) {
+  async function handleCreateCategory(categoryData: CreateCategoryInput) {
     try {
-      await apiService.post("/categories", categoryData)
+      await categoryService.create(categoryData)
       getAndUpdateCategories()
     } catch (err) {
       errorService.handle(err)
@@ -74,19 +72,21 @@ const CategoriesDashboard: React.FC = () => {
     handleOpenDialog("edit")
   }
 
-  async function handleEditCategory(categoryData: UpdateCategoryData) {
+  async function handleEditCategory(categoryData: UpdateCategoryInput) {
     const categoryId = currentCategoryOnEdition?.id
-    try {
-      await apiService.put(`/categories/${categoryId}`, categoryData)
-      getAndUpdateCategories()
-    } catch (err) {
-      errorService.handle(err)
+    if (categoryId) {
+      try {
+        await categoryService.update(categoryId, categoryData)
+        getAndUpdateCategories()
+      } catch (err) {
+        errorService.handle(err)
+      }
     }
   }
 
   async function handleDeleteCategory(category: Category) {
     try {
-      await apiService.delete(`/categories/${category.id}`)
+      await categoryService.delete(category.id)
       getAndUpdateCategories()
     } catch (err) {
       errorService.handle(err)
