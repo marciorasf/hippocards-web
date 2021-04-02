@@ -2,7 +2,7 @@ import React, { useState } from "react"
 import { Route, Switch, useHistory } from "react-router-dom"
 
 import { __is_dev_env__ } from "@/config"
-import Loading from "@components/Loading"
+import { Loading } from "@components"
 import useDidMount from "@hooks/useDidMount"
 import developmentRoutes from "@routes/development"
 import privateRoutes from "@routes/private"
