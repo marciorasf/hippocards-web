@@ -9,7 +9,7 @@ import { Grid, Card, CardActionArea, CardContent } from "@material-ui/core"
 import { Add as AddIcon } from "@material-ui/icons"
 import FlashcardCard from "@pages/Category/FlashcardCard"
 import FlashcardDialog from "@pages/Category/FlashcardDialog"
-import apiService from "@services/api"
+import categoryService from "@services/category"
 import errorService from "@services/error"
 import flashcardService, {
   CreateFlashcardInput,
@@ -18,8 +18,7 @@ import flashcardService, {
 
 async function getCategory(categoryId: number) {
   try {
-    const { data } = await apiService.get(`/categories/${categoryId}`)
-    return data.category as CategoryWithFlashcards
+    return categoryService.retrieveOne(categoryId)
   } catch (err) {
     errorService.handle(err)
     return null

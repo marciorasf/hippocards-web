@@ -1,4 +1,4 @@
-import { Category } from "@interfaces/category"
+import { Category, CategoryWithFlashcards } from "@interfaces/category"
 import apiService from "@services/api"
 
 export type CreateCategoryInput = {
@@ -11,6 +11,10 @@ export type CreateCategoryResponse = {
 
 type RetrieveAllCategoriesResponse = {
   categories: Category[]
+}
+
+type RetrieveOneCategoryResponse = {
+  category: CategoryWithFlashcards
 }
 
 export type UpdateCategoryInput = CreateCategoryInput
@@ -28,6 +32,12 @@ const categoryService = {
     const response = await apiService.get("/categories")
     const data = response.data as RetrieveAllCategoriesResponse
     return data.categories
+  },
+
+  async retrieveOne(categoryId: number) {
+    const response = await apiService.get(`/categories/${categoryId}`)
+    const data = response.data as RetrieveOneCategoryResponse
+    return data.category
   },
 
   async update(categoryId: number, inputData: UpdateCategoryInput) {
