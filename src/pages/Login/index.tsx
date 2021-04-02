@@ -6,20 +6,15 @@ import Header from "@components/Header"
 import InputField from "@components/InputField"
 import Spacing from "@components/Spacing"
 import { Button, Grid } from "@material-ui/core"
-import authService from "@services/auth"
+import authService, { LoginInput } from "@services/auth"
 import errorService from "@services/error"
 import { useUserStore } from "@stores/user"
-
-type LoginData = {
-  email: string
-  password: string
-}
 
 const Login: React.FC = () => {
   const userStore = useUserStore()
   const history = useHistory()
 
-  async function handleLogin(loginData: LoginData) {
+  async function handleLogin(loginData: LoginInput) {
     try {
       const user = await authService.login(loginData)
 

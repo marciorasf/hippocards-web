@@ -1,18 +1,18 @@
 import apiService from "@services/api"
 
-type CreateInput = {
+export type CreateUserInput = {
   email: string
   password: string
 }
 
-type CreateResponse = {
+type CreateUserResponse = {
   userId: number
 }
 
 const userService = {
-  async create(userData: CreateInput) {
+  async create(userData: CreateUserInput) {
     const response = await apiService.post("/users", userData)
-    const data = response.data as CreateResponse
+    const data = response.data as CreateUserResponse
     return data.userId
   },
 }

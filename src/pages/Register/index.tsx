@@ -6,23 +6,16 @@ import Header from "@components/Header"
 import InputField from "@components/InputField"
 import Spacing from "@components/Spacing"
 import { Button, Grid } from "@material-ui/core"
-import authService from "@services/auth"
+import authService, { LoginInput } from "@services/auth"
 import errorService from "@services/error"
-import userService from "@services/user"
+import userService, { CreateUserInput } from "@services/user"
 import { useUserStore } from "@stores/user"
-
-type RegisterData = {
-  email: string
-  password: string
-}
-
-type LoginData = RegisterData
 
 const Register: React.FC = () => {
   const userStore = useUserStore()
   const history = useHistory()
 
-  async function handleLogin(loginData: LoginData) {
+  async function handleLogin(loginData: LoginInput) {
     try {
       const user = await authService.login(loginData)
 
@@ -36,7 +29,7 @@ const Register: React.FC = () => {
     }
   }
 
-  async function handleRegister(registerData: RegisterData) {
+  async function handleRegister(registerData: CreateUserInput) {
     try {
       await userService.create(registerData)
 

@@ -1,7 +1,7 @@
 import { User } from "@interfaces/user"
 import apiService from "@services/api"
 
-type LoginInput = {
+export type LoginInput = {
   email: string
   password: string
 }
