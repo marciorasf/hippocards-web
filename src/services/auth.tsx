@@ -1,3 +1,4 @@
+import { User } from "@interfaces/user"
 import apiService from "@services/api"
 
 type LoginInput = {
@@ -6,10 +7,7 @@ type LoginInput = {
 }
 
 type LoginResponse = {
-  user: {
-    id: number
-    email: string
-  }
+  user: User
 }
 
 const authService = {
