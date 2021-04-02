@@ -6,9 +6,9 @@ import Header from "@components/Header"
 import InputField from "@components/InputField"
 import Spacing from "@components/Spacing"
 import { Button, Grid } from "@material-ui/core"
-import apiService from "@services/api"
 import authService from "@services/auth"
 import errorService from "@services/error"
+import userService from "@services/user"
 import { useUserStore } from "@stores/user"
 
 type RegisterData = {
@@ -38,7 +38,7 @@ const Register: React.FC = () => {
 
   async function handleRegister(registerData: RegisterData) {
     try {
-      await apiService.post("/users", registerData)
+      await userService.create(registerData)
 
       handleLogin(registerData)
       return
