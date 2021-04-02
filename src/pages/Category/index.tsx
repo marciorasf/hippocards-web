@@ -7,6 +7,7 @@ import { CategoryWithFlashcards } from "@interfaces/category"
 import { Flashcard } from "@interfaces/flashcard"
 import { Grid, Card, CardActionArea, CardContent } from "@material-ui/core"
 import { Add as AddIcon } from "@material-ui/icons"
+import FlashcardCard from "@pages/Category/FlashcardCard"
 import FlashcardDialog from "@pages/Category/FlashcardDialog"
 import apiService from "@services/api"
 import errorService from "@services/error"
@@ -14,8 +15,6 @@ import flashcardService, {
   CreateFlashcardInput,
   UpdateFlashcardInput,
 } from "@services/flashcard"
-
-import FlashcardCard from "./FlashcardCard"
 
 async function getCategory(categoryId: number) {
   try {
