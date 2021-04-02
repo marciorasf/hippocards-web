@@ -1,27 +1,26 @@
 import apiService from "@services/api"
 
-type LoginData = {
+type LoginInput = {
   email: string
   password: string
 }
 
+type LoginResponse = {
+  user: {
+    id: number
+    email: string
+  }
+}
+
 const authService = {
-  async login(data: LoginData) {
-    try {
-      await apiService.post("/login", data)
-      return true
-    } catch (err) {
-      return false
-    }
+  async login(loginData: LoginInput) {
+    const response = await apiService.post("/login", loginData)
+    const data = response.data as LoginResponse
+    return data.user
   },
 
   async logout() {
-    try {
-      await apiService.get("logout")
-      return true
-    } catch (err) {
-      return false
-    }
+    await apiService.get("logout")
   },
 }
 

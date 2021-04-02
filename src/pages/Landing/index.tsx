@@ -4,10 +4,15 @@ import { Link } from "react-router-dom"
 import Header from "@components/Header"
 import { Button, Grid, Typography } from "@material-ui/core"
 import authService from "@services/auth"
+import errorService from "@services/error"
 
 const Landing: React.FC = () => {
-  function handleLogout() {
-    authService.logout()
+  async function handleLogout() {
+    try {
+      await authService.logout()
+    } catch (err) {
+      errorService.handle(err)
+    }
   }
 
   return (

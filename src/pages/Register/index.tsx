@@ -7,6 +7,7 @@ import InputField from "@components/InputField"
 import Spacing from "@components/Spacing"
 import { Button, Grid } from "@material-ui/core"
 import apiService from "@services/api"
+import authService from "@services/auth"
 import errorService from "@services/error"
 import { useUserStore } from "@stores/user"
 
@@ -23,10 +24,10 @@ const Register: React.FC = () => {
 
   async function handleLogin(loginData: LoginData) {
     try {
-      const { data } = await apiService.post("/login", loginData)
+      const user = await authService.login(loginData)
 
       userStore.setUser({
-        email: data.email,
+        email: user.email,
       })
 
       history.push("/categories")
@@ -40,10 +41,11 @@ const Register: React.FC = () => {
       await apiService.post("/users", registerData)
 
       handleLogin(registerData)
+      return
     } catch (err) {
       errorService.handle(err.response)
       const { message } = err.response.data
-      return message
+      return message as string
     }
   }
 
