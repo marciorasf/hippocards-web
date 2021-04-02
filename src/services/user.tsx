@@ -10,8 +10,8 @@ type CreateUserResponse = {
 }
 
 const userService = {
-  async create(userData: CreateUserInput) {
-    const response = await apiService.post("/users", userData)
+  async create(inputData: CreateUserInput) {
+    const response = await apiService.post("/users", inputData)
     const data = response.data as CreateUserResponse
     return data.userId
   },

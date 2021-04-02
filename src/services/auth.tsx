@@ -13,8 +13,8 @@ type LoginResponse = {
 type OkResponse = LoginResponse
 
 const authService = {
-  async login(loginData: LoginInput) {
-    const response = await apiService.post("/login", loginData)
+  async login(inputData: LoginInput) {
+    const response = await apiService.post("/login", inputData)
     const data = response.data as LoginResponse
     return data.user
   },
