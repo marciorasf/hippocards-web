@@ -4,16 +4,16 @@ import { useParams } from "react-router-dom"
 import Header from "@components/Header"
 import useDidMount from "@hooks/useDidMount"
 import { CategoryWithFlashcards } from "@interfaces/category"
-import {
-  CreateFlashcardData,
-  Flashcard,
-  UpdateFlashcardData,
-} from "@interfaces/flashcard"
+import { Flashcard } from "@interfaces/flashcard"
 import { Grid, Card, CardActionArea, CardContent } from "@material-ui/core"
 import { Add as AddIcon } from "@material-ui/icons"
 import FlashcardDialog from "@pages/Category/FlashcardDialog"
 import apiService from "@services/api"
 import errorService from "@services/error"
+import flashcardService, {
+  CreateFlashcardInput,
+  UpdateFlashcardInput,
+} from "@services/flashcard"
 
 import FlashcardCard from "./FlashcardCard"
 
@@ -52,12 +52,9 @@ const Categories: React.FC = () => {
     setOpenDialog(null)
   }
 
-  async function handleCreateFlashcard(flashcardData: CreateFlashcardData) {
+  async function handleCreateFlashcard(flashcardData: CreateFlashcardInput) {
     try {
-      await apiService.post("/flashcards", {
-        categoryId,
-        ...flashcardData,
-      })
+      await flashcardService.create(+categoryId, flashcardData)
       getAndUpdateCategory()
     } catch (err) {
       errorService.handle(err)
@@ -69,19 +66,22 @@ const Categories: React.FC = () => {
     handleOpenDialog("edit")
   }
 
-  async function handleEditFlashcard(flashcardData: UpdateFlashcardData) {
+  async function handleEditFlashcard(flashcardData: UpdateFlashcardInput) {
     const flashcardId = currentFlashcardOnEdition?.id
-    try {
-      await apiService.put(`/flashcards/${flashcardId}`, flashcardData)
-      getAndUpdateCategory()
-    } catch (err) {
-      errorService.handle(err)
+
+    if (flashcardId) {
+      try {
+        await flashcardService.update(+flashcardId, flashcardData)
+        getAndUpdateCategory()
+      } catch (err) {
+        errorService.handle(err)
+      }
     }
   }
 
   async function handleDeleteFlashcard(flashcard: Flashcard) {
     try {
-      await apiService.delete(`/flashcards/${flashcard.id}`)
+      await flashcardService.delete(flashcard.id)
       getAndUpdateCategory()
     } catch (err) {
       errorService.handle(err)

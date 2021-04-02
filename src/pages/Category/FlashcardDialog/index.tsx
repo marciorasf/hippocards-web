@@ -2,7 +2,6 @@ import { Formik, Form } from "formik"
 import React from "react"
 
 import InputField from "@components/InputField"
-import { CreateFlashcardData, UpdateFlashcardData } from "@interfaces/flashcard"
 import {
   Dialog,
   DialogTitle,
@@ -10,14 +9,15 @@ import {
   DialogActions,
   Button,
 } from "@material-ui/core"
+import { CreateFlashcardInput, UpdateFlashcardInput } from "@services/flashcard"
 
 type FlashcardDialogProps = {
   open: boolean
   title: string
   onClose: () => void
-  onOk: (data: CreateFlashcardData | UpdateFlashcardData) => Promise<void>
+  onOk: (data: CreateFlashcardInput | UpdateFlashcardInput) => Promise<void>
   okButtonLabel: string
-  initialValues?: CreateFlashcardData | UpdateFlashcardData
+  initialValues?: CreateFlashcardInput | UpdateFlashcardInput
 }
 
 const FlashcardDialog: React.FC<FlashcardDialogProps> = ({
