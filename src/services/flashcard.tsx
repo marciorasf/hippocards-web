@@ -6,13 +6,21 @@ export type CreateFlashcardInput = {
   answer: string
 }
 
-export type CreateFlashcardResponse = {
+type CreateFlashcardResponse = {
+  flashcard: Flashcard
+}
+
+type RetrieveAllFlashcardsResponse = {
+  flashcards: Flashcard[]
+}
+
+type RetrieveOneFlashcardResponse = {
   flashcard: Flashcard
 }
 
 export type UpdateFlashcardInput = CreateFlashcardInput
 
-export type UpdateFlashcardResponse = CreateFlashcardResponse
+type UpdateFlashcardResponse = CreateFlashcardResponse
 
 const flashcardService = {
   async create(categoryId: number, inputData: CreateFlashcardInput) {
@@ -21,6 +29,18 @@ const flashcardService = {
       categoryId,
     })
     const data = response.data as CreateFlashcardResponse
+    return data.flashcard
+  },
+
+  async retrieveAll() {
+    const response = await apiService.get("flashcards")
+    const data = response.data as RetrieveAllFlashcardsResponse
+    return data.flashcards
+  },
+
+  async retrieveOne(flashcardId: number) {
+    const response = await apiService.get(`flashcards/${flashcardId}`)
+    const data = response.data as RetrieveOneFlashcardResponse
     return data.flashcard
   },
 

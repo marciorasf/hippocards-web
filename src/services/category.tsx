@@ -5,7 +5,7 @@ export type CreateCategoryInput = {
   name: string
 }
 
-export type CreateCategoryResponse = {
+type CreateCategoryResponse = {
   category: Category
 }
 
