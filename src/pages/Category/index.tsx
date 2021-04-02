@@ -1,6 +1,7 @@
 import React, { useState } from "react"
 import { useParams } from "react-router-dom"
 
+import Header from "@components/Header"
 import useDidMount from "@hooks/useDidMount"
 import { CategoryWithFlashcards } from "@interfaces/category"
 import {
@@ -8,13 +9,7 @@ import {
   Flashcard,
   UpdateFlashcardData,
 } from "@interfaces/flashcard"
-import {
-  Container,
-  Grid,
-  Card,
-  CardActionArea,
-  CardContent,
-} from "@material-ui/core"
+import { Grid, Card, CardActionArea, CardContent } from "@material-ui/core"
 import { Add as AddIcon } from "@material-ui/icons"
 import FlashcardDialog from "@pages/Category/FlashcardDialog"
 import apiService from "@services/api"
@@ -100,51 +95,57 @@ const Categories: React.FC = () => {
   })
 
   return (
-    <Container>
-      <Grid container direction="column">
-        <Grid item>
-          <Card>
-            <CardActionArea onClick={() => handleOpenDialog("create")}>
-              <CardContent>
-                <AddIcon />
-              </CardContent>
-            </CardActionArea>
-          </Card>
-        </Grid>
-
-        {category?.flashcards?.map((flashcard) => (
-          <Grid key={flashcard.id} item>
-            <FlashcardCard
-              key={flashcard.id}
-              flashcard={flashcard}
-              handleClickCard={handleClickFlashcardCard}
-              handleClickEdit={handleClickEditFlashcard}
-              handleClickDelete={handleDeleteFlashcard}
-            />
-          </Grid>
-        ))}
+    <Grid container>
+      <Grid item xs={12}>
+        <Header />
       </Grid>
 
-      <FlashcardDialog
-        title="Add flashcard"
-        open={openDialog === "create"}
-        onClose={handleCloseDialog}
-        onOk={handleCreateFlashcard}
-        okButtonLabel="add"
-      />
+      <Grid item xs={12}>
+        <Grid container direction="column">
+          <Grid item>
+            <Card>
+              <CardActionArea onClick={() => handleOpenDialog("create")}>
+                <CardContent>
+                  <AddIcon />
+                </CardContent>
+              </CardActionArea>
+            </Card>
+          </Grid>
 
-      <FlashcardDialog
-        title="Edit flashcard"
-        open={openDialog === "edit"}
-        onClose={handleCloseDialog}
-        onOk={handleEditFlashcard}
-        okButtonLabel="save"
-        initialValues={{
-          question: currentFlashcardOnEdition?.question || "",
-          answer: currentFlashcardOnEdition?.answer || "",
-        }}
-      />
-    </Container>
+          {category?.flashcards?.map((flashcard) => (
+            <Grid key={flashcard.id} item>
+              <FlashcardCard
+                key={flashcard.id}
+                flashcard={flashcard}
+                handleClickCard={handleClickFlashcardCard}
+                handleClickEdit={handleClickEditFlashcard}
+                handleClickDelete={handleDeleteFlashcard}
+              />
+            </Grid>
+          ))}
+        </Grid>
+
+        <FlashcardDialog
+          title="Add flashcard"
+          open={openDialog === "create"}
+          onClose={handleCloseDialog}
+          onOk={handleCreateFlashcard}
+          okButtonLabel="add"
+        />
+
+        <FlashcardDialog
+          title="Edit flashcard"
+          open={openDialog === "edit"}
+          onClose={handleCloseDialog}
+          onOk={handleEditFlashcard}
+          okButtonLabel="save"
+          initialValues={{
+            question: currentFlashcardOnEdition?.question || "",
+            answer: currentFlashcardOnEdition?.answer || "",
+          }}
+        />
+      </Grid>
+    </Grid>
   )
 }
 
