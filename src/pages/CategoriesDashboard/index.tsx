@@ -1,7 +1,7 @@
 import React, { useState } from "react"
 import { useHistory } from "react-router-dom"
 
-import Header from "@components/Header"
+import { Header } from "@components"
 import useDidMount from "@hooks/useDidMount"
 import { Category } from "@interfaces/category"
 import {

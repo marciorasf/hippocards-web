@@ -1,7 +1,7 @@
 import { Formik, Form } from "formik"
 import React from "react"
 
-import InputField from "@components/InputField"
+import { InputField } from "@components"
 import {
   Dialog,
   DialogTitle,

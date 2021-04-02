@@ -1,3 +1,5 @@
 export { default as InputField } from "@components/InputField"
 export { default as Loading } from "@components/Loading"
 export { default as Spacing } from "@components/Spacing"
+export { default as Header } from "@components/Header"
+export { default as Notification } from "@components/Notification"
