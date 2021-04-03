@@ -125,6 +125,17 @@ const Categories: React.FC = () => {
     }
   }
 
+  async function handleToggleIsFlashcardBookmarked(flashcard: Flashcard) {
+    try {
+      const updatedFlashcard = await flashcardService.update(flashcard.id, {
+        isBookmarked: !flashcard.isBookmarked,
+      })
+      updateFlashcardOnCategory(updatedFlashcard)
+    } catch (err) {
+      errorService.handle(err)
+    }
+  }
+
   useDidMount(() => {
     getAndUpdateCategory()
   })
@@ -165,6 +176,9 @@ const Categories: React.FC = () => {
                   handleClickEdit={handleClickEditFlashcard}
                   handleClickDelete={handleDeleteFlashcard}
                   handleClickMarkAsKnown={handleToggleIsFlashcardKnown}
+                  handleClickMarkAsBookmarked={
+                    handleToggleIsFlashcardBookmarked
+                  }
                 />
               </Grid>
             ))}

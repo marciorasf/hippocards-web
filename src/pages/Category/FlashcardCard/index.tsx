@@ -19,6 +19,8 @@ import {
   DeleteOutlined as DeleteIcon,
   MoreVert as MoreVertIcon,
   Check as KnownIcon,
+  Bookmark as BookmarkedIcon,
+  BookmarkBorder as NotBookmarkedIcon,
 } from "@material-ui/icons"
 import useStyles from "@pages/Category/FlashcardCard/styles"
 import useCommonStyles from "@styles/commonStyles"
@@ -28,6 +30,7 @@ type FlashcardCardProps = {
   handleClickEdit: (flashcard: Flashcard) => void
   handleClickDelete: (flashcard: Flashcard) => Promise<void>
   handleClickMarkAsKnown: (flashcard: Flashcard) => Promise<void>
+  handleClickMarkAsBookmarked: (flashcard: Flashcard) => Promise<void>
 }
 
 const FlashcardCard: React.FC<FlashcardCardProps> = ({
@@ -35,6 +38,7 @@ const FlashcardCard: React.FC<FlashcardCardProps> = ({
   handleClickEdit,
   handleClickDelete,
   handleClickMarkAsKnown,
+  handleClickMarkAsBookmarked,
 }) => {
   const [menuAnchor, setMenuAnchor] = useState<(EventTarget & Element) | null>(
     null
@@ -99,6 +103,19 @@ const FlashcardCard: React.FC<FlashcardCardProps> = ({
         <Grid item>
           <CardActions>
             <Grid container justify="flex-end">
+              <Grid item>
+                <IconButton
+                  color={flashcard.isBookmarked ? "primary" : "default"}
+                  onClick={() => handleClickMarkAsBookmarked(flashcard)}
+                >
+                  {flashcard.isBookmarked ? (
+                    <BookmarkedIcon />
+                  ) : (
+                    <NotBookmarkedIcon />
+                  )}
+                </IconButton>
+              </Grid>
+
               <Grid item>
                 <IconButton
                   color={flashcard.isKnown ? "primary" : "default"}
