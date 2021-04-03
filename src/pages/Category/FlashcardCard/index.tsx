@@ -12,11 +12,13 @@ import {
   MenuItem,
   ListItemIcon,
   ListItemText,
+  CardActions,
 } from "@material-ui/core"
 import {
   EditOutlined as EditIcon,
   DeleteOutlined as DeleteIcon,
   MoreVert as MoreVertIcon,
+  Check as KnownIcon,
 } from "@material-ui/icons"
 import useStyles from "@pages/Category/FlashcardCard/styles"
 import useCommonStyles from "@styles/commonStyles"
@@ -43,7 +45,6 @@ const FlashcardCard: React.FC<FlashcardCardProps> = ({
   const classes = useStyles()
 
   function handleClickSettings(event: SyntheticEvent) {
-    event.stopPropagation()
     setMenuAnchor(event.currentTarget)
   }
 
@@ -60,33 +61,35 @@ const FlashcardCard: React.FC<FlashcardCardProps> = ({
     handleClickCard(flashcard)
   }
 
+  function handleClickKnown(event: React.SyntheticEvent) {
+    console.log(event)
+  }
+
   return (
     <Card className={classes.card}>
-      <CardActionArea
-        className={commonClasses.fullHeight}
-        onClick={customHandleClickCard}
-      >
-        <Grid container direction="column" className={commonClasses.fullHeight}>
-          <Grid item>
-            <CardHeader
-              title={`Card ${flashcard.id}`}
-              action={
-                <IconButton aria-label="settings" onClick={handleClickSettings}>
-                  <MoreVertIcon />
-                </IconButton>
-              }
-            />
-          </Grid>
+      <Grid container direction="column" className={commonClasses.fullHeight}>
+        <Grid item>
+          <CardHeader
+            title={`Card ${flashcard.id}`}
+            action={
+              <IconButton aria-label="settings" onClick={handleClickSettings}>
+                <MoreVertIcon />
+              </IconButton>
+            }
+          />
+        </Grid>
 
-          <Grid item xs>
+        <Grid item xs>
+          <CardActionArea
+            onClick={customHandleClickCard}
+            className={commonClasses.fullHeight}
+          >
             <CardContent className={commonClasses.fullHeight}>
               <Grid
                 container
                 alignItems="center"
-                direction="column"
                 justify="center"
                 className={commonClasses.fullHeight}
-                spacing={2}
               >
                 {showAnswer ? (
                   <Grid item>Question: {flashcard.question}</Grid>
@@ -95,9 +98,21 @@ const FlashcardCard: React.FC<FlashcardCardProps> = ({
                 )}
               </Grid>
             </CardContent>
-          </Grid>
+          </CardActionArea>
         </Grid>
-      </CardActionArea>
+
+        <Grid item>
+          <CardActions>
+            <Grid container justify="flex-end">
+              <Grid item>
+                <IconButton onClick={handleClickKnown}>
+                  <KnownIcon />
+                </IconButton>
+              </Grid>
+            </Grid>
+          </CardActions>
+        </Grid>
+      </Grid>
 
       {/* The menu must be outside CardActionArea to not trigger it's onClick */}
       <Menu
