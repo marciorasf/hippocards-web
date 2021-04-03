@@ -100,7 +100,10 @@ const FlashcardCard: React.FC<FlashcardCardProps> = ({
           <CardActions>
             <Grid container justify="flex-end">
               <Grid item>
-                <IconButton onClick={() => handleClickMarkAsKnown(flashcard)}>
+                <IconButton
+                  color={flashcard.isKnown ? "primary" : "default"}
+                  onClick={() => handleClickMarkAsKnown(flashcard)}
+                >
                   <KnownIcon />
                 </IconButton>
               </Grid>

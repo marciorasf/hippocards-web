@@ -96,7 +96,14 @@ const Categories: React.FC = () => {
   }
 
   async function handleToggleIsFlashcardKnown(flashcard: Flashcard) {
-    console.log(flashcard)
+    try {
+      await flashcardService.update(flashcard.id, {
+        isKnown: !flashcard.isKnown,
+      })
+      await getAndUpdateCategory()
+    } catch (err) {
+      errorService.handle(err)
+    }
   }
 
   useDidMount(() => {
