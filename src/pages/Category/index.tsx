@@ -52,7 +52,45 @@ const Categories: React.FC = () => {
     setCategory(categoryData)
   }
 
-  async function updateFlashcardOnCategory(updatedFlashcard: Flashcard) {
+  function handleOpenDialog(dialog: Dialog) {
+    setOpenDialog(dialog)
+  }
+
+  function handleCloseDialog() {
+    setOpenDialog(null)
+  }
+
+  function insertFlashcardOnCategory(createdFlashcard: Flashcard) {
+    if (!category) {
+      return
+    }
+
+    const updatedFlashcards = [...category?.flashcards, createdFlashcard]
+
+    setCategory({
+      ...category,
+      flashcards: updatedFlashcards,
+    })
+  }
+
+  async function handleCreateFlashcard(flashcardData: CreateFlashcardInput) {
+    try {
+      const createdFlashcard = await flashcardService.create(
+        +categoryId,
+        flashcardData
+      )
+      insertFlashcardOnCategory(createdFlashcard)
+    } catch (err) {
+      errorService.handle(err)
+    }
+  }
+
+  function handleClickEditFlashcard(flashcard: Flashcard) {
+    setCurrentFlashcardOnEdition(flashcard)
+    handleOpenDialog("edit")
+  }
+
+  function updateFlashcardOnCategory(updatedFlashcard: Flashcard) {
     if (!category) {
       return
     }
@@ -70,29 +108,6 @@ const Categories: React.FC = () => {
       flashcards: updatedFlashcards,
     })
   }
-
-  function handleOpenDialog(dialog: Dialog) {
-    setOpenDialog(dialog)
-  }
-
-  function handleCloseDialog() {
-    setOpenDialog(null)
-  }
-
-  async function handleCreateFlashcard(flashcardData: CreateFlashcardInput) {
-    try {
-      await flashcardService.create(+categoryId, flashcardData)
-      await getAndUpdateCategory()
-    } catch (err) {
-      errorService.handle(err)
-    }
-  }
-
-  function handleClickEditFlashcard(flashcard: Flashcard) {
-    setCurrentFlashcardOnEdition(flashcard)
-    handleOpenDialog("edit")
-  }
-
   async function handleEditFlashcard(flashcardData: CreateFlashcardInput) {
     const flashcardId = currentFlashcardOnEdition?.id
 
@@ -103,15 +118,6 @@ const Categories: React.FC = () => {
       } catch (err) {
         errorService.handle(err)
       }
-    }
-  }
-
-  async function handleDeleteFlashcard(flashcard: Flashcard) {
-    try {
-      await flashcardService.delete(flashcard.id)
-      await getAndUpdateCategory()
-    } catch (err) {
-      errorService.handle(err)
     }
   }
 
@@ -132,6 +138,30 @@ const Categories: React.FC = () => {
         isBookmarked: !flashcard.isBookmarked,
       })
       updateFlashcardOnCategory(updatedFlashcard)
+    } catch (err) {
+      errorService.handle(err)
+    }
+  }
+
+  function deleteFlashcardOnCategory(deletedFlashcard: Flashcard) {
+    if (!category) {
+      return
+    }
+
+    const updatedFlashcards = category.flashcards.filter(
+      (card) => card.id !== deletedFlashcard.id
+    )
+
+    setCategory({
+      ...category,
+      flashcards: updatedFlashcards,
+    })
+  }
+
+  async function handleDeleteFlashcard(flashcard: Flashcard) {
+    try {
+      await flashcardService.delete(flashcard.id)
+      deleteFlashcardOnCategory(flashcard)
     } catch (err) {
       errorService.handle(err)
     }
