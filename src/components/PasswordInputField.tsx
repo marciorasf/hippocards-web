@@ -37,6 +37,7 @@ const PasswordInputField: React.FC<PasswordInputFieldProps> = ({
       id={field.name}
       error={Boolean(error)}
       helperText={error}
+      variant="outlined"
       InputProps={{
         type: "password",
         endAdornment: (

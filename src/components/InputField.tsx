@@ -20,6 +20,7 @@ const InputField: React.FC<InputFieldProps> = ({
       fullWidth
       label={label}
       id={field.name}
+      variant="outlined"
       error={Boolean(error)}
       helperText={error}
       InputProps={inputProps}
