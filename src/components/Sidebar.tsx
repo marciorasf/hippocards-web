@@ -18,6 +18,9 @@ import {
   FolderOutlined as CategoryIcon,
   ExpandLess as ExpandLessIcon,
   ExpandMore as ExpandMoreIcon,
+  TextFieldsOutlined as TypographyIcon,
+  PaletteOutlined as PaletteIcon,
+  HomeOutlined as HomeIcon,
 } from "@material-ui/icons"
 import categoryService from "@services/category"
 import errorService from "@services/error"
@@ -61,12 +64,20 @@ const Sidebar: React.FC<SidebarProps> = ({ open, onClose }) => {
   return (
     <Drawer open={open} onClose={onClose}>
       <List className={classes.list}>
+        <ListItem component={Link} to="/" button>
+          <ListItemIcon>
+            <HomeIcon />
+          </ListItemIcon>
+
+          <ListItemText primary="Home" />
+        </ListItem>
+
         <ListItem component={Link} to="/categories" button>
           <ListItemIcon>
             <CategoryIcon />
           </ListItemIcon>
 
-          <ListItemText primary="categories" />
+          <ListItemText primary="Categories" />
 
           <ListItemSecondaryAction>
             <IconButton onClick={handleToggleOpenCategories}>
@@ -84,6 +95,22 @@ const Sidebar: React.FC<SidebarProps> = ({ open, onClose }) => {
             ))}
           </List>
         </Collapse>
+
+        <ListItem component={Link} to="/dev/typography" button>
+          <ListItemIcon>
+            <TypographyIcon />
+          </ListItemIcon>
+
+          <ListItemText primary="Typography" />
+        </ListItem>
+
+        <ListItem component={Link} to="/dev/palette" button>
+          <ListItemIcon>
+            <PaletteIcon />
+          </ListItemIcon>
+
+          <ListItemText primary="Palette" />
+        </ListItem>
       </List>
     </Drawer>
   )
