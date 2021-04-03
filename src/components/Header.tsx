@@ -17,6 +17,9 @@ import { useUserStore } from "@stores/user"
 import Sidebar from "./Sidebar"
 
 const useStyles = makeStyles((theme) => ({
+  appBar: {
+    marginBottom: theme.spacing(4),
+  },
   menuButton: {
     marginRight: theme.spacing(2),
   },
@@ -49,7 +52,7 @@ const Header: React.FC = () => {
 
   return (
     <>
-      <AppBar position="static">
+      <AppBar position="static" className={classes.appBar}>
         <Toolbar>
           <IconButton
             edge="start"
