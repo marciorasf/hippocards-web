@@ -37,6 +37,8 @@ const FlashcardCard: React.FC<FlashcardCardProps> = ({
   const [menuAnchor, setMenuAnchor] = useState<(EventTarget & Element) | null>(
     null
   )
+  const [showAnswer, setShowAnswer] = useState(false)
+
   const commonClasses = useCommonStyles()
   const classes = useStyles()
 
@@ -49,11 +51,20 @@ const FlashcardCard: React.FC<FlashcardCardProps> = ({
     setMenuAnchor(null)
   }
 
+  function toggleShowAnswer() {
+    setShowAnswer(!showAnswer)
+  }
+
+  function customHandleClickCard() {
+    toggleShowAnswer()
+    handleClickCard(flashcard)
+  }
+
   return (
     <Card className={classes.card}>
       <CardActionArea
         className={commonClasses.fullHeight}
-        onClick={() => handleClickCard(flashcard)}
+        onClick={customHandleClickCard}
       >
         <Grid container direction="column" className={commonClasses.fullHeight}>
           <Grid item>
@@ -77,17 +88,11 @@ const FlashcardCard: React.FC<FlashcardCardProps> = ({
                 className={commonClasses.fullHeight}
                 spacing={2}
               >
-                <Grid item>Question: {flashcard.question}</Grid>
-
-                <Grid item>Answer: {flashcard.answer}</Grid>
-
-                <Grid item>
-                  isKnown: {flashcard.isKnown ? "true" : "false"}
-                </Grid>
-
-                <Grid item>
-                  isBookmarked: {flashcard.isBookmarked ? "true" : "false"}
-                </Grid>
+                {showAnswer ? (
+                  <Grid item>Question: {flashcard.question}</Grid>
+                ) : (
+                  <Grid item>Answer: {flashcard.answer}</Grid>
+                )}
               </Grid>
             </CardContent>
           </Grid>
