@@ -1,31 +1,30 @@
 import { useField } from "formik"
 import React, { InputHTMLAttributes } from "react"
 
-import {
-  FormControl,
-  FormHelperText,
-  Input,
-  InputLabel,
-} from "@material-ui/core"
+import { InputProps, TextField } from "@material-ui/core"
 
 type InputFieldProps = InputHTMLAttributes<HTMLInputElement> & {
   name: string
   label: string
+  inputProps?: InputProps
 }
 
 const InputField: React.FC<InputFieldProps> = ({
   label,
-  type,
-  required,
+  inputProps,
   ...props
 }) => {
   const [field, { error }] = useField(props)
   return (
-    <FormControl fullWidth error={!!error}>
-      <InputLabel htmlFor={field.name}>{label}</InputLabel>
-      <Input {...field} type={type} required={required} id={field.name} />
-      {error ? <FormHelperText>{error}</FormHelperText> : null}
-    </FormControl>
+    <TextField
+      fullWidth
+      label={label}
+      id={field.name}
+      error={Boolean(error)}
+      helperText={error}
+      InputProps={inputProps}
+      {...field}
+    />
   )
 }
 

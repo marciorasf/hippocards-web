@@ -49,11 +49,19 @@ const FlashcardDialog: React.FC<FlashcardDialogProps> = ({
             <DialogContent>
               <Grid container spacing={2}>
                 <Grid item xs={12}>
-                  <InputField name="question" label="Question" required />
+                  <InputField
+                    name="question"
+                    label="Question"
+                    inputProps={{ required: true }}
+                  />
                 </Grid>
 
                 <Grid item xs={12}>
-                  <InputField name="answer" label="Answer" required />
+                  <InputField
+                    name="answer"
+                    label="Answer"
+                    inputProps={{ required: true }}
+                  />
                 </Grid>
               </Grid>
             </DialogContent>

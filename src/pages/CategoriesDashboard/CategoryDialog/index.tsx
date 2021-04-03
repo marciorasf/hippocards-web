@@ -47,7 +47,13 @@ const CategoryDialog: React.FC<CategoryDialogProps> = ({
 
             <DialogContent>
               <Grid container spacing={2}>
-                <InputField name="name" label="Name" required />
+                <InputField
+                  name="name"
+                  label="Name"
+                  inputProps={{
+                    required: true,
+                  }}
+                />
               </Grid>
             </DialogContent>
 

@@ -73,8 +73,10 @@ const Register: React.FC = () => {
                     <InputField
                       name="email"
                       label="Email"
-                      type="email"
-                      required
+                      inputProps={{
+                        type: "email",
+                        required: true,
+                      }}
                     />
                   </Grid>
 
@@ -82,8 +84,10 @@ const Register: React.FC = () => {
                     <InputField
                       name="password"
                       label="Password"
-                      type="password"
-                      required
+                      inputProps={{
+                        type: "password",
+                        required: true,
+                      }}
                     />
                   </Grid>
 
