@@ -1,6 +1,6 @@
 import { makeStyles } from "@material-ui/core"
 
-const useStyles = makeStyles(() => ({
+const useCommonStyles = makeStyles(() => ({
   fullHeight: {
     height: "100%",
   },
@@ -9,4 +9,4 @@ const useStyles = makeStyles(() => ({
   },
 }))
 
-export default useStyles
+export default useCommonStyles
