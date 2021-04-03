@@ -1,20 +1,36 @@
 import React from "react"
-import { Link } from "react-router-dom"
 
-import { Header } from "@components"
-import { Button, Grid, Typography } from "@material-ui/core"
-import authService from "@services/auth"
-import errorService from "@services/error"
+import { Header, PageContentContainer, Spacing } from "@components"
+import {
+  Checkbox,
+  Grid,
+  List,
+  ListItem,
+  ListItemText,
+  ListItemIcon,
+  Typography,
+} from "@material-ui/core"
+
+type TodoItem = {
+  label: string
+  done: boolean
+}
+
+const todoItems: TodoItem[] = [
+  { label: "Improve basic design", done: false },
+  { label: "See flashcard answer on card click", done: false },
+  { label: "Mark flashcard as known", done: false },
+  { label: "Mark flashcard as bookmarked", done: false },
+  { label: "Add filter on CategoryPage", done: false },
+  {
+    label: "Add FAB on CategoryPage when createFlashcard card is not visible",
+    done: false,
+  },
+  { label: "Redesign app", done: false },
+  { label: "Create Study Mode", done: false },
+]
 
 const Landing: React.FC = () => {
-  async function handleLogout() {
-    try {
-      await authService.logout()
-    } catch (err) {
-      errorService.handle(err)
-    }
-  }
-
   return (
     <Grid container>
       <Grid item xs={12}>
@@ -22,35 +38,30 @@ const Landing: React.FC = () => {
       </Grid>
 
       <Grid item xs={12}>
-        <Grid container spacing={2}>
-          <Grid item xs={12}>
-            <Typography>Landing</Typography>
-          </Grid>
+        <PageContentContainer>
+          <Typography variant="h3">Landing</Typography>
 
-          <Grid item>
-            <Button component={Link} to="/register">
-              Register
-            </Button>
-          </Grid>
+          <Spacing orientation="horizontal" size={4} />
 
-          <Grid item>
-            <Button component={Link} to="/login">
-              Login
-            </Button>
-          </Grid>
+          <Typography variant="h4">To Do</Typography>
 
-          <Grid item>
-            <Button variant="contained" onClick={handleLogout}>
-              Logout
-            </Button>
-          </Grid>
+          <List dense>
+            {todoItems.map((item) => (
+              <ListItem key={item.label}>
+                <ListItemIcon>
+                  <Checkbox
+                    edge="start"
+                    tabIndex={-1}
+                    disableRipple
+                    value={item.done}
+                  />
+                </ListItemIcon>
 
-          <Grid item>
-            <Button component={Link} to="/categories">
-              Categories
-            </Button>
-          </Grid>
-        </Grid>
+                <ListItemText primary={item.label} />
+              </ListItem>
+            ))}
+          </List>
+        </PageContentContainer>
       </Grid>
     </Grid>
   )
