@@ -17,6 +17,7 @@ type TodoItem = {
 }
 
 const todoItems: TodoItem[] = [
+  { label: "Add palette page", done: false },
   { label: "Improve basic design", done: false },
   { label: "See flashcard answer on card click", done: false },
   { label: "Mark flashcard as known", done: false },
