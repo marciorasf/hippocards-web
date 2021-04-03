@@ -3,7 +3,7 @@ import { useHistory } from "react-router-dom"
 
 import { Header, PageContentContainer, Spacing } from "@components"
 import useDidMount from "@hooks/useDidMount"
-import { Category, CategoryWithFlashcardInfo } from "@interfaces/category"
+import { Category, CategoryWithFlashcardsInfo } from "@interfaces/category"
 import {
   CardContent,
   Grid,
@@ -34,9 +34,7 @@ async function getCategories() {
 type Dialog = "create" | "edit"
 
 const CategoriesDashboard: React.FC = () => {
-  const [userCategories, setUserCategories] = useState<
-    CategoryWithFlashcardInfo[]
-  >([])
+  const [categories, setCategories] = useState<CategoryWithFlashcardsInfo[]>([])
   const [openDialog, setOpenDialog] = useState<Dialog | null>(null)
   const [
     currentCategoryOnEdition,
@@ -49,8 +47,8 @@ const CategoriesDashboard: React.FC = () => {
   const classes = useStyles()
 
   async function getAndUpdateCategories() {
-    const categories = await getCategories()
-    setUserCategories(categories)
+    const categoriesData = await getCategories()
+    setCategories(categoriesData)
   }
 
   function goToCategoryPage(category: Category) {
@@ -65,10 +63,20 @@ const CategoriesDashboard: React.FC = () => {
     setOpenDialog(null)
   }
 
+  function insertCategoryOnCategories(
+    createdCategory: CategoryWithFlashcardsInfo
+  ) {
+    if (!categories) {
+      return
+    }
+
+    setCategories([...categories, createdCategory])
+  }
+
   async function handleCreateCategory(categoryData: CreateCategoryInput) {
     try {
-      await categoryService.create(categoryData)
-      await getAndUpdateCategories()
+      const category = await categoryService.create(categoryData)
+      insertCategoryOnCategories(category)
     } catch (err) {
       errorService.handle(err)
     }
@@ -79,22 +87,53 @@ const CategoriesDashboard: React.FC = () => {
     handleOpenDialog("edit")
   }
 
+  function updateCategoryOnCategories(updatedCategory: Category) {
+    if (!categories) {
+      return
+    }
+
+    const updatedCategories = categories.map((category) => {
+      if (category.id === updatedCategory.id) {
+        return {
+          ...category,
+          ...updatedCategory,
+        }
+      }
+
+      return category
+    })
+
+    setCategories(updatedCategories)
+  }
+
   async function handleEditCategory(categoryData: UpdateCategoryInput) {
     const categoryId = currentCategoryOnEdition?.id
     if (categoryId) {
       try {
-        await categoryService.update(categoryId, categoryData)
-        await getAndUpdateCategories()
+        const category = await categoryService.update(categoryId, categoryData)
+        updateCategoryOnCategories(category)
       } catch (err) {
         errorService.handle(err)
       }
     }
   }
 
+  function deleteCategoryOnCategories(deletedCategory: Category) {
+    if (!categories) {
+      return
+    }
+
+    const updatedCategories = categories.filter(
+      (category) => category.id !== deletedCategory.id
+    )
+
+    setCategories(updatedCategories)
+  }
+
   async function handleDeleteCategory(category: Category) {
     try {
       await categoryService.delete(category.id)
-      await getAndUpdateCategories()
+      deleteCategoryOnCategories(category)
     } catch (err) {
       errorService.handle(err)
     }
@@ -132,7 +171,7 @@ const CategoriesDashboard: React.FC = () => {
               </Card>
             </Grid>
 
-            {userCategories.map((category) => (
+            {categories.map((category) => (
               <Grid key={category.id} item md={4} sm={6} xs={12}>
                 <CategoryCard
                   key={category.id}
