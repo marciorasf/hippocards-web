@@ -1,18 +1,25 @@
-import React from "react"
+import React, { useState, SyntheticEvent } from "react"
 
 import { Category } from "@interfaces/category"
 import {
   CardContent,
   CardHeader,
   Card,
-  CardActions,
   IconButton,
   CardActionArea,
+  Grid,
+  Menu,
+  MenuItem,
+  ListItemIcon,
+  ListItemText,
 } from "@material-ui/core"
 import {
   EditOutlined as EditIcon,
   DeleteOutlined as DeleteIcon,
+  MoreVert as MoreVertIcon,
 } from "@material-ui/icons"
+import useStyles from "@pages/CategoriesDashboard/CategoryCard/styles"
+import useCommonStyles from "@styles/commonStyles"
 
 type CategoryCardProps = {
   category: Category
@@ -21,31 +28,93 @@ type CategoryCardProps = {
   handleClickDelete: (category: Category) => Promise<void>
 }
 
-const CategoriesDashboard: React.FC<CategoryCardProps> = ({
+const CategoryCard: React.FC<CategoryCardProps> = ({
   category,
   handleClickCard,
   handleClickEdit,
   handleClickDelete,
 }) => {
-  return (
-    <Card>
-      <CardActionArea onClick={() => handleClickCard(category)}>
-        <CardHeader title={category.name} />
+  const [menuAnchor, setMenuAnchor] = useState<(EventTarget & Element) | null>(
+    null
+  )
+  const commonClasses = useCommonStyles()
+  const classes = useStyles()
 
-        <CardContent>{category.name}</CardContent>
+  function handleClickSettings(event: SyntheticEvent) {
+    event.stopPropagation()
+    setMenuAnchor(event.currentTarget)
+  }
+
+  function handleCloseMenu() {
+    setMenuAnchor(null)
+  }
+
+  return (
+    <Card className={classes.card}>
+      <CardActionArea
+        className={commonClasses.fullHeight}
+        onClick={() => handleClickCard(category)}
+      >
+        <Grid container direction="column" className={commonClasses.fullHeight}>
+          <Grid item>
+            <CardHeader
+              title={category.name}
+              action={
+                <IconButton aria-label="settings" onClick={handleClickSettings}>
+                  <MoreVertIcon />
+                </IconButton>
+              }
+            />
+          </Grid>
+
+          <Grid item xs>
+            <Grid
+              container
+              direction="column"
+              className={commonClasses.fullHeight}
+            >
+              <Grid item xs>
+                <CardContent className={commonClasses.fullHeight}>
+                  <Grid
+                    container
+                    alignItems="center"
+                    justify="center"
+                    className={commonClasses.fullHeight}
+                  >
+                    <Grid item>{category.name}</Grid>
+                  </Grid>
+                </CardContent>
+              </Grid>
+            </Grid>
+          </Grid>
+        </Grid>
       </CardActionArea>
 
-      <CardActions>
-        <IconButton onClick={() => handleClickEdit(category)}>
-          <EditIcon />
-        </IconButton>
+      {/* The menu must be outside CardActionArea to not trigger it's onClick */}
+      <Menu
+        anchorEl={menuAnchor}
+        keepMounted
+        open={Boolean(menuAnchor)}
+        onClose={handleCloseMenu}
+      >
+        <MenuItem onClick={() => handleClickEdit(category)}>
+          <ListItemIcon>
+            <EditIcon />
+          </ListItemIcon>
 
-        <IconButton onClick={() => handleClickDelete(category)}>
-          <DeleteIcon />
-        </IconButton>
-      </CardActions>
+          <ListItemText primary="edit" />
+        </MenuItem>
+
+        <MenuItem onClick={() => handleClickDelete(category)}>
+          <ListItemIcon>
+            <DeleteIcon />
+          </ListItemIcon>
+
+          <ListItemText primary="delete" />
+        </MenuItem>
+      </Menu>
     </Card>
   )
 }
 
-export default CategoriesDashboard
+export default CategoryCard
