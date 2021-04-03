@@ -18,7 +18,7 @@ type TodoItem = {
 
 const todoItems: TodoItem[] = [
   { label: "Add palette page", done: true },
-  { label: "Improve basic design", done: false },
+  { label: "Improve basic design", done: true },
   { label: "See flashcard answer on card click", done: false },
   { label: "Mark flashcard as known", done: false },
   { label: "Mark flashcard as bookmarked", done: false },
@@ -54,7 +54,7 @@ const Landing: React.FC = () => {
                     edge="start"
                     tabIndex={-1}
                     disableRipple
-                    value={item.done}
+                    checked={item.done}
                   />
                 </ListItemIcon>
 
