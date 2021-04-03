@@ -109,6 +109,7 @@ const CategoryCard: React.FC<CategoryCardProps> = ({
         keepMounted
         open={Boolean(menuAnchor)}
         onClose={handleCloseMenu}
+        onClick={handleCloseMenu}
       >
         <MenuItem onClick={() => handleClickEdit(category)}>
           <ListItemIcon>

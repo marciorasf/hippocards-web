@@ -123,6 +123,7 @@ const FlashcardCard: React.FC<FlashcardCardProps> = ({
         keepMounted
         open={Boolean(menuAnchor)}
         onClose={handleCloseMenu}
+        onClick={handleCloseMenu}
       >
         <MenuItem onClick={() => handleClickEdit(flashcard)}>
           <ListItemIcon>
