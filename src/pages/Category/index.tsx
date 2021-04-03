@@ -17,10 +17,7 @@ import FlashcardCard from "@pages/Category/FlashcardCard"
 import FlashcardDialog from "@pages/Category/FlashcardDialog"
 import categoryService from "@services/category"
 import errorService from "@services/error"
-import flashcardService, {
-  CreateFlashcardInput,
-  UpdateFlashcardInput,
-} from "@services/flashcard"
+import flashcardService, { CreateFlashcardInput } from "@services/flashcard"
 import useCommonStyles from "@styles/commonStyles"
 
 import useStyles from "./styles"
@@ -76,7 +73,7 @@ const Categories: React.FC = () => {
     handleOpenDialog("edit")
   }
 
-  async function handleEditFlashcard(flashcardData: UpdateFlashcardInput) {
+  async function handleEditFlashcard(flashcardData: CreateFlashcardInput) {
     const flashcardId = currentFlashcardOnEdition?.id
 
     if (flashcardId) {

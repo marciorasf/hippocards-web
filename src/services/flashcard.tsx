@@ -18,7 +18,7 @@ type RetrieveOneFlashcardResponse = {
   flashcard: Flashcard
 }
 
-export type UpdateFlashcardInput = CreateFlashcardInput & {
+export type UpdateFlashcardInput = Partial<CreateFlashcardInput> & {
   isKnown?: boolean
   isBookmarked?: boolean
 }

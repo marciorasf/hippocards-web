@@ -10,15 +10,15 @@ import {
   Button,
   Grid,
 } from "@material-ui/core"
-import { CreateFlashcardInput, UpdateFlashcardInput } from "@services/flashcard"
+import { CreateFlashcardInput } from "@services/flashcard"
 
 type FlashcardDialogProps = {
   open: boolean
   title: string
   onClose: () => void
-  onOk: (data: CreateFlashcardInput | UpdateFlashcardInput) => Promise<void>
+  onOk: (data: CreateFlashcardInput) => Promise<void>
   okButtonLabel: string
-  initialValues?: CreateFlashcardInput | UpdateFlashcardInput
+  initialValues?: CreateFlashcardInput
 }
 
 const FlashcardDialog: React.FC<FlashcardDialogProps> = ({
