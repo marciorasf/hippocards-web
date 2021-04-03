@@ -1,7 +1,7 @@
 import React, { useState } from "react"
 import { useHistory } from "react-router-dom"
 
-import { Header, Spacing } from "@components"
+import { Header, PageContentContainer, Spacing } from "@components"
 import useDidMount from "@hooks/useDidMount"
 import { Category } from "@interfaces/category"
 import {
@@ -109,60 +109,57 @@ const CategoriesDashboard: React.FC = () => {
       </Grid>
 
       <Grid item xs={12}>
-        <Typography variant="h3">Categories</Typography>
+        <PageContentContainer>
+          <Typography variant="h4">Categories</Typography>
 
-        <Spacing orientation="horizontal" size={4} />
+          <Spacing orientation="horizontal" size={4} />
 
-        <Grid
-          container
-          spacing={2}
-          justify="space-between"
-          alignItems="stretch"
-        >
-          <Grid item xs={6}>
-            <Card className={classes.card}>
-              <CardActionArea
-                className={commonClasses.fullHeight}
-                onClick={() => handleOpenDialog("create")}
-              >
-                <CardContent>
-                  <Grid container justify="center" alignItems="center">
-                    <AddIcon />
-                  </Grid>
-                </CardContent>
-              </CardActionArea>
-            </Card>
+          <Grid container spacing={2} alignItems="stretch">
+            <Grid item md={4} sm={6} xs={12}>
+              <Card className={classes.card}>
+                <CardActionArea
+                  className={commonClasses.fullHeight}
+                  onClick={() => handleOpenDialog("create")}
+                >
+                  <CardContent>
+                    <Grid container justify="center" alignItems="center">
+                      <AddIcon fontSize="large" />
+                    </Grid>
+                  </CardContent>
+                </CardActionArea>
+              </Card>
+            </Grid>
+
+            {userCategories.map((category) => (
+              <Grid key={category.id} item md={4} sm={6} xs={12}>
+                <CategoryCard
+                  key={category.id}
+                  category={category}
+                  handleClickCard={goToCategoryPage}
+                  handleClickEdit={handleClickEditCategory}
+                  handleClickDelete={handleDeleteCategory}
+                />
+              </Grid>
+            ))}
           </Grid>
 
-          {userCategories.map((category) => (
-            <Grid key={category.id} item xs={6}>
-              <CategoryCard
-                key={category.id}
-                category={category}
-                handleClickCard={goToCategoryPage}
-                handleClickEdit={handleClickEditCategory}
-                handleClickDelete={handleDeleteCategory}
-              />
-            </Grid>
-          ))}
-        </Grid>
+          <CategoryDialog
+            title="Add category"
+            open={openDialog === "create"}
+            onClose={handleCloseDialog}
+            onOk={handleCreateCategory}
+            okButtonLabel="add"
+          />
 
-        <CategoryDialog
-          title="Add category"
-          open={openDialog === "create"}
-          onClose={handleCloseDialog}
-          onOk={handleCreateCategory}
-          okButtonLabel="add"
-        />
-
-        <CategoryDialog
-          title="Edit category"
-          open={openDialog === "edit"}
-          onClose={handleCloseDialog}
-          onOk={handleEditCategory}
-          okButtonLabel="save"
-          initialValues={{ name: currentCategoryOnEdition?.name || "" }}
-        />
+          <CategoryDialog
+            title="Edit category"
+            open={openDialog === "edit"}
+            onClose={handleCloseDialog}
+            onOk={handleEditCategory}
+            okButtonLabel="save"
+            initialValues={{ name: currentCategoryOnEdition?.name || "" }}
+          />
+        </PageContentContainer>
       </Grid>
     </Grid>
   )
