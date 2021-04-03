@@ -29,7 +29,7 @@ const CategoryDialog: React.FC<CategoryDialogProps> = ({
   initialValues,
 }) => {
   return (
-    <Dialog open={open} onClose={onClose}>
+    <Dialog open={open} onClose={onClose} fullWidth>
       <Formik
         initialValues={{
           name: "",
