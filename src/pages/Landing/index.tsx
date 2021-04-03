@@ -20,8 +20,8 @@ const todoItems: TodoItem[] = [
   { label: "Add palette page", done: true },
   { label: "Improve basic design", done: true },
   { label: "See flashcard answer on card click", done: true },
-  { label: "Mark flashcard as known", done: false },
-  { label: "Mark flashcard as bookmarked", done: false },
+  { label: "Mark flashcard as known", done: true },
+  { label: "Mark flashcard as bookmarked", done: true },
   { label: "Add filter on CategoryPage", done: false },
   {
     label: "Add FAB on CategoryPage when createFlashcard card is not visible",
