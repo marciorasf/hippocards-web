@@ -12,6 +12,9 @@ import {
   MenuItem,
   ListItemIcon,
   ListItemText,
+  CircularProgress,
+  Box,
+  Typography,
 } from "@material-ui/core"
 import {
   EditOutlined as EditIcon,
@@ -49,6 +52,20 @@ const CategoryCard: React.FC<CategoryCardProps> = ({
     setMenuAnchor(null)
   }
 
+  function getProgressValue() {
+    if (category.flashcardsInfo.flashcardsCount === 0) {
+      return 0
+    }
+
+    const knownFlashcardsRatio =
+      category.flashcardsInfo.isKnownCount /
+      category.flashcardsInfo.flashcardsCount
+
+    const progressValue = Math.round(knownFlashcardsRatio * 100)
+
+    return progressValue
+  }
+
   return (
     <Card className={classes.card}>
       <CardActionArea
@@ -84,16 +101,28 @@ const CategoryCard: React.FC<CategoryCardProps> = ({
                     spacing={2}
                   >
                     <Grid item>
-                      flashcardsCount: {category.flashcardsInfo.flashcardsCount}
-                    </Grid>
-
-                    <Grid item>
-                      isKnownCount: {category.flashcardsInfo.isKnownCount}
-                    </Grid>
-
-                    <Grid item>
-                      isBookmarkedCount:{" "}
-                      {category.flashcardsInfo.isBookmarkedCount}
+                      <Box position="relative" display="inline-flex">
+                        <CircularProgress
+                          variant="determinate"
+                          value={getProgressValue()}
+                          size={144}
+                          thickness={2.4}
+                        />
+                        <Box
+                          top={0}
+                          left={0}
+                          bottom={0}
+                          right={0}
+                          position="absolute"
+                          display="flex"
+                          alignItems="center"
+                          justifyContent="center"
+                        >
+                          <Typography variant="h6" color="textSecondary">
+                            {`${category.flashcardsInfo.isKnownCount} / ${category.flashcardsInfo.flashcardsCount}`}
+                          </Typography>
+                        </Box>
+                      </Box>
                     </Grid>
                   </Grid>
                 </CardContent>
