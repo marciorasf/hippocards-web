@@ -25,16 +25,16 @@ import useCommonStyles from "@styles/commonStyles"
 
 type FlashcardCardProps = {
   flashcard: Flashcard
-  handleClickCard: (flashcard: Flashcard) => void
   handleClickEdit: (flashcard: Flashcard) => void
   handleClickDelete: (flashcard: Flashcard) => Promise<void>
+  handleClickMarkAsKnown: (flashcard: Flashcard) => Promise<void>
 }
 
 const FlashcardCard: React.FC<FlashcardCardProps> = ({
   flashcard,
-  handleClickCard,
   handleClickEdit,
   handleClickDelete,
+  handleClickMarkAsKnown,
 }) => {
   const [menuAnchor, setMenuAnchor] = useState<(EventTarget & Element) | null>(
     null
@@ -56,13 +56,8 @@ const FlashcardCard: React.FC<FlashcardCardProps> = ({
     setShowAnswer(!showAnswer)
   }
 
-  function customHandleClickCard() {
+  function handleClickCard() {
     toggleShowAnswer()
-    handleClickCard(flashcard)
-  }
-
-  function handleClickKnown(event: React.SyntheticEvent) {
-    console.log(event)
   }
 
   return (
@@ -81,7 +76,7 @@ const FlashcardCard: React.FC<FlashcardCardProps> = ({
 
         <Grid item xs>
           <CardActionArea
-            onClick={customHandleClickCard}
+            onClick={handleClickCard}
             className={commonClasses.fullHeight}
           >
             <CardContent className={commonClasses.fullHeight}>
@@ -105,7 +100,7 @@ const FlashcardCard: React.FC<FlashcardCardProps> = ({
           <CardActions>
             <Grid container justify="flex-end">
               <Grid item>
-                <IconButton onClick={handleClickKnown}>
+                <IconButton onClick={() => handleClickMarkAsKnown(flashcard)}>
                   <KnownIcon />
                 </IconButton>
               </Grid>

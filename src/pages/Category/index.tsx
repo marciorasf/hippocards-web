@@ -98,7 +98,9 @@ const Categories: React.FC = () => {
     }
   }
 
-  function handleClickFlashcardCard(_flashcard: Flashcard) { }
+  async function handleToggleIsFlashcardKnown(flashcard: Flashcard) {
+    console.log(flashcard)
+  }
 
   useDidMount(() => {
     getAndUpdateCategory()
@@ -137,9 +139,9 @@ const Categories: React.FC = () => {
                 <FlashcardCard
                   key={flashcard.id}
                   flashcard={flashcard}
-                  handleClickCard={handleClickFlashcardCard}
                   handleClickEdit={handleClickEditFlashcard}
                   handleClickDelete={handleDeleteFlashcard}
+                  handleClickMarkAsKnown={handleToggleIsFlashcardKnown}
                 />
               </Grid>
             ))}
