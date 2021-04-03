@@ -51,6 +51,25 @@ const Categories: React.FC = () => {
     setCategory(categoryData)
   }
 
+  async function updateFlashcardOnCategory(updatedFlashcard: Flashcard) {
+    if (!category) {
+      return
+    }
+
+    const updatedFlashcards = category?.flashcards.map((flashcard) => {
+      if (flashcard.id === updatedFlashcard.id) {
+        return updatedFlashcard
+      }
+
+      return flashcard
+    })
+
+    setCategory({
+      ...category,
+      flashcards: updatedFlashcards,
+    })
+  }
+
   function handleOpenDialog(dialog: Dialog) {
     setOpenDialog(dialog)
   }
@@ -97,10 +116,10 @@ const Categories: React.FC = () => {
 
   async function handleToggleIsFlashcardKnown(flashcard: Flashcard) {
     try {
-      await flashcardService.update(flashcard.id, {
+      const updatedFlashcard = await flashcardService.update(flashcard.id, {
         isKnown: !flashcard.isKnown,
       })
-      await getAndUpdateCategory()
+      updateFlashcardOnCategory(updatedFlashcard)
     } catch (err) {
       errorService.handle(err)
     }
