@@ -19,7 +19,7 @@ type TodoItem = {
 const todoItems: TodoItem[] = [
   { label: "Add palette page", done: true },
   { label: "Improve basic design", done: true },
-  { label: "See flashcard answer on card click", done: false },
+  { label: "See flashcard answer on card click", done: true },
   { label: "Mark flashcard as known", done: false },
   { label: "Mark flashcard as bookmarked", done: false },
   { label: "Add filter on CategoryPage", done: false },
