@@ -15,7 +15,6 @@ import {
   IconButton,
 } from "@material-ui/core"
 import {
-  InfoOutlined as AboutIcon,
   FolderOutlined as CategoryIcon,
   ExpandLess as ExpandLessIcon,
   ExpandMore as ExpandMoreIcon,
@@ -62,14 +61,6 @@ const Sidebar: React.FC<SidebarProps> = ({ open, onClose }) => {
   return (
     <Drawer open={open} onClose={onClose}>
       <List className={classes.list}>
-        <ListItem component={Link} to="/about" button>
-          <ListItemIcon>
-            <AboutIcon />
-          </ListItemIcon>
-
-          <ListItemText primary="about" />
-        </ListItem>
-
         <ListItem component={Link} to="/categories" button>
           <ListItemIcon>
             <CategoryIcon />
