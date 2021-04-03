@@ -2,7 +2,7 @@ import { Formik, Form } from "formik"
 import React from "react"
 import { useHistory } from "react-router-dom"
 
-import { Header, InputField, Spacing } from "@components"
+import { Header, InputField, PasswordInputField, Spacing } from "@components"
 import { Button, Container, Grid, Typography } from "@material-ui/core"
 import authService, { LoginInput } from "@services/auth"
 import errorService from "@services/error"
@@ -76,11 +76,10 @@ const Login: React.FC = () => {
                   </Grid>
 
                   <Grid item>
-                    <InputField
+                    <PasswordInputField
                       name="password"
                       label="Password"
                       inputProps={{
-                        type: "password",
                         required: true,
                       }}
                     />
