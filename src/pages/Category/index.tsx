@@ -1,5 +1,5 @@
 import React, { useState } from "react"
-import { useParams } from "react-router-dom"
+import { Link, useParams } from "react-router-dom"
 
 import { Header, PageContentContainer, Spacing } from "@components"
 import useDidMount from "@hooks/useDidMount"
@@ -11,8 +11,9 @@ import {
   CardActionArea,
   CardContent,
   Typography,
+  IconButton,
 } from "@material-ui/core"
-import { Add as AddIcon } from "@material-ui/icons"
+import { Add as AddIcon, ArrowBack as ArrowBackIcon } from "@material-ui/icons"
 import FlashcardCard from "@pages/Category/FlashcardCard"
 import FlashcardDialog from "@pages/Category/FlashcardDialog"
 import categoryService from "@services/category"
@@ -148,7 +149,17 @@ const Categories: React.FC = () => {
 
       <Grid item xs={12}>
         <PageContentContainer>
-          <Typography variant="h4">{category?.name}</Typography>
+          <Grid container alignItems="center" spacing={1}>
+            <Grid item>
+              <IconButton component={Link} to="/categories">
+                <ArrowBackIcon />
+              </IconButton>
+            </Grid>
+
+            <Grid item>
+              <Typography variant="h4">{category?.name}</Typography>
+            </Grid>
+          </Grid>
 
           <Spacing orientation="horizontal" size={4} />
 
