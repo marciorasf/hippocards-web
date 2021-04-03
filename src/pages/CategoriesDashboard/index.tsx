@@ -105,7 +105,7 @@ const CategoriesDashboard: React.FC = () => {
   })
 
   return (
-    <Grid container spacing={2}>
+    <Grid container>
       <Grid item xs={12}>
         <Header />
       </Grid>
