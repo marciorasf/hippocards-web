@@ -1,6 +1,6 @@
 import React, { useState, SyntheticEvent } from "react"
 
-import { Category, CategoryWithFlashcardInfo } from "@interfaces/category"
+import { Category, CategoryWithFlashcardsInfo } from "@interfaces/category"
 import {
   CardContent,
   CardHeader,
@@ -25,7 +25,7 @@ import useStyles from "@pages/CategoriesDashboard/CategoryCard/styles"
 import useCommonStyles from "@styles/commonStyles"
 
 type CategoryCardProps = {
-  category: CategoryWithFlashcardInfo
+  category: CategoryWithFlashcardsInfo
   handleClickCard: (category: Category) => void
   handleClickEdit: (category: Category) => void
   handleClickDelete: (category: Category) => Promise<void>

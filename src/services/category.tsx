@@ -1,6 +1,6 @@
 import {
   Category,
-  CategoryWithFlashcardInfo,
+  CategoryWithFlashcardsInfo,
   CategoryWithFlashcards,
 } from "@interfaces/category"
 import apiService from "@services/api"
@@ -14,7 +14,7 @@ type CreateCategoryResponse = {
 }
 
 type RetrieveAllCategoriesResponse = {
-  categories: CategoryWithFlashcardInfo[]
+  categories: CategoryWithFlashcardsInfo[]
 }
 
 type RetrieveOneCategoryResponse = {
@@ -29,7 +29,15 @@ const categoryService = {
   async create(inputData: CreateCategoryInput) {
     const response = await apiService.post("/categories", inputData)
     const data = response.data as CreateCategoryResponse
-    return data.category
+    const categoryWithFlashcardInfo: CategoryWithFlashcardsInfo = {
+      ...data.category,
+      flashcardsInfo: {
+        flashcardsCount: 0,
+        isKnownCount: 0,
+        isBookmarkedCount: 0,
+      },
+    }
+    return categoryWithFlashcardInfo
   },
 
   async retrieveAll() {

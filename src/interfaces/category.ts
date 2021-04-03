@@ -5,7 +5,7 @@ export type Category = {
   name: string
 }
 
-export type CategoryWithFlashcardInfo = Category & {
+export type CategoryWithFlashcardsInfo = Category & {
   flashcardsInfo: {
     flashcardsCount: number
     isKnownCount: number
