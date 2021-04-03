@@ -1,7 +1,7 @@
 import React, { useState } from "react"
 import { useHistory } from "react-router-dom"
 
-import { Header } from "@components"
+import { Header, Spacing } from "@components"
 import useDidMount from "@hooks/useDidMount"
 import { Category } from "@interfaces/category"
 import {
@@ -14,11 +14,13 @@ import {
 import { Add as AddIcon } from "@material-ui/icons"
 import CategoryCard from "@pages/CategoriesDashboard/CategoryCard"
 import CategoryDialog from "@pages/CategoriesDashboard/CategoryDialog"
+import useStyles from "@pages/CategoriesDashboard/styles"
 import categoryService, {
   CreateCategoryInput,
   UpdateCategoryInput,
 } from "@services/category"
 import errorService from "@services/error"
+import useCommonStyles from "@styles/commonStyles"
 
 async function getCategories() {
   try {
@@ -40,6 +42,9 @@ const CategoriesDashboard: React.FC = () => {
   ] = useState<Category>()
 
   const history = useHistory()
+
+  const commonClasses = useCommonStyles()
+  const classes = useStyles()
 
   async function getAndUpdateCategories() {
     const categories = await getCategories()
@@ -98,27 +103,39 @@ const CategoriesDashboard: React.FC = () => {
   })
 
   return (
-    <Grid container>
+    <Grid container spacing={2}>
       <Grid item xs={12}>
         <Header />
       </Grid>
 
       <Grid item xs={12}>
-        <Typography variant="h2">Categories</Typography>
+        <Typography variant="h3">Categories</Typography>
 
-        <Grid container>
-          <Grid item>
-            <Card>
-              <CardActionArea onClick={() => handleOpenDialog("create")}>
+        <Spacing orientation="horizontal" size={4} />
+
+        <Grid
+          container
+          spacing={2}
+          justify="space-between"
+          alignItems="stretch"
+        >
+          <Grid item xs={6}>
+            <Card className={classes.card}>
+              <CardActionArea
+                className={commonClasses.fullHeight}
+                onClick={() => handleOpenDialog("create")}
+              >
                 <CardContent>
-                  <AddIcon />
+                  <Grid container justify="center" alignItems="center">
+                    <AddIcon />
+                  </Grid>
                 </CardContent>
               </CardActionArea>
             </Card>
           </Grid>
 
           {userCategories.map((category) => (
-            <Grid key={category.id} item>
+            <Grid key={category.id} item xs={6}>
               <CategoryCard
                 key={category.id}
                 category={category}
