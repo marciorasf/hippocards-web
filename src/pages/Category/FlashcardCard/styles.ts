@@ -4,7 +4,8 @@ import { flashcardCardHeight } from "../styles"
 
 const useStyles = makeStyles((_theme) => ({
   card: {
-    height: flashcardCardHeight,
+    minHeight: flashcardCardHeight,
+    height: "100%",
   },
 }))
 

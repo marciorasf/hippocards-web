@@ -4,7 +4,8 @@ export const categoryCardHeight = 250
 
 const useStyles = makeStyles((_theme) => ({
   card: {
-    height: categoryCardHeight,
+    minHeight: categoryCardHeight,
+    height: "100%",
   },
 }))
 
