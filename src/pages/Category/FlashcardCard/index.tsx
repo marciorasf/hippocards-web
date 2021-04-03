@@ -18,7 +18,8 @@ import {
   EditOutlined as EditIcon,
   DeleteOutlined as DeleteIcon,
   MoreVert as MoreVertIcon,
-  Check as KnownIcon,
+  CheckCircleOutlined as NotKnownIcon,
+  CheckCircle as KnownIcon,
   Bookmark as BookmarkedIcon,
   BookmarkBorder as NotBookmarkedIcon,
 } from "@material-ui/icons"
@@ -121,7 +122,7 @@ const FlashcardCard: React.FC<FlashcardCardProps> = ({
                   color={flashcard.isKnown ? "primary" : "default"}
                   onClick={() => handleClickMarkAsKnown(flashcard)}
                 >
-                  <KnownIcon />
+                  {flashcard.isKnown ? <KnownIcon /> : <NotKnownIcon />}
                 </IconButton>
               </Grid>
             </Grid>
