@@ -3,7 +3,7 @@ import { useHistory } from "react-router-dom"
 
 import { Header, PageContentContainer, Spacing } from "@components"
 import useDidMount from "@hooks/useDidMount"
-import { Category } from "@interfaces/category"
+import { Category, CategoryWithFlashcardInfo } from "@interfaces/category"
 import {
   CardContent,
   Grid,
@@ -34,7 +34,9 @@ async function getCategories() {
 type Dialog = "create" | "edit"
 
 const CategoriesDashboard: React.FC = () => {
-  const [userCategories, setUserCategories] = useState<Category[]>([])
+  const [userCategories, setUserCategories] = useState<
+    CategoryWithFlashcardInfo[]
+  >([])
   const [openDialog, setOpenDialog] = useState<Dialog | null>(null)
   const [
     currentCategoryOnEdition,

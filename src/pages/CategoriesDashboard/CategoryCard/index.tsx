@@ -1,6 +1,6 @@
 import React, { useState, SyntheticEvent } from "react"
 
-import { Category } from "@interfaces/category"
+import { Category, CategoryWithFlashcardInfo } from "@interfaces/category"
 import {
   CardContent,
   CardHeader,
@@ -22,7 +22,7 @@ import useStyles from "@pages/CategoriesDashboard/CategoryCard/styles"
 import useCommonStyles from "@styles/commonStyles"
 
 type CategoryCardProps = {
-  category: Category
+  category: CategoryWithFlashcardInfo
   handleClickCard: (category: Category) => void
   handleClickEdit: (category: Category) => void
   handleClickDelete: (category: Category) => Promise<void>
@@ -78,10 +78,22 @@ const CategoryCard: React.FC<CategoryCardProps> = ({
                   <Grid
                     container
                     alignItems="center"
+                    direction="column"
                     justify="center"
                     className={commonClasses.fullHeight}
                   >
-                    <Grid item>{category.name}</Grid>
+                    <Grid item>
+                      flashcardsCount: {category.flashcardsInfo.flashcardsCount}
+                    </Grid>
+
+                    <Grid item>
+                      isKnownCount: {category.flashcardsInfo.isKnownCount}
+                    </Grid>
+
+                    <Grid item>
+                      isBookmarkedCount:{" "}
+                      {category.flashcardsInfo.isBookmarkedCount}
+                    </Grid>
                   </Grid>
                 </CardContent>
               </Grid>
