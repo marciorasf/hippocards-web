@@ -1,4 +1,8 @@
-import { Category, CategoryWithFlashcards } from "@interfaces/category"
+import {
+  Category,
+  CategoryWithFlashcardInfo,
+  CategoryWithFlashcards,
+} from "@interfaces/category"
 import apiService from "@services/api"
 
 export type CreateCategoryInput = {
@@ -10,7 +14,7 @@ type CreateCategoryResponse = {
 }
 
 type RetrieveAllCategoriesResponse = {
-  categories: Category[]
+  categories: CategoryWithFlashcardInfo[]
 }
 
 type RetrieveOneCategoryResponse = {
