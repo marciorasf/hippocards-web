@@ -63,7 +63,7 @@ const Header: React.FC = () => {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" className={classes.title}>
-            News
+            Flashcards
           </Typography>
 
           {userStore.user.id ? (
