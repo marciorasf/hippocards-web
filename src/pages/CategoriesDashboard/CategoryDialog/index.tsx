@@ -8,6 +8,7 @@ import {
   DialogContent,
   DialogActions,
   Button,
+  Grid,
 } from "@material-ui/core"
 import { CreateCategoryInput, UpdateCategoryInput } from "@services/category"
 
@@ -43,9 +44,13 @@ const CategoryDialog: React.FC<CategoryDialogProps> = ({
         {({ isSubmitting }) => (
           <Form>
             <DialogTitle>{title}</DialogTitle>
+
             <DialogContent>
-              <InputField name="name" label="Name" required />
+              <Grid container spacing={2}>
+                <InputField name="name" label="Name" required />
+              </Grid>
             </DialogContent>
+
             <DialogActions>
               <Button
                 disabled={isSubmitting}
@@ -54,6 +59,7 @@ const CategoryDialog: React.FC<CategoryDialogProps> = ({
               >
                 Cancel
               </Button>
+
               <Button
                 disabled={isSubmitting}
                 variant="contained"

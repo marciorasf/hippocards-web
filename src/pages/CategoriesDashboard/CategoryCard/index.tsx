@@ -81,6 +81,7 @@ const CategoryCard: React.FC<CategoryCardProps> = ({
                     direction="column"
                     justify="center"
                     className={commonClasses.fullHeight}
+                    spacing={2}
                   >
                     <Grid item>
                       flashcardsCount: {category.flashcardsInfo.flashcardsCount}

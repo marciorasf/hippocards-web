@@ -1,11 +1,17 @@
 import React, { useState } from "react"
 import { useParams } from "react-router-dom"
 
-import { Header } from "@components"
+import { Header, PageContentContainer, Spacing } from "@components"
 import useDidMount from "@hooks/useDidMount"
 import { CategoryWithFlashcards } from "@interfaces/category"
 import { Flashcard } from "@interfaces/flashcard"
-import { Grid, Card, CardActionArea, CardContent } from "@material-ui/core"
+import {
+  Grid,
+  Card,
+  CardActionArea,
+  CardContent,
+  Typography,
+} from "@material-ui/core"
 import { Add as AddIcon } from "@material-ui/icons"
 import FlashcardCard from "@pages/Category/FlashcardCard"
 import FlashcardDialog from "@pages/Category/FlashcardDialog"
@@ -15,6 +21,9 @@ import flashcardService, {
   CreateFlashcardInput,
   UpdateFlashcardInput,
 } from "@services/flashcard"
+import useCommonStyles from "@styles/commonStyles"
+
+import useStyles from "./styles"
 
 async function getCategory(categoryId: number) {
   try {
@@ -34,6 +43,9 @@ const Categories: React.FC = () => {
     currentFlashcardOnEdition,
     setCurrentFlashcardOnEdition,
   ] = useState<Flashcard>()
+
+  const classes = useStyles()
+  const commonClasses = useCommonStyles()
 
   const { id: categoryId } = useParams<{ id: string }>()
 
@@ -86,7 +98,7 @@ const Categories: React.FC = () => {
     }
   }
 
-  function handleClickFlashcardCard(_flashcard: Flashcard) {}
+  function handleClickFlashcardCard(_flashcard: Flashcard) { }
 
   useDidMount(() => {
     getAndUpdateCategory()
@@ -99,49 +111,60 @@ const Categories: React.FC = () => {
       </Grid>
 
       <Grid item xs={12}>
-        <Grid container direction="column">
-          <Grid item>
-            <Card>
-              <CardActionArea onClick={() => handleOpenDialog("create")}>
-                <CardContent>
-                  <AddIcon />
-                </CardContent>
-              </CardActionArea>
-            </Card>
+        <PageContentContainer>
+          <Typography variant="h4">{category?.name}</Typography>
+
+          <Spacing orientation="horizontal" size={4} />
+
+          <Grid container spacing={2} alignItems="stretch">
+            <Grid item md={4} sm={6} xs={12}>
+              <Card className={classes.card}>
+                <CardActionArea
+                  className={commonClasses.fullHeight}
+                  onClick={() => handleOpenDialog("create")}
+                >
+                  <CardContent>
+                    <Grid container justify="center" alignItems="center">
+                      <AddIcon fontSize="large" />
+                    </Grid>
+                  </CardContent>
+                </CardActionArea>
+              </Card>
+            </Grid>
+
+            {category?.flashcards?.map((flashcard) => (
+              <Grid key={flashcard.id} item md={4} sm={6} xs={12}>
+                <FlashcardCard
+                  key={flashcard.id}
+                  flashcard={flashcard}
+                  handleClickCard={handleClickFlashcardCard}
+                  handleClickEdit={handleClickEditFlashcard}
+                  handleClickDelete={handleDeleteFlashcard}
+                />
+              </Grid>
+            ))}
           </Grid>
 
-          {category?.flashcards?.map((flashcard) => (
-            <Grid key={flashcard.id} item>
-              <FlashcardCard
-                key={flashcard.id}
-                flashcard={flashcard}
-                handleClickCard={handleClickFlashcardCard}
-                handleClickEdit={handleClickEditFlashcard}
-                handleClickDelete={handleDeleteFlashcard}
-              />
-            </Grid>
-          ))}
-        </Grid>
+          <FlashcardDialog
+            title="Add flashcard"
+            open={openDialog === "create"}
+            onClose={handleCloseDialog}
+            onOk={handleCreateFlashcard}
+            okButtonLabel="add"
+          />
 
-        <FlashcardDialog
-          title="Add flashcard"
-          open={openDialog === "create"}
-          onClose={handleCloseDialog}
-          onOk={handleCreateFlashcard}
-          okButtonLabel="add"
-        />
-
-        <FlashcardDialog
-          title="Edit flashcard"
-          open={openDialog === "edit"}
-          onClose={handleCloseDialog}
-          onOk={handleEditFlashcard}
-          okButtonLabel="save"
-          initialValues={{
-            question: currentFlashcardOnEdition?.question || "",
-            answer: currentFlashcardOnEdition?.answer || "",
-          }}
-        />
+          <FlashcardDialog
+            title="Edit flashcard"
+            open={openDialog === "edit"}
+            onClose={handleCloseDialog}
+            onOk={handleEditFlashcard}
+            okButtonLabel="save"
+            initialValues={{
+              question: currentFlashcardOnEdition?.question || "",
+              answer: currentFlashcardOnEdition?.answer || "",
+            }}
+          />
+        </PageContentContainer>
       </Grid>
     </Grid>
   )

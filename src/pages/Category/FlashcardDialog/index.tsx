@@ -8,6 +8,7 @@ import {
   DialogContent,
   DialogActions,
   Button,
+  Grid,
 } from "@material-ui/core"
 import { CreateFlashcardInput, UpdateFlashcardInput } from "@services/flashcard"
 
@@ -29,7 +30,7 @@ const FlashcardDialog: React.FC<FlashcardDialogProps> = ({
   initialValues,
 }) => {
   return (
-    <Dialog open={open} onClose={onClose}>
+    <Dialog open={open} onClose={onClose} fullWidth>
       <Formik
         initialValues={{
           question: "",
@@ -44,11 +45,19 @@ const FlashcardDialog: React.FC<FlashcardDialogProps> = ({
         {({ isSubmitting }) => (
           <Form>
             <DialogTitle>{title}</DialogTitle>
-            <DialogContent>
-              <InputField name="question" label="Question" required />
 
-              <InputField name="answer" label="Answer" required />
+            <DialogContent>
+              <Grid container spacing={2}>
+                <Grid item xs={12}>
+                  <InputField name="question" label="Question" required />
+                </Grid>
+
+                <Grid item xs={12}>
+                  <InputField name="answer" label="Answer" required />
+                </Grid>
+              </Grid>
             </DialogContent>
+
             <DialogActions>
               <Button
                 disabled={isSubmitting}
@@ -57,6 +66,7 @@ const FlashcardDialog: React.FC<FlashcardDialogProps> = ({
               >
                 Cancel
               </Button>
+
               <Button
                 disabled={isSubmitting}
                 variant="contained"
