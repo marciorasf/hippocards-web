@@ -114,7 +114,7 @@ const CategoryCard: React.FC<CategoryCardProps> = ({
             <EditIcon />
           </ListItemIcon>
 
-          <ListItemText primary="edit" />
+          <ListItemText primary="Edit" />
         </MenuItem>
 
         <MenuItem onClick={() => handleClickDelete(category)}>
@@ -122,7 +122,7 @@ const CategoryCard: React.FC<CategoryCardProps> = ({
             <DeleteIcon />
           </ListItemIcon>
 
-          <ListItemText primary="delete" />
+          <ListItemText primary="Delete" />
         </MenuItem>
       </Menu>
     </Card>
