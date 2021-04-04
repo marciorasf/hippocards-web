@@ -13,12 +13,13 @@ import {
   ListItemText,
   CardActions,
   Typography,
+  Tooltip,
 } from "@material-ui/core"
 import {
   EditOutlined as EditIcon,
   DeleteOutlined as DeleteIcon,
   MoreVert as MoreVertIcon,
-  CheckCircleOutlined as NotKnownIcon,
+  CheckCircleOutlined as UnknownIcon,
   CheckCircle as KnownIcon,
   Bookmark as BookmarkedIcon,
   BookmarkBorder as NotBookmarkedIcon,
@@ -92,25 +93,35 @@ const FlashcardCard: React.FC<FlashcardCardProps> = ({
           <CardActions>
             <Grid container justify="flex-end">
               <Grid item>
-                <IconButton
-                  color={flashcard.isBookmarked ? "primary" : "default"}
-                  onClick={() => handleClickMarkAsBookmarked(flashcard)}
+                <Tooltip
+                  title={flashcard.isBookmarked ? "Unbookmark" : "Bookmark"}
                 >
-                  {flashcard.isBookmarked ? (
-                    <BookmarkedIcon />
-                  ) : (
-                    <NotBookmarkedIcon />
-                  )}
-                </IconButton>
+                  <IconButton
+                    color={flashcard.isBookmarked ? "primary" : "default"}
+                    onClick={() => handleClickMarkAsBookmarked(flashcard)}
+                  >
+                    {flashcard.isBookmarked ? (
+                      <BookmarkedIcon />
+                    ) : (
+                      <NotBookmarkedIcon />
+                    )}
+                  </IconButton>
+                </Tooltip>
               </Grid>
 
               <Grid item>
-                <IconButton
-                  color={flashcard.isKnown ? "primary" : "default"}
-                  onClick={() => handleClickMarkAsKnown(flashcard)}
+                <Tooltip
+                  title={
+                    flashcard.isKnown ? "Mark as unknown" : "Mark as known"
+                  }
                 >
-                  {flashcard.isKnown ? <KnownIcon /> : <NotKnownIcon />}
-                </IconButton>
+                  <IconButton
+                    color={flashcard.isKnown ? "primary" : "default"}
+                    onClick={() => handleClickMarkAsKnown(flashcard)}
+                  >
+                    {flashcard.isKnown ? <KnownIcon /> : <UnknownIcon />}
+                  </IconButton>
+                </Tooltip>
               </Grid>
             </Grid>
           </CardActions>
