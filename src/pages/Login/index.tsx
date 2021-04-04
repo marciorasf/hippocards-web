@@ -23,7 +23,7 @@ const Login: React.FC = () => {
       history.push("/categories")
       return
     } catch (err) {
-      errorService.handle(err.response)
+      errorService.handle(err)
       const { message } = err.response.data
       return message as string
     }

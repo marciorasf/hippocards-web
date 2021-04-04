@@ -23,7 +23,7 @@ const Register: React.FC = () => {
 
       history.push("/categories")
     } catch (err) {
-      errorService.handle(err.response)
+      errorService.handle(err)
     }
   }
 
@@ -34,7 +34,7 @@ const Register: React.FC = () => {
       handleLogin(registerData)
       return
     } catch (err) {
-      errorService.handle(err.response)
+      errorService.handle(err)
       const { message } = err.response.data
       return message as string
     }

@@ -1,4 +1,5 @@
 import { __is_dev_env__ } from "@/config"
+import { Notification } from "@components"
 
 function _handleErrorDevelopment(error: Error, errorMessage: string) {
   if (errorMessage) {
@@ -14,6 +15,10 @@ function _handleErrorProduction(_error: Error, errorMessage: string) {
 
 const errorService = {
   handle(error: Error, errorMessage?: string) {
+    if (error.message === "Network Error") {
+      Notification.error({ message: "Could not connect to server" })
+    }
+
     const errorMessageWithDefault =
       errorMessage === undefined ? "Something bad happened!" : errorMessage
 
