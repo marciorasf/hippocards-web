@@ -1,5 +1,6 @@
 import React, { SyntheticEvent, useState } from "react"
 
+import Spacing from "@components/Spacing"
 import { Flashcard } from "@interfaces/flashcard"
 import {
   Card,
@@ -14,6 +15,8 @@ import {
   CardActions,
   Typography,
   Tooltip,
+  CardActionArea,
+  Collapse,
 } from "@material-ui/core"
 import {
   EditOutlined as EditIcon,
@@ -45,6 +48,7 @@ const FlashcardCard: React.FC<FlashcardCardProps> = ({
   const [menuAnchor, setMenuAnchor] = useState<(EventTarget & Element) | null>(
     null
   )
+  const [showAnswer, setShowAnswer] = useState(false)
 
   const commonClasses = useCommonStyles()
   const classes = useStyles()
@@ -55,6 +59,10 @@ const FlashcardCard: React.FC<FlashcardCardProps> = ({
 
   function handleCloseMenu() {
     setMenuAnchor(null)
+  }
+
+  function toggleShowAnswer() {
+    setShowAnswer(!showAnswer)
   }
 
   return (
@@ -72,21 +80,29 @@ const FlashcardCard: React.FC<FlashcardCardProps> = ({
         </Grid>
 
         <Grid item xs>
-          <CardContent className={commonClasses.fullHeight}>
-            <Grid container spacing={4} direction="column">
-              <Grid item>
-                <Typography>
-                  <b>Question:</b> {flashcard.question}
-                </Typography>
-              </Grid>
+          <CardActionArea
+            onClick={toggleShowAnswer}
+            className={commonClasses.fullHeight}
+          >
+            <CardContent className={commonClasses.fullHeight}>
+              <Grid container direction="column">
+                <Grid item>
+                  <Typography>
+                    <b>Question:</b> {flashcard.question}
+                  </Typography>
+                </Grid>
 
-              <Grid item>
-                <Typography>
-                  <b>Answer:</b> {flashcard.answer}
-                </Typography>
+                <Grid item>
+                  <Collapse in={showAnswer}>
+                    <Spacing orientation="horizontal" size={4} />
+                    <Typography>
+                      <b>Answer:</b> {flashcard.answer}
+                    </Typography>
+                  </Collapse>
+                </Grid>
               </Grid>
-            </Grid>
-          </CardContent>
+            </CardContent>
+          </CardActionArea>
         </Grid>
 
         <Grid item>
