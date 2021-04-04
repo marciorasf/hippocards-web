@@ -89,7 +89,13 @@ const Sidebar: React.FC<SidebarProps> = ({ open, onClose }) => {
         <Collapse in={openCategories} timeout="auto" unmountOnExit>
           <List component="div" disablePadding>
             {categories.map((category) => (
-              <ListItem key={category.id} button className={classes.nested}>
+              <ListItem
+                key={category.id}
+                button
+                className={classes.nested}
+                component={Link}
+                to={`/categories/${category.id}`}
+              >
                 <ListItemText primary={category.name} />
               </ListItem>
             ))}

@@ -1,8 +1,7 @@
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 import { Link, useParams } from "react-router-dom"
 
 import { Header, PageContentContainer, Spacing } from "@components"
-import useDidMount from "@hooks/useDidMount"
 import { CategoryWithFlashcards } from "@interfaces/category"
 import { Flashcard } from "@interfaces/flashcard"
 import {
@@ -46,11 +45,6 @@ const Categories: React.FC = () => {
   const commonClasses = useCommonStyles()
 
   const { id: categoryId } = useParams<{ id: string }>()
-
-  async function getAndUpdateCategory() {
-    const categoryData = await getCategory(+categoryId)
-    setCategory(categoryData)
-  }
 
   function handleOpenDialog(dialog: Dialog) {
     setOpenDialog(dialog)
@@ -108,13 +102,17 @@ const Categories: React.FC = () => {
       flashcards: updatedFlashcards,
     })
   }
+
   async function handleEditFlashcard(flashcardData: CreateFlashcardInput) {
     const flashcardId = currentFlashcardOnEdition?.id
 
     if (flashcardId) {
       try {
-        await flashcardService.update(+flashcardId, flashcardData)
-        await getAndUpdateCategory()
+        const updatedFlashcard = await flashcardService.update(
+          +flashcardId,
+          flashcardData
+        )
+        updateFlashcardOnCategory(updatedFlashcard)
       } catch (err) {
         errorService.handle(err)
       }
@@ -167,9 +165,14 @@ const Categories: React.FC = () => {
     }
   }
 
-  useDidMount(() => {
+  useEffect(() => {
+    async function getAndUpdateCategory() {
+      const categoryData = await getCategory(+categoryId)
+      setCategory(categoryData)
+    }
+
     getAndUpdateCategory()
-  })
+  }, [categoryId])
 
   return (
     <Grid container>
