@@ -52,7 +52,10 @@ const FlashcardDialog: React.FC<FlashcardDialogProps> = ({
                   <InputField
                     name="question"
                     label="Question"
-                    inputProps={{ required: true }}
+                    inputProps={{
+                      required: true,
+                      multiline: true,
+                    }}
                   />
                 </Grid>
 
@@ -60,7 +63,10 @@ const FlashcardDialog: React.FC<FlashcardDialogProps> = ({
                   <InputField
                     name="answer"
                     label="Answer"
-                    inputProps={{ required: true }}
+                    inputProps={{
+                      required: true,
+                      multiline: true,
+                    }}
                   />
                 </Grid>
               </Grid>
