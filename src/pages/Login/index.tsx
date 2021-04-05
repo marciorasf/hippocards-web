@@ -2,7 +2,7 @@ import { Formik, Form } from "formik"
 import React from "react"
 import { useHistory } from "react-router-dom"
 
-import { Header, InputField, PasswordInputField, Spacing } from "@components"
+import { Header, FormikInputField, FormikPasswordInputField, Spacing } from "@components"
 import { Button, Container, Grid, Typography } from "@material-ui/core"
 import authService, { LoginInput } from "@services/auth"
 import errorService from "@services/error"
@@ -65,7 +65,7 @@ const Login: React.FC = () => {
               <Form>
                 <Grid container direction="column" spacing={2}>
                   <Grid item>
-                    <InputField
+                    <FormikInputField
                       name="email"
                       label="Email"
                       inputProps={{
@@ -76,7 +76,7 @@ const Login: React.FC = () => {
                   </Grid>
 
                   <Grid item>
-                    <PasswordInputField
+                    <FormikPasswordInputField
                       name="password"
                       label="Password"
                       inputProps={{

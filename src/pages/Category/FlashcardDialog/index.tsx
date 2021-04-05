@@ -1,7 +1,7 @@
 import { Formik, Form } from "formik"
 import React from "react"
 
-import { InputField } from "@components"
+import { FormikInputField } from "@components"
 import {
   Dialog,
   DialogTitle,
@@ -49,7 +49,7 @@ const FlashcardDialog: React.FC<FlashcardDialogProps> = ({
             <DialogContent>
               <Grid container spacing={2}>
                 <Grid item xs={12}>
-                  <InputField
+                  <FormikInputField
                     name="question"
                     label="Question"
                     inputProps={{
@@ -60,7 +60,7 @@ const FlashcardDialog: React.FC<FlashcardDialogProps> = ({
                 </Grid>
 
                 <Grid item xs={12}>
-                  <InputField
+                  <FormikInputField
                     name="answer"
                     label="Answer"
                     inputProps={{

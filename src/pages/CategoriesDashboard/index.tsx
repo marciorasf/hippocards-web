@@ -1,7 +1,12 @@
 import React, { useState } from "react"
 import { useHistory } from "react-router-dom"
 
-import { Header, PageContentContainer, Spacing } from "@components"
+import {
+  Header,
+  PageContentContainer,
+  SearchInputField,
+  Spacing,
+} from "@components"
 import useDidMount from "@hooks/useDidMount"
 import { Category, CategoryWithFlashcardsInfo } from "@interfaces/category"
 import {
@@ -21,6 +26,7 @@ import categoryService, {
 } from "@services/category"
 import errorService from "@services/error"
 import useCommonStyles from "@styles/commonStyles"
+import { removeAccents } from "@utils/removeAccents"
 
 async function getCategories() {
   try {
@@ -36,6 +42,7 @@ type Dialog = "create" | "edit"
 const CategoriesDashboard: React.FC = () => {
   const [categories, setCategories] = useState<CategoryWithFlashcardsInfo[]>([])
   const [openDialog, setOpenDialog] = useState<Dialog | null>(null)
+  const [searchText, setSearchText] = useState("")
   const [
     currentCategoryOnEdition,
     setCurrentCategoryOnEdition,
@@ -139,6 +146,21 @@ const CategoriesDashboard: React.FC = () => {
     }
   }
 
+  function handleChangeSearchText(value: string) {
+    setSearchText(value)
+  }
+
+  function filterCategories(category: Category) {
+    if (!searchText) {
+      return true
+    }
+
+    const normalizedCategoryName = removeAccents(category.name.toLowerCase())
+    const normalizedSearchText = removeAccents(searchText.toLowerCase())
+
+    return normalizedCategoryName.includes(normalizedSearchText)
+  }
+
   useDidMount(() => {
     getAndUpdateCategories()
   })
@@ -151,7 +173,19 @@ const CategoriesDashboard: React.FC = () => {
 
       <Grid item xs={12}>
         <PageContentContainer>
-          <Typography variant="h4">Categories</Typography>
+          <Grid container justify="space-between" alignItems="center">
+            <Grid item>
+              <Typography variant="h4">Categories</Typography>
+            </Grid>
+
+            <Grid item>
+              <SearchInputField
+                label="Search"
+                value={searchText}
+                onChange={handleChangeSearchText}
+              />
+            </Grid>
+          </Grid>
 
           <Spacing orientation="horizontal" size={4} />
 
@@ -171,7 +205,7 @@ const CategoriesDashboard: React.FC = () => {
               </Card>
             </Grid>
 
-            {categories.map((category) => (
+            {categories.filter(filterCategories).map((category) => (
               <Grid key={category.id} item md={4} sm={6} xs={12}>
                 <CategoryCard
                   key={category.id}

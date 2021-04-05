@@ -1,7 +1,7 @@
 import { Formik, Form } from "formik"
 import React from "react"
 
-import { InputField } from "@components"
+import { FormikInputField } from "@components"
 import {
   Dialog,
   DialogTitle,
@@ -48,7 +48,7 @@ const CategoryDialog: React.FC<CategoryDialogProps> = ({
             <DialogContent>
               <Grid container spacing={2}>
                 <Grid item xs={12}>
-                  <InputField
+                  <FormikInputField
                     name="name"
                     label="Name"
                     inputProps={{
