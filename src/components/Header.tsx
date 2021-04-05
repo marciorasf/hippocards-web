@@ -17,20 +17,9 @@ const useStyles = makeStyles((theme) => ({
   appBar: {
     marginBottom: theme.spacing(4),
   },
-  menuButton: {
-    marginRight: theme.spacing(2),
-  },
-  title: {
-    flexGrow: 1,
-  },
 }))
 
-type HeaderProps = {
-  title?: string
-  rightSideComponent?: React.ReactNode
-}
-
-const Header: React.FC<HeaderProps> = ({ title, rightSideComponent }) => {
+const Header: React.FC = () => {
   const [openSidebar, setOpenSidebar] = useState(false)
   const classes = useStyles()
 
@@ -47,29 +36,20 @@ const Header: React.FC<HeaderProps> = ({ title, rightSideComponent }) => {
       <AppBar position="static" color="secondary" className={classes.appBar}>
         <Toolbar disableGutters>
           <Container maxWidth="md">
-            <Grid container alignItems="center" justify="space-between">
+            <Grid container alignItems="center" spacing={2}>
               <Grid item>
-                <Grid container alignItems="center">
-                  <Grid item>
-                    <IconButton
-                      edge="start"
-                      className={classes.menuButton}
-                      onClick={handleOpenSidebar}
-                      color="inherit"
-                    >
-                      <MenuIcon />
-                    </IconButton>
-                  </Grid>
-
-                  <Grid item>
-                    <Typography variant="h6" className={classes.title}>
-                      {title || "Flashcards"}
-                    </Typography>
-                  </Grid>
-                </Grid>
+                <IconButton
+                  edge="start"
+                  onClick={handleOpenSidebar}
+                  color="inherit"
+                >
+                  <MenuIcon />
+                </IconButton>
               </Grid>
 
-              <Grid item>{rightSideComponent}</Grid>
+              <Grid item>
+                <Typography variant="h6">Flashcards</Typography>
+              </Grid>
             </Grid>
           </Container>
         </Toolbar>
