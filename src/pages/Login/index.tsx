@@ -1,16 +1,35 @@
 import { Formik, Form } from "formik"
 import React from "react"
-import { useHistory } from "react-router-dom"
+import { Link, useHistory } from "react-router-dom"
 
-import { Header, FormikInputField, FormikPasswordInputField, Spacing } from "@components"
-import { Button, Container, Grid, Typography } from "@material-ui/core"
+import {
+  Header,
+  FormikInputField,
+  FormikPasswordInputField,
+  Spacing,
+} from "@components"
+import {
+  Button,
+  Container,
+  Grid,
+  Typography,
+  Link as MuiLink,
+  makeStyles,
+} from "@material-ui/core"
 import authService, { LoginInput } from "@services/auth"
 import errorService from "@services/error"
 import { useUserStore } from "@stores/user"
 
+const useStyles = makeStyles({
+  redirectLink: {
+    alignSelf: "flex-end",
+  },
+})
+
 const Login: React.FC = () => {
   const userStore = useUserStore()
   const history = useHistory()
+  const classes = useStyles()
 
   async function handleLogin(loginData: LoginInput) {
     try {
@@ -83,6 +102,12 @@ const Login: React.FC = () => {
                         required: true,
                       }}
                     />
+                  </Grid>
+
+                  <Grid item className={classes.redirectLink}>
+                    <MuiLink component={Link} to="/register">
+                      Doesn't have an account?
+                    </MuiLink>
                   </Grid>
 
                   <Grid item>
