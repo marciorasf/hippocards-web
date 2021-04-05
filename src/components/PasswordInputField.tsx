@@ -39,7 +39,7 @@ const PasswordInputField: React.FC<PasswordInputFieldProps> = ({
       helperText={error}
       variant="outlined"
       InputProps={{
-        type: "password",
+        type: showPassword ? "text" : "password",
         endAdornment: (
           <InputAdornment position="end">
             <IconButton onClick={handleToggleShowPassword}>
