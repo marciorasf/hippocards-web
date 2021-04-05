@@ -1,18 +1,15 @@
 import React, { useState } from "react"
-import { Link } from "react-router-dom"
 
 import {
   AppBar,
   Toolbar,
   IconButton,
-  Button,
   Typography,
   makeStyles,
+  Grid,
+  Container,
 } from "@material-ui/core"
 import { Menu as MenuIcon } from "@material-ui/icons"
-import authService from "@services/auth"
-import errorService from "@services/error"
-import { useUserStore } from "@stores/user"
 
 import Sidebar from "./Sidebar"
 
@@ -28,10 +25,14 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
-const Header: React.FC = () => {
+type HeaderProps = {
+  title?: string
+  rightSideComponent?: React.ReactNode
+}
+
+const Header: React.FC<HeaderProps> = ({ title, rightSideComponent }) => {
   const [openSidebar, setOpenSidebar] = useState(false)
   const classes = useStyles()
-  const userStore = useUserStore()
 
   function handleOpenSidebar() {
     setOpenSidebar(true)
@@ -41,47 +42,36 @@ const Header: React.FC = () => {
     setOpenSidebar(false)
   }
 
-  async function handleLogout() {
-    try {
-      await authService.logout()
-      window.location.href = "/"
-    } catch (err) {
-      errorService.handle(err)
-    }
-  }
-
   return (
     <>
-      <AppBar position="static" className={classes.appBar}>
-        <Toolbar>
-          <IconButton
-            edge="start"
-            className={classes.menuButton}
-            onClick={handleOpenSidebar}
-            color="inherit"
-          >
-            <MenuIcon />
-          </IconButton>
-          <Typography variant="h6" className={classes.title}>
-            Flashcards
-          </Typography>
+      <AppBar position="static" color="secondary" className={classes.appBar}>
+        <Toolbar disableGutters>
+          <Container maxWidth="md">
+            <Grid container alignItems="center" justify="space-between">
+              <Grid item>
+                <Grid container alignItems="center">
+                  <Grid item>
+                    <IconButton
+                      edge="start"
+                      className={classes.menuButton}
+                      onClick={handleOpenSidebar}
+                      color="inherit"
+                    >
+                      <MenuIcon />
+                    </IconButton>
+                  </Grid>
 
-          {userStore.user.id ? (
-            <>
-              <Button color="inherit" onClick={handleLogout}>
-                Logout
-              </Button>
-            </>
-          ) : (
-            <>
-              <Button component={Link} to="/register" color="inherit">
-                Register
-              </Button>
-              <Button component={Link} to="/login" color="inherit">
-                Login
-              </Button>
-            </>
-          )}
+                  <Grid item>
+                    <Typography variant="h6" className={classes.title}>
+                      {title || "Flashcards"}
+                    </Typography>
+                  </Grid>
+                </Grid>
+              </Grid>
+
+              <Grid item>{rightSideComponent}</Grid>
+            </Grid>
+          </Container>
         </Toolbar>
       </AppBar>
 

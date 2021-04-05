@@ -21,7 +21,11 @@ import {
   TextFieldsOutlined as TypographyIcon,
   PaletteOutlined as PaletteIcon,
   HomeOutlined as HomeIcon,
+  ExitToApp as LogoutIcon,
+  LocalGasStation as LoginIcon,
+  HttpsTwoTone as RegisterIcon,
 } from "@material-ui/icons"
+import authService from "@services/auth"
 import categoryService from "@services/category"
 import errorService from "@services/error"
 
@@ -55,6 +59,15 @@ const Sidebar: React.FC<SidebarProps> = ({ open, onClose }) => {
 
   function handleToggleOpenCategories() {
     setOpenCategories(!openCategories)
+  }
+
+  async function handleLogout() {
+    try {
+      await authService.logout()
+      window.location.href = "/"
+    } catch (err) {
+      errorService.handle(err)
+    }
   }
 
   useDidMount(() => {
@@ -116,6 +129,30 @@ const Sidebar: React.FC<SidebarProps> = ({ open, onClose }) => {
           </ListItemIcon>
 
           <ListItemText primary="Palette" />
+        </ListItem>
+
+        <ListItem button component={Link} to="/login">
+          <ListItemIcon>
+            <LoginIcon />
+          </ListItemIcon>
+
+          <ListItemText primary="Login" />
+        </ListItem>
+
+        <ListItem button component={Link} to="/register">
+          <ListItemIcon>
+            <RegisterIcon />
+          </ListItemIcon>
+
+          <ListItemText primary="Register" />
+        </ListItem>
+
+        <ListItem button onClick={handleLogout}>
+          <ListItemIcon>
+            <LogoutIcon />
+          </ListItemIcon>
+
+          <ListItemText primary="Logout" />
         </ListItem>
       </List>
     </Drawer>
