@@ -1,7 +1,12 @@
 import React, { useEffect, useState } from "react"
 import { Link, useParams } from "react-router-dom"
 
-import { Header, PageContentContainer, Spacing } from "@components"
+import {
+  SearchInputField,
+  Header,
+  PageContentContainer,
+  Spacing,
+} from "@components"
 import { CategoryWithFlashcards } from "@interfaces/category"
 import { Flashcard } from "@interfaces/flashcard"
 import {
@@ -19,6 +24,7 @@ import categoryService from "@services/category"
 import errorService from "@services/error"
 import flashcardService, { CreateFlashcardInput } from "@services/flashcard"
 import useCommonStyles from "@styles/commonStyles"
+import { removeAccents } from "@utils/removeAccents"
 
 import useStyles from "./styles"
 
@@ -36,6 +42,7 @@ type Dialog = "create" | "edit"
 const Categories: React.FC = () => {
   const [category, setCategory] = useState<CategoryWithFlashcards | null>()
   const [openDialog, setOpenDialog] = useState<Dialog | null>(null)
+  const [searchText, setSearchText] = useState("")
   const [
     currentFlashcardOnEdition,
     setCurrentFlashcardOnEdition,
@@ -165,6 +172,27 @@ const Categories: React.FC = () => {
     }
   }
 
+  function handleChangeSearchText(value: string) {
+    setSearchText(value)
+  }
+
+  function filterFlashcards(flashcard: Flashcard) {
+    if (!searchText) {
+      return true
+    }
+
+    const normalizedQuestion = removeAccents(flashcard.question.toLowerCase())
+    const normalizedId = flashcard.id.toString()
+    const normalizedAnswer = removeAccents(flashcard.answer.toLowerCase())
+    const normalizedSearchText = removeAccents(searchText.toLowerCase())
+
+    return (
+      normalizedId.includes(normalizedSearchText) ||
+      normalizedQuestion.includes(normalizedSearchText) ||
+      normalizedAnswer.includes(normalizedSearchText)
+    )
+  }
+
   useEffect(() => {
     async function getAndUpdateCategory() {
       const categoryData = await getCategory(+categoryId)
@@ -182,15 +210,27 @@ const Categories: React.FC = () => {
 
       <Grid item xs={12}>
         <PageContentContainer>
-          <Grid container alignItems="center" spacing={1}>
+          <Grid container justify="space-between" alignItems="center">
             <Grid item>
-              <IconButton component={Link} to="/categories">
-                <ArrowBackIcon />
-              </IconButton>
+              <Grid container alignItems="center" spacing={1}>
+                <Grid item>
+                  <IconButton component={Link} to="/categories">
+                    <ArrowBackIcon />
+                  </IconButton>
+                </Grid>
+
+                <Grid item>
+                  <Typography variant="h4">{category?.name}</Typography>
+                </Grid>
+              </Grid>
             </Grid>
 
             <Grid item>
-              <Typography variant="h4">{category?.name}</Typography>
+              <SearchInputField
+                label="Search"
+                value={searchText}
+                onChange={handleChangeSearchText}
+              />
             </Grid>
           </Grid>
 
@@ -212,20 +252,22 @@ const Categories: React.FC = () => {
               </Card>
             </Grid>
 
-            {category?.flashcards?.map((flashcard) => (
-              <Grid key={flashcard.id} item md={4} sm={6} xs={12}>
-                <FlashcardCard
-                  key={flashcard.id}
-                  flashcard={flashcard}
-                  handleClickEdit={handleClickEditFlashcard}
-                  handleClickDelete={handleDeleteFlashcard}
-                  handleClickMarkAsKnown={handleToggleIsFlashcardKnown}
-                  handleClickMarkAsBookmarked={
-                    handleToggleIsFlashcardBookmarked
-                  }
-                />
-              </Grid>
-            ))}
+            {category?.flashcards
+              ?.filter(filterFlashcards)
+              ?.map((flashcard) => (
+                <Grid key={flashcard.id} item md={4} sm={6} xs={12}>
+                  <FlashcardCard
+                    key={flashcard.id}
+                    flashcard={flashcard}
+                    handleClickEdit={handleClickEditFlashcard}
+                    handleClickDelete={handleDeleteFlashcard}
+                    handleClickMarkAsKnown={handleToggleIsFlashcardKnown}
+                    handleClickMarkAsBookmarked={
+                      handleToggleIsFlashcardBookmarked
+                    }
+                  />
+                </Grid>
+              ))}
           </Grid>
 
           <FlashcardDialog
