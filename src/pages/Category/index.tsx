@@ -16,6 +16,10 @@ import {
   CardContent,
   Typography,
   IconButton,
+  Select,
+  MenuItem,
+  FormControl,
+  InputLabel,
 } from "@material-ui/core"
 import { Add as AddIcon, ArrowBack as ArrowBackIcon } from "@material-ui/icons"
 import FlashcardCard from "@pages/Category/FlashcardCard"
@@ -37,12 +41,30 @@ async function getCategory(categoryId: number) {
   }
 }
 
+type FilterValue = null | boolean
+
+const filterValueMap = {
+  null: null,
+  false: false,
+  true: true,
+}
+
+type Filters = {
+  isKnown: FilterValue
+  isBookmarked: FilterValue
+}
+
 type Dialog = "create" | "edit"
 
 const Categories: React.FC = () => {
   const [category, setCategory] = useState<CategoryWithFlashcards | null>()
   const [openDialog, setOpenDialog] = useState<Dialog | null>(null)
   const [searchText, setSearchText] = useState("")
+  const [filters, setFilters] = useState<Filters>({
+    isKnown: null,
+    isBookmarked: null,
+  })
+
   const [
     currentFlashcardOnEdition,
     setCurrentFlashcardOnEdition,
@@ -177,20 +199,45 @@ const Categories: React.FC = () => {
   }
 
   function filterFlashcards(flashcard: Flashcard) {
-    if (!searchText) {
-      return true
-    }
-
     const normalizedQuestion = removeAccents(flashcard.question.toLowerCase())
     const normalizedId = flashcard.id.toString()
     const normalizedAnswer = removeAccents(flashcard.answer.toLowerCase())
     const normalizedSearchText = removeAccents(searchText.toLowerCase())
 
-    return (
-      normalizedId.includes(normalizedSearchText) ||
-      normalizedQuestion.includes(normalizedSearchText) ||
-      normalizedAnswer.includes(normalizedSearchText)
-    )
+    // Remove flashcards that not match search text
+    if (
+      !(
+        normalizedId.includes(normalizedSearchText) ||
+        normalizedQuestion.includes(normalizedSearchText) ||
+        normalizedAnswer.includes(normalizedSearchText)
+      )
+    ) {
+      return false
+    }
+
+    if (filters.isKnown !== null) {
+      if (flashcard.isKnown !== filters.isKnown) {
+        return false
+      }
+    }
+
+    if (filters.isBookmarked !== null) {
+      if (flashcard.isBookmarked !== filters.isBookmarked) {
+        return false
+      }
+    }
+
+    return true
+  }
+
+  function handleChangeFilterValue(
+    filterKey: keyof Filters,
+    value: FilterValue
+  ) {
+    setFilters({
+      ...filters,
+      [filterKey]: value,
+    })
   }
 
   useEffect(() => {
@@ -210,7 +257,12 @@ const Categories: React.FC = () => {
 
       <Grid item xs={12}>
         <PageContentContainer>
-          <Grid container justify="space-between" alignItems="center">
+          <Grid
+            container
+            justify="space-between"
+            alignItems="center"
+            spacing={2}
+          >
             <Grid item>
               <Grid container alignItems="center" spacing={1}>
                 <Grid item>
@@ -231,6 +283,50 @@ const Categories: React.FC = () => {
                 value={searchText}
                 onChange={handleChangeSearchText}
               />
+            </Grid>
+
+            <Grid item xs={6}>
+              <FormControl fullWidth>
+                <InputLabel>isBookmarked</InputLabel>
+
+                <Select
+                  value={filters.isBookmarked}
+                  onChange={({ target }) =>
+                    handleChangeFilterValue(
+                      "isBookmarked",
+                      filterValueMap[
+                        target.value as "false" | "true" | "null"
+                      ] as FilterValue
+                    )
+                  }
+                >
+                  <MenuItem value="null">All</MenuItem>
+                  <MenuItem value="true">Yes</MenuItem>
+                  <MenuItem value="false">No</MenuItem>
+                </Select>
+              </FormControl>
+            </Grid>
+
+            <Grid item xs={6}>
+              <FormControl fullWidth>
+                <InputLabel>isKnown</InputLabel>
+
+                <Select
+                  value={filters.isKnown}
+                  onChange={({ target }) =>
+                    handleChangeFilterValue(
+                      "isKnown",
+                      filterValueMap[
+                        target.value as "false" | "true" | "null"
+                      ] as FilterValue
+                    )
+                  }
+                >
+                  <MenuItem value="null">All</MenuItem>
+                  <MenuItem value="true">Yes</MenuItem>
+                  <MenuItem value="false">No</MenuItem>
+                </Select>
+              </FormControl>
             </Grid>
           </Grid>
 
