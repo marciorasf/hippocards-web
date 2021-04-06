@@ -20,6 +20,7 @@ import {
   MenuItem,
   FormControl,
   InputLabel,
+  Button,
 } from "@material-ui/core"
 import { Add as AddIcon, ArrowBack as ArrowBackIcon } from "@material-ui/icons"
 import FlashcardCard from "@pages/Category/FlashcardCard"
@@ -30,6 +31,7 @@ import flashcardService, { CreateFlashcardInput } from "@services/flashcard"
 import useCommonStyles from "@styles/commonStyles"
 import { removeAccents } from "@utils/removeAccents"
 
+import StudyMode from "./StudyMode"
 import useStyles from "./styles"
 
 async function getCategory(categoryId: number) {
@@ -60,6 +62,7 @@ const Categories: React.FC = () => {
   const [category, setCategory] = useState<CategoryWithFlashcards | null>()
   const [openDialog, setOpenDialog] = useState<Dialog | null>(null)
   const [searchText, setSearchText] = useState("")
+  const [studyMode, setStudyMode] = useState(true)
   const [filters, setFilters] = useState<Filters>({
     isKnown: null,
     isBookmarked: null,
@@ -240,6 +243,14 @@ const Categories: React.FC = () => {
     })
   }
 
+  function handleStartStudyMode() {
+    setStudyMode(true)
+  }
+
+  function handleStopStudyMode() {
+    setStudyMode(false)
+  }
+
   useEffect(() => {
     async function getAndUpdateCategory() {
       const categoryData = await getCategory(+categoryId)
@@ -327,6 +338,25 @@ const Categories: React.FC = () => {
                   <MenuItem value="false">No</MenuItem>
                 </Select>
               </FormControl>
+            </Grid>
+
+            <Grid item xs={2}>
+              <Button
+                variant="contained"
+                color="primary"
+                onClick={handleStartStudyMode}
+                disabled={!category}
+              >
+                Study
+              </Button>
+
+              {category && (
+                <StudyMode
+                  active={studyMode}
+                  category={category}
+                  onClose={handleStopStudyMode}
+                />
+              )}
             </Grid>
           </Grid>
 
