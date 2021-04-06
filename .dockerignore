@@ -1,8 +1,0 @@
-node_modules
-.dockerignore
-.editorconfig
-node_modules
-*Dockerfile*
-*docker-compose*
-.vscode
-dist
