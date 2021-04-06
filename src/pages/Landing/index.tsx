@@ -22,13 +22,14 @@ const todoItems: TodoItem[] = [
   { label: "See flashcard answer on card click", done: true },
   { label: "Mark flashcard as known", done: true },
   { label: "Mark flashcard as bookmarked", done: true },
-  { label: "Add filter on CategoryPage", done: false },
+  { label: "Add filter on CategoryPage", done: true },
   {
-    label: "Add FAB on CategoryPage when createFlashcard card is not visible",
+    label: "Make filters/header/menu design",
     done: false,
   },
-  { label: "Redesign app", done: false },
   { label: "Create Study Mode", done: false },
+  { label: "Redesign full app", done: false },
+  { label: "Deploy", done: false },
 ]
 
 const Landing: React.FC = () => {
