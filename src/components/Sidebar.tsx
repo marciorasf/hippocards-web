@@ -45,7 +45,7 @@ type SidebarProps = {
 
 const Sidebar: React.FC<SidebarProps> = ({ open, onClose }) => {
   const [categories, setCategories] = useState<Category[]>([])
-  const [openCategories, setOpenCategories] = useState(true)
+  const [openCategories, setOpenCategories] = useState(false)
   const classes = useStyles()
 
   async function getAndUpdateCategories() {
@@ -77,7 +77,7 @@ const Sidebar: React.FC<SidebarProps> = ({ open, onClose }) => {
   return (
     <Drawer open={open} onClose={onClose}>
       <List className={classes.list}>
-        <ListItem component={Link} to="/" button>
+        <ListItem component={Link} to="/" button onClick={onClose}>
           <ListItemIcon>
             <HomeIcon />
           </ListItemIcon>
@@ -85,7 +85,7 @@ const Sidebar: React.FC<SidebarProps> = ({ open, onClose }) => {
           <ListItemText primary="Home" />
         </ListItem>
 
-        <ListItem component={Link} to="/categories" button>
+        <ListItem component={Link} to="/categories" button onClick={onClose}>
           <ListItemIcon>
             <CategoryIcon />
           </ListItemIcon>
@@ -108,6 +108,7 @@ const Sidebar: React.FC<SidebarProps> = ({ open, onClose }) => {
                 className={classes.nested}
                 component={Link}
                 to={`/categories/${category.id}`}
+                onClick={onClose}
               >
                 <ListItemText primary={category.name} />
               </ListItem>
@@ -115,7 +116,12 @@ const Sidebar: React.FC<SidebarProps> = ({ open, onClose }) => {
           </List>
         </Collapse>
 
-        <ListItem component={Link} to="/dev/typography" button>
+        <ListItem
+          component={Link}
+          to="/dev/typography"
+          button
+          onClick={onClose}
+        >
           <ListItemIcon>
             <TypographyIcon />
           </ListItemIcon>
@@ -123,7 +129,7 @@ const Sidebar: React.FC<SidebarProps> = ({ open, onClose }) => {
           <ListItemText primary="Typography" />
         </ListItem>
 
-        <ListItem component={Link} to="/dev/palette" button>
+        <ListItem component={Link} to="/dev/palette" button onClick={onClose}>
           <ListItemIcon>
             <PaletteIcon />
           </ListItemIcon>
@@ -131,7 +137,7 @@ const Sidebar: React.FC<SidebarProps> = ({ open, onClose }) => {
           <ListItemText primary="Palette" />
         </ListItem>
 
-        <ListItem button component={Link} to="/login">
+        <ListItem button component={Link} to="/login" onClick={onClose}>
           <ListItemIcon>
             <LoginIcon />
           </ListItemIcon>
@@ -139,7 +145,7 @@ const Sidebar: React.FC<SidebarProps> = ({ open, onClose }) => {
           <ListItemText primary="Login" />
         </ListItem>
 
-        <ListItem button component={Link} to="/register">
+        <ListItem button component={Link} to="/register" onClick={onClose}>
           <ListItemIcon>
             <RegisterIcon />
           </ListItemIcon>
