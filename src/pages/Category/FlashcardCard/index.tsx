@@ -1,4 +1,4 @@
-import React, { SyntheticEvent, useState } from "react"
+import React, { SyntheticEvent, useEffect, useState } from "react"
 
 import Spacing from "@components/Spacing"
 import { Flashcard } from "@interfaces/flashcard"
@@ -64,6 +64,10 @@ const FlashcardCard: React.FC<FlashcardCardProps> = ({
   function toggleShowAnswer() {
     setShowAnswer(!showAnswer)
   }
+
+  useEffect(() => {
+    setShowAnswer(false)
+  }, [flashcard])
 
   return (
     <Card className={classes.card}>

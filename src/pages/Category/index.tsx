@@ -62,7 +62,7 @@ const Categories: React.FC = () => {
   const [category, setCategory] = useState<CategoryWithFlashcards | null>()
   const [openDialog, setOpenDialog] = useState<Dialog | null>(null)
   const [searchText, setSearchText] = useState("")
-  const [studyMode, setStudyMode] = useState(true)
+  const [studyMode, setStudyMode] = useState(false)
   const [filters, setFilters] = useState<Filters>({
     isKnown: null,
     isBookmarked: null,

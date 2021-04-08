@@ -39,7 +39,7 @@ const StudyMode: React.FC<StudyModeProps> = ({ category, active, onClose }) => {
 
   return (
     <Modal open={active} onClose={onClose} className={classes.modal}>
-      <Container maxWidth="sm">
+      <Container maxWidth="xs">
         <Grid container direction="column" alignItems="center" spacing={2}>
           <Grid item>
             <FlashcardCard
