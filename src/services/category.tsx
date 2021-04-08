@@ -3,7 +3,7 @@ import {
   CategoryWithFlashcardsInfo,
   CategoryWithFlashcards,
 } from "@interfaces/category"
-import apiService from "@services/api"
+import createApiService from "@services/api"
 
 export type CreateCategoryInput = {
   name: string
@@ -27,6 +27,7 @@ type UpdateCategoryResponse = CreateCategoryResponse
 
 const categoryService = {
   async create(inputData: CreateCategoryInput) {
+    const apiService = createApiService()
     const response = await apiService.post("/categories", inputData)
     const data = response.data as CreateCategoryResponse
     const categoryWithFlashcardInfo: CategoryWithFlashcardsInfo = {
@@ -41,18 +42,21 @@ const categoryService = {
   },
 
   async retrieveAll() {
+    const apiService = createApiService()
     const response = await apiService.get("/categories")
     const data = response.data as RetrieveAllCategoriesResponse
     return data.categories
   },
 
   async retrieveOne(categoryId: number) {
+    const apiService = createApiService()
     const response = await apiService.get(`/categories/${categoryId}`)
     const data = response.data as RetrieveOneCategoryResponse
     return data.category
   },
 
   async update(categoryId: number, inputData: UpdateCategoryInput) {
+    const apiService = createApiService()
     const response = await apiService.put(
       `/categories/${categoryId}`,
       inputData
@@ -62,6 +66,7 @@ const categoryService = {
   },
 
   async delete(categoryId: number) {
+    const apiService = createApiService()
     await apiService.delete(`/categories/${categoryId}`)
   },
 }
