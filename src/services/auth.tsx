@@ -2,7 +2,7 @@ import Cookies from "js-cookie"
 
 import { __auth_token_cookie__ } from "@/config"
 import { User } from "@interfaces/user"
-import createApiService from "@services/api"
+import apiService from "@services/api"
 
 export type LoginInput = {
   email: string
@@ -18,7 +18,6 @@ type OkResponse = LoginResponse
 
 const authService = {
   async login(inputData: LoginInput) {
-    const apiService = createApiService()
     const response = await apiService.post("/login", inputData)
     const data = response.data as LoginResponse
 
@@ -32,7 +31,6 @@ const authService = {
   },
 
   async ok() {
-    const apiService = createApiService()
     const response = await apiService.get("/ok")
     const data = response.data as OkResponse
     return data.user
