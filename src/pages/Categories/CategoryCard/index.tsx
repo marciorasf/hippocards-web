@@ -21,7 +21,7 @@ import {
   DeleteOutlined as DeleteIcon,
   MoreVert as MoreVertIcon,
 } from "@material-ui/icons"
-import useStyles from "@pages/CategoriesDashboard/CategoryCard/styles"
+import useStyles from "@pages/Categories/CategoryCard/styles"
 import useCommonStyles from "@styles/commonStyles"
 
 type CategoryCardProps = {

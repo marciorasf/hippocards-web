@@ -17,9 +17,9 @@ import {
   CardActionArea,
 } from "@material-ui/core"
 import { Add as AddIcon } from "@material-ui/icons"
-import CategoryCard from "@pages/CategoriesDashboard/CategoryCard"
-import CategoryDialog from "@pages/CategoriesDashboard/CategoryDialog"
-import useStyles from "@pages/CategoriesDashboard/styles"
+import CategoryCard from "@pages/Categories/CategoryCard"
+import CategoryDialog from "@pages/Categories/CategoryDialog"
+import useStyles from "@pages/Categories/styles"
 import categoryService, {
   CreateCategoryInput,
   UpdateCategoryInput,

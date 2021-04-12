@@ -1,7 +1,7 @@
 import React from "react"
 import { Route } from "react-router-dom"
 
-import CategoriesDashboard from "@pages/CategoriesDashboard"
+import CategoriesDashboard from "@pages/Categories"
 import Category from "@pages/Category"
 import Landing from "@pages/Landing"
 
