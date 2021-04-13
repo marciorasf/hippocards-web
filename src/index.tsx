@@ -9,8 +9,8 @@ import theme from "@styles/theme"
 
 ReactDOM.render(
   <React.StrictMode>
-    <CssBaseline />
     <ThemeProvider theme={theme}>
+      <CssBaseline />
       <BrowserRouter>
         <UserStoreProvider>
           <App />
