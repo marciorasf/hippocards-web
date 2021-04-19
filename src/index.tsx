@@ -6,6 +6,7 @@ import App from "@/App"
 import { CssBaseline, ThemeProvider } from "@material-ui/core"
 import UserStoreProvider from "@stores/user"
 import theme from "@styles/theme"
+import "@styles/global.css"
 
 ReactDOM.render(
   <React.StrictMode>
