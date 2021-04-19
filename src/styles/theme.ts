@@ -21,29 +21,49 @@ const theme = createMuiTheme({
     fontFamily: '"Nunito", "Helvetica", "Arial", sans-serif',
     h1: {
       fontFamily: '"Montserrat", sans-serif',
+      fontWeight: 500,
     },
     h2: {
       fontFamily: '"Montserrat", sans-serif',
+      fontWeight: 500,
     },
     h3: {
       fontFamily: '"Montserrat", sans-serif',
+      fontWeight: 600,
     },
     h4: {
       fontFamily: '"Montserrat", sans-serif',
+      fontWeight: 600,
     },
     h5: {
       fontFamily: '"Montserrat", sans-serif',
+      fontWeight: 600,
     },
     h6: {
       fontFamily: '"Montserrat", sans-serif',
+      fontWeight: 700,
     },
-    subtitle1: {},
-    subtitle2: {},
-    body1: {},
-    body2: {},
-    button: {},
-    caption: {},
-    overline: {},
+    subtitle1: {
+      fontWeight: 400,
+    },
+    subtitle2: {
+      fontWeight: 400,
+    },
+    body1: {
+      fontWeight: 400,
+    },
+    body2: {
+      fontWeight: 400,
+    },
+    button: {
+      fontWeight: 600,
+    },
+    caption: {
+      fontWeight: 700,
+    },
+    overline: {
+      fontWeight: 600,
+    },
   },
 })
 
