@@ -27,7 +27,7 @@ const useStyles = makeStyles({
   },
 })
 
-const Register: React.FC = () => {
+const SignUp: React.FC = () => {
   const userStore = useUserStore()
   const history = useHistory()
   const classes = useStyles()
@@ -46,11 +46,11 @@ const Register: React.FC = () => {
     }
   }
 
-  async function handleRegister(registerData: CreateUserInput) {
+  async function handleSignUp(signUpData: CreateUserInput) {
     try {
-      await userService.create(registerData)
+      await userService.create(signUpData)
 
-      handleLogin(registerData)
+      handleLogin(signUpData)
       return
     } catch (err) {
       errorService.handle(err)
@@ -69,14 +69,14 @@ const Register: React.FC = () => {
         <Container maxWidth="xs">
           <Spacing orientation="horizontal" size={6} />
 
-          <Typography variant="h4">Register</Typography>
+          <Typography variant="h4">Sign Up</Typography>
 
           <Spacing orientation="horizontal" size={4} />
 
           <Formik
             initialValues={{ email: "", password: "" }}
             onSubmit={async (values, { setErrors }) => {
-              const message = await handleRegister(values)
+              const message = await handleSignUp(values)
 
               if (message === "email_in_use") {
                 return setErrors({
@@ -123,7 +123,7 @@ const Register: React.FC = () => {
                       type="submit"
                       disabled={isSubmitting}
                     >
-                      register
+                      sign up
                     </Button>
                   </Grid>
                 </Grid>
@@ -136,4 +136,4 @@ const Register: React.FC = () => {
   )
 }
 
-export default Register
+export default SignUp

@@ -23,7 +23,7 @@ import {
   HomeOutlined as HomeIcon,
   ExitToApp as LogoutIcon,
   LocalGasStation as LoginIcon,
-  HttpsTwoTone as RegisterIcon,
+  HttpsTwoTone as SignUpIcon,
 } from "@material-ui/icons"
 import authService from "@services/auth"
 import categoryService from "@services/category"
@@ -145,12 +145,12 @@ const Sidebar: React.FC<SidebarProps> = ({ open, onClose }) => {
           <ListItemText primary="Login" />
         </ListItem>
 
-        <ListItem button component={Link} to="/register" onClick={onClose}>
+        <ListItem button component={Link} to="/signup" onClick={onClose}>
           <ListItemIcon>
-            <RegisterIcon />
+            <SignUpIcon />
           </ListItemIcon>
 
-          <ListItemText primary="Register" />
+          <ListItemText primary="Sign Up" />
         </ListItem>
 
         <ListItem button onClick={handleLogout}>

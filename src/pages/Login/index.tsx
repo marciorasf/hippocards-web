@@ -105,7 +105,7 @@ const Login: React.FC = () => {
                   </Grid>
 
                   <Grid item className={classes.redirectLink}>
-                    <MuiLink component={Link} to="/register">
+                    <MuiLink component={Link} to="/signup">
                       Doesn't have an account?
                     </MuiLink>
                   </Grid>
