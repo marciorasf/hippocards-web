@@ -33,19 +33,19 @@ type MakeStylesProps = {
 }
 const useStyles = makeStyles<Theme, MakeStylesProps>((theme) => ({
   appBar: {
-    marginBottom: (props) =>
-      props.hasFab ? theme.spacing(6) : theme.spacing(4),
+    marginBottom: ({ hasFab }) =>
+      hasFab ? theme.spacing(6) : theme.spacing(4),
     backgroundColor: theme.palette.header.main,
   },
-  toolbar: {
-    position: "relative",
+  container: {
     padding: theme.spacing(1, 0),
+    position: "relative",
   },
   fab: {
     position: "absolute",
     top: "100%",
     transform: "translateY(-50%)",
-    marginLeft: theme.spacing(2),
+    right: 16,
   },
 }))
 
@@ -90,8 +90,8 @@ const Header: React.FC<HeaderProps> = ({
   return (
     <>
       <AppBar position="static" className={classes.appBar}>
-        <Toolbar disableGutters className={classes.toolbar}>
-          <Container maxWidth="md" disableGutters>
+        <Toolbar disableGutters>
+          <Container maxWidth="md" disableGutters className={classes.container}>
             <Grid
               container
               justify="space-between"
@@ -150,8 +150,15 @@ const Header: React.FC<HeaderProps> = ({
               <>
                 <Spacing orientation="horizontal" size={3} />
 
-                <Fab color="secondary" className={classes.fab} onClick={fabFn}>
+                <Fab
+                  variant="extended"
+                  color="secondary"
+                  className={classes.fab}
+                  onClick={fabFn}
+                >
                   <AddIcon />
+                  <Spacing orientation="vertical" size={1} />
+                  Add
                 </Fab>
               </>
             )}

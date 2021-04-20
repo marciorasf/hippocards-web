@@ -1,29 +1,21 @@
 import React, { useState } from "react"
 import { useHistory } from "react-router-dom"
 
-import {
-  Header,
-  PageContentContainer,
-  SearchInputField,
-  Spacing,
-} from "@components"
+import { Header, PageContentContainer } from "@components"
 import useDidMount from "@hooks/useDidMount"
 import { Category, CategoryWithFlashcardsInfo } from "@interfaces/category"
-import { Grid, Typography, ButtonBase, Collapse } from "@material-ui/core"
-import {
-  FilterList as FilterIcon,
-  ExpandMore as ExpandMoreIcon,
-  ExpandLess as ExpandLessIcon,
-} from "@material-ui/icons"
+import { Grid, useMediaQuery, useTheme } from "@material-ui/core"
 import CategoryCard from "@pages/Categories/CategoryCard"
 import CategoryDialog from "@pages/Categories/CategoryDialog"
-import useStyles from "@pages/Categories/styles"
 import categoryService, {
   CreateCategoryInput,
   UpdateCategoryInput,
 } from "@services/category"
 import errorService from "@services/error"
 import { removeAccents } from "@utils/removeAccents"
+
+import DesktopFilters from "./DesktopFilters"
+import MobileFilters from "./MobileFilters"
 
 async function getCategories() {
   try {
@@ -39,16 +31,16 @@ type Dialog = "create" | "edit"
 const Categories: React.FC = () => {
   const [categories, setCategories] = useState<CategoryWithFlashcardsInfo[]>([])
   const [openDialog, setOpenDialog] = useState<Dialog | null>(null)
-  const [expandFilters, setExpandFilters] = useState(false)
   const [searchText, setSearchText] = useState("")
   const [
     currentCategoryOnEdition,
     setCurrentCategoryOnEdition,
   ] = useState<Category>()
 
-  const history = useHistory()
+  const theme = useTheme()
+  const isSmall = useMediaQuery(theme.breakpoints.down("sm"))
 
-  const classes = useStyles()
+  const history = useHistory()
 
   async function getAndUpdateCategories() {
     const categoriesData = await getCategories()
@@ -65,10 +57,6 @@ const Categories: React.FC = () => {
 
   function handleCloseDialog() {
     setOpenDialog(null)
-  }
-
-  function handleToggleExpandFilters() {
-    setExpandFilters(!expandFilters)
   }
 
   function insertCategoryOnCategories(
@@ -147,10 +135,6 @@ const Categories: React.FC = () => {
     }
   }
 
-  function handleChangeSearchText(value: string) {
-    setSearchText(value)
-  }
-
   function filterCategories(category: Category) {
     if (!searchText) {
       return true
@@ -170,45 +154,17 @@ const Categories: React.FC = () => {
     <Grid container>
       <Grid item xs={12}>
         <Header title="Categories" fabFn={() => handleOpenDialog("create")}>
-          <ButtonBase
-            onClick={handleToggleExpandFilters}
-            className={classes.filtersButton}
-          >
-            <Grid
-              container
-              alignItems="center"
-              justify="space-between"
-              spacing={2}
-            >
-              <Grid item>
-                <FilterIcon />
-              </Grid>
-
-              <Grid item xs>
-                <Typography variant="body1" align="left">
-                  Filter categories
-                </Typography>
-              </Grid>
-
-              <Grid item>
-                {expandFilters ? <ExpandLessIcon /> : <ExpandMoreIcon />}
-              </Grid>
-            </Grid>
-          </ButtonBase>
-
-          <Collapse in={expandFilters}>
-            <Spacing orientation="horizontal" size={1} />
-
-            <Grid container spacing={2}>
-              <Grid item xs={12}>
-                <SearchInputField
-                  label="Search"
-                  value={searchText}
-                  onChange={handleChangeSearchText}
-                />
-              </Grid>
-            </Grid>
-          </Collapse>
+          {isSmall ? (
+            <MobileFilters
+              searchText={searchText}
+              setSearchText={setSearchText}
+            />
+          ) : (
+            <DesktopFilters
+              searchText={searchText}
+              setSearchText={setSearchText}
+            />
+          )}
         </Header>
       </Grid>
 

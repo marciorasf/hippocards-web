@@ -1,37 +1,20 @@
 import React, { useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
 
-import {
-  SearchInputField,
-  Header,
-  PageContentContainer,
-  Spacing,
-} from "@components"
+import { Header, PageContentContainer } from "@components"
 import { CategoryWithFlashcards } from "@interfaces/category"
 import { Flashcard } from "@interfaces/flashcard"
-import {
-  Grid,
-  Typography,
-  Select,
-  MenuItem,
-  FormControl,
-  InputLabel,
-  ButtonBase,
-  Collapse,
-} from "@material-ui/core"
-import {
-  FilterList as FilterIcon,
-  ExpandMore as ExpandMoreIcon,
-  ExpandLess as ExpandLessIcon,
-} from "@material-ui/icons"
+import { Grid, useTheme, useMediaQuery } from "@material-ui/core"
 import FlashcardCard from "@pages/Category/FlashcardCard"
 import FlashcardDialog from "@pages/Category/FlashcardDialog"
-import useStyles from "@pages/Category/styles"
 import categoryService from "@services/category"
 import errorService from "@services/error"
 import flashcardService, { CreateFlashcardInput } from "@services/flashcard"
 import { removeAccents } from "@utils/removeAccents"
 import stringToBoolean from "@utils/stringToBoolean"
+
+import DesktopFilters from "./DesktopFilters"
+import MobileFilters from "./MobileFilters"
 
 async function getCategory(categoryId: number) {
   try {
@@ -42,9 +25,9 @@ async function getCategory(categoryId: number) {
   }
 }
 
-type FilterValue = "both" | "false" | "true"
+export type FilterValue = "both" | "false" | "true"
 
-type Filters = {
+export type Filters = {
   isKnown: FilterValue
   isBookmarked: FilterValue
 }
@@ -53,7 +36,6 @@ type Dialog = "create" | "edit"
 
 const Categories: React.FC = () => {
   const [category, setCategory] = useState<CategoryWithFlashcards | null>()
-  const [expandFilters, setExpandFilters] = useState(false)
   const [openDialog, setOpenDialog] = useState<Dialog | null>(null)
   const [searchText, setSearchText] = useState("")
   const [filters, setFilters] = useState<Filters>({
@@ -65,7 +47,8 @@ const Categories: React.FC = () => {
     setCurrentFlashcardOnEdition,
   ] = useState<Flashcard>()
 
-  const classes = useStyles()
+  const theme = useTheme()
+  const isSmall = useMediaQuery(theme.breakpoints.down("sm"))
 
   const { id: categoryId } = useParams<{ id: string }>()
 
@@ -75,10 +58,6 @@ const Categories: React.FC = () => {
 
   function handleCloseDialog() {
     setOpenDialog(null)
-  }
-
-  function handleToggleExpandFilters() {
-    setExpandFilters(!expandFilters)
   }
 
   function insertFlashcardOnCategory(createdFlashcard: Flashcard) {
@@ -192,10 +171,6 @@ const Categories: React.FC = () => {
     }
   }
 
-  function handleChangeSearchText(value: string) {
-    setSearchText(value)
-  }
-
   function filterFlashcards(flashcard: Flashcard) {
     const normalizedQuestion = removeAccents(flashcard.question.toLowerCase())
     const normalizedId = flashcard.id.toString()
@@ -228,16 +203,6 @@ const Categories: React.FC = () => {
     return true
   }
 
-  function handleChangeFilterValue(
-    filterKey: keyof Filters,
-    value: FilterValue
-  ) {
-    setFilters({
-      ...filters,
-      [filterKey]: value,
-    })
-  }
-
   useEffect(() => {
     async function getAndUpdateCategory() {
       const categoryData = await getCategory(+categoryId)
@@ -255,87 +220,21 @@ const Categories: React.FC = () => {
           goBackTo="/categories"
           fabFn={() => handleOpenDialog("create")}
         >
-          <ButtonBase
-            onClick={handleToggleExpandFilters}
-            className={classes.filtersButton}
-          >
-            <Grid
-              container
-              alignItems="center"
-              justify="space-between"
-              spacing={2}
-            >
-              <Grid item>
-                <FilterIcon />
-              </Grid>
-
-              <Grid item xs>
-                <Typography variant="body1" align="left">
-                  Filter flashcards
-                </Typography>
-              </Grid>
-
-              <Grid item>
-                {expandFilters ? <ExpandLessIcon /> : <ExpandMoreIcon />}
-              </Grid>
-            </Grid>
-          </ButtonBase>
-
-          <Collapse in={expandFilters}>
-            <Spacing orientation="horizontal" size={1} />
-
-            <Grid container spacing={2}>
-              <Grid item xs={12}>
-                <SearchInputField
-                  label="Search"
-                  value={searchText}
-                  onChange={handleChangeSearchText}
-                />
-              </Grid>
-
-              <Grid item xs={6}>
-                <FormControl fullWidth variant="outlined">
-                  <InputLabel>Bookmarked</InputLabel>
-
-                  <Select
-                    value={filters.isBookmarked}
-                    label="Bookmarked"
-                    onChange={({ target }) =>
-                      handleChangeFilterValue(
-                        "isBookmarked",
-                        target.value as FilterValue
-                      )
-                    }
-                  >
-                    <MenuItem value="both">Both</MenuItem>
-                    <MenuItem value="true">Yes</MenuItem>
-                    <MenuItem value="false">No</MenuItem>
-                  </Select>
-                </FormControl>
-              </Grid>
-
-              <Grid item xs={6}>
-                <FormControl fullWidth variant="outlined">
-                  <InputLabel>Learned</InputLabel>
-
-                  <Select
-                    value={filters.isKnown}
-                    label="Learned"
-                    onChange={({ target }) =>
-                      handleChangeFilterValue(
-                        "isKnown",
-                        target.value as FilterValue
-                      )
-                    }
-                  >
-                    <MenuItem value="both">Both</MenuItem>
-                    <MenuItem value="true">Yes</MenuItem>
-                    <MenuItem value="false">No</MenuItem>
-                  </Select>
-                </FormControl>
-              </Grid>
-            </Grid>
-          </Collapse>
+          {isSmall ? (
+            <MobileFilters
+              searchText={searchText}
+              setSearchText={setSearchText}
+              filters={filters}
+              setFilters={setFilters}
+            />
+          ) : (
+            <DesktopFilters
+              searchText={searchText}
+              setSearchText={setSearchText}
+              filters={filters}
+              setFilters={setFilters}
+            />
+          )}
         </Header>
       </Grid>
 

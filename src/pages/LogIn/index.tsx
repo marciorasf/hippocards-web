@@ -111,7 +111,7 @@ const LogIn: React.FC = () => {
                 </Button>
               </Grid>
 
-              <Spacing orientation="horizontal" size={1} />
+              <Spacing orientation="horizontal" size={1.5} />
 
               <Grid item className={classes.redirectLink}>
                 <Typography variant="body2">
