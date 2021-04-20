@@ -120,15 +120,19 @@ const Header: React.FC<HeaderProps> = ({
                 <Spacing orientation="horizontal" size={2} />
 
                 <Container>{children}</Container>
+
+                <Spacing orientation="horizontal" size={2} />
               </>
             )}
 
-            <Spacing orientation="horizontal" size={fabFn ? 5 : 3} />
-
             {fabFn && (
-              <Fab color="secondary" className={classes.fab} onClick={fabFn}>
-                <AddIcon />
-              </Fab>
+              <>
+                <Spacing orientation="horizontal" size={3} />
+
+                <Fab color="secondary" className={classes.fab} onClick={fabFn}>
+                  <AddIcon />
+                </Fab>
+              </>
             )}
           </Container>
         </Toolbar>
