@@ -108,7 +108,7 @@ const SignUp: React.FC = () => {
                 />
               </Grid>
 
-              <Spacing orientation="horizontal" size={8} />
+              <Spacing orientation="horizontal" size={6} />
 
               <Grid item>
                 <Button
@@ -117,7 +117,6 @@ const SignUp: React.FC = () => {
                   fullWidth
                   type="submit"
                   disabled={isSubmitting}
-                  size="large"
                 >
                   sign up
                 </Button>

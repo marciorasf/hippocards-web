@@ -51,7 +51,7 @@ const Login: React.FC = () => {
     <Container maxWidth="xs">
       <Spacing orientation="horizontal" size={10} />
 
-      <Typography variant="h3">Log in</Typography>
+      <Typography variant="h3">Log In</Typography>
 
       <Spacing orientation="horizontal" size={0.5} />
 
@@ -103,7 +103,7 @@ const Login: React.FC = () => {
                 />
               </Grid>
 
-              <Spacing orientation="horizontal" size={8} />
+              <Spacing orientation="horizontal" size={6} />
 
               <Grid item>
                 <Button
@@ -112,7 +112,6 @@ const Login: React.FC = () => {
                   fullWidth
                   type="submit"
                   disabled={isSubmitting}
-                  size="large"
                 >
                   login
                 </Button>
