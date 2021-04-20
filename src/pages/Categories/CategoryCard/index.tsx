@@ -92,39 +92,30 @@ const CategoryCard: React.FC<CategoryCardProps> = ({
             >
               <Grid item xs>
                 <CardContent className={commonClasses.fullHeight}>
-                  <Grid
-                    container
-                    alignItems="center"
-                    direction="column"
-                    justify="center"
-                    className={commonClasses.fullHeight}
-                    spacing={2}
-                  >
-                    <Grid item>
-                      <Box position="relative" display="inline-flex">
-                        <CircularProgress
-                          variant="determinate"
-                          value={getProgressValue()}
-                          size={144}
-                          thickness={2.4}
-                        />
-                        <Box
-                          top={0}
-                          left={0}
-                          bottom={0}
-                          right={0}
-                          position="absolute"
-                          display="flex"
-                          alignItems="center"
-                          justifyContent="center"
-                        >
-                          <Typography variant="h6" color="textSecondary">
-                            {`${category.flashcardsInfo.isKnownCount} / ${category.flashcardsInfo.flashcardsCount}`}
-                          </Typography>
-                        </Box>
+                  <Box display="flex" justifyContent="center" padding={1}>
+                    <Box position="relative" display="inline-flex">
+                      <CircularProgress
+                        variant="determinate"
+                        value={getProgressValue()}
+                        size={184}
+                        thickness={2.4}
+                      />
+                      <Box
+                        top={0}
+                        left={0}
+                        bottom={0}
+                        right={0}
+                        position="absolute"
+                        display="flex"
+                        alignItems="center"
+                        justifyContent="center"
+                      >
+                        <Typography variant="h6" color="textSecondary">
+                          {`${category.flashcardsInfo.isKnownCount} / ${category.flashcardsInfo.flashcardsCount}`}
+                        </Typography>
                       </Box>
-                    </Grid>
-                  </Grid>
+                    </Box>
+                  </Box>
                 </CardContent>
               </Grid>
             </Grid>

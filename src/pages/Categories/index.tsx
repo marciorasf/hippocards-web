@@ -9,14 +9,12 @@ import {
 } from "@components"
 import useDidMount from "@hooks/useDidMount"
 import { Category, CategoryWithFlashcardsInfo } from "@interfaces/category"
+import { Grid, Typography, ButtonBase, Collapse } from "@material-ui/core"
 import {
-  CardContent,
-  Grid,
-  Typography,
-  Card,
-  CardActionArea,
-} from "@material-ui/core"
-import { Add as AddIcon } from "@material-ui/icons"
+  FilterList as FilterIcon,
+  ExpandMore as ExpandMoreIcon,
+  ExpandLess as ExpandLessIcon,
+} from "@material-ui/icons"
 import CategoryCard from "@pages/Categories/CategoryCard"
 import CategoryDialog from "@pages/Categories/CategoryDialog"
 import useStyles from "@pages/Categories/styles"
@@ -25,7 +23,6 @@ import categoryService, {
   UpdateCategoryInput,
 } from "@services/category"
 import errorService from "@services/error"
-import useCommonStyles from "@styles/commonStyles"
 import { removeAccents } from "@utils/removeAccents"
 
 async function getCategories() {
@@ -42,6 +39,7 @@ type Dialog = "create" | "edit"
 const CategoriesDashboard: React.FC = () => {
   const [categories, setCategories] = useState<CategoryWithFlashcardsInfo[]>([])
   const [openDialog, setOpenDialog] = useState<Dialog | null>(null)
+  const [expandFilters, setExpandFilters] = useState(false)
   const [searchText, setSearchText] = useState("")
   const [
     currentCategoryOnEdition,
@@ -50,7 +48,6 @@ const CategoriesDashboard: React.FC = () => {
 
   const history = useHistory()
 
-  const commonClasses = useCommonStyles()
   const classes = useStyles()
 
   async function getAndUpdateCategories() {
@@ -68,6 +65,10 @@ const CategoriesDashboard: React.FC = () => {
 
   function handleCloseDialog() {
     setOpenDialog(null)
+  }
+
+  function handleToggleExpandFilters() {
+    setExpandFilters(!expandFilters)
   }
 
   function insertCategoryOnCategories(
@@ -168,43 +169,52 @@ const CategoriesDashboard: React.FC = () => {
   return (
     <Grid container>
       <Grid item xs={12}>
-        <Header />
+        <Header title="Categories" fabFn={() => handleOpenDialog("create")}>
+          <ButtonBase
+            onClick={handleToggleExpandFilters}
+            className={classes.filtersButton}
+          >
+            <Grid
+              container
+              alignItems="center"
+              justify="space-between"
+              spacing={2}
+            >
+              <Grid item>
+                <FilterIcon />
+              </Grid>
+
+              <Grid item xs>
+                <Typography variant="body1" align="left">
+                  Filter categories
+                </Typography>
+              </Grid>
+
+              <Grid item>
+                {expandFilters ? <ExpandLessIcon /> : <ExpandMoreIcon />}
+              </Grid>
+            </Grid>
+          </ButtonBase>
+
+          <Collapse in={expandFilters}>
+            <Spacing orientation="horizontal" size={1} />
+
+            <Grid container spacing={2}>
+              <Grid item xs={12}>
+                <SearchInputField
+                  label="Search"
+                  value={searchText}
+                  onChange={handleChangeSearchText}
+                />
+              </Grid>
+            </Grid>
+          </Collapse>
+        </Header>
       </Grid>
 
       <Grid item xs={12}>
         <PageContentContainer>
-          <Grid container justify="space-between" alignItems="center">
-            <Grid item>
-              <Typography variant="h4">Categories</Typography>
-            </Grid>
-
-            <Grid item>
-              <SearchInputField
-                label="Search"
-                value={searchText}
-                onChange={handleChangeSearchText}
-              />
-            </Grid>
-          </Grid>
-
-          <Spacing orientation="horizontal" size={4} />
-
           <Grid container spacing={2} alignItems="stretch">
-            <Grid item md={4} sm={6} xs={12}>
-              <Card className={classes.card}>
-                <CardActionArea
-                  className={commonClasses.fullHeight}
-                  onClick={() => handleOpenDialog("create")}
-                >
-                  <CardContent>
-                    <Grid container justify="center" alignItems="center">
-                      <AddIcon fontSize="large" />
-                    </Grid>
-                  </CardContent>
-                </CardActionArea>
-              </Card>
-            </Grid>
-
             {categories.filter(filterCategories).map((category) => (
               <Grid key={category.id} item md={4} sm={6} xs={12}>
                 <CategoryCard
