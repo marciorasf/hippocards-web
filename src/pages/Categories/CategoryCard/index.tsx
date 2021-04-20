@@ -43,7 +43,7 @@ const CategoryCard: React.FC<CategoryCardProps> = ({
   const commonClasses = useCommonStyles()
   const classes = useStyles()
 
-  function handleClickSettings(event: SyntheticEvent) {
+  function handleOpenMenu(event: SyntheticEvent) {
     event.stopPropagation()
     setMenuAnchor(event.currentTarget)
   }
@@ -77,7 +77,7 @@ const CategoryCard: React.FC<CategoryCardProps> = ({
             <CardHeader
               title={category.name}
               action={
-                <IconButton aria-label="settings" onClick={handleClickSettings}>
+                <IconButton aria-label="settings" onClick={handleOpenMenu}>
                   <MoreVertIcon />
                 </IconButton>
               }

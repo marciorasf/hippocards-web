@@ -55,7 +55,7 @@ const FlashcardCard: React.FC<FlashcardCardProps> = ({
   const commonClasses = useCommonStyles()
   const classes = useStyles()
 
-  function handleClickSettings(event: SyntheticEvent) {
+  function handleOpenMenu(event: SyntheticEvent) {
     setMenuAnchor(event.currentTarget)
   }
 
@@ -78,7 +78,7 @@ const FlashcardCard: React.FC<FlashcardCardProps> = ({
           <CardHeader
             title={`Card ${flashcard.id}`}
             action={
-              <IconButton aria-label="settings" onClick={handleClickSettings}>
+              <IconButton aria-label="settings" onClick={handleOpenMenu}>
                 <MoreVertIcon />
               </IconButton>
             }

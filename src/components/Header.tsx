@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { SyntheticEvent, useState } from "react"
 import { Link } from "react-router-dom"
 
 import {
@@ -11,14 +11,20 @@ import {
   Container,
   Fab,
   Theme,
+  Menu,
+  MenuItem,
+  ListItemText,
+  ListItemIcon,
 } from "@material-ui/core"
 import {
   MoreVert as SettingsIcon,
   ChevronLeft as BackIcon,
   Add as AddIcon,
+  ExitToApp as LogoutIcon,
 } from "@material-ui/icons"
+import authService from "@services/auth"
+import errorService from "@services/error"
 
-import Sidebar from "./Sidebar"
 import Spacing from "./Spacing"
 
 type MakeStylesProps = {
@@ -55,15 +61,27 @@ const Header: React.FC<HeaderProps> = ({
   fabFn,
   children,
 }) => {
-  const [openSidebar, setOpenSidebar] = useState(false)
+  const [menuAnchor, setMenuAnchor] = useState<(EventTarget & Element) | null>(
+    null
+  )
   const classes = useStyles({ hasFab: Boolean(fabFn) })
 
-  function handleOpenSidebar() {
-    setOpenSidebar(true)
+  function handleCloseMenu() {
+    setMenuAnchor(null)
   }
 
-  function handleCloseSidebar() {
-    setOpenSidebar(false)
+  function handleOpenMenu(event: SyntheticEvent) {
+    event.stopPropagation()
+    setMenuAnchor(event.currentTarget)
+  }
+
+  async function handleLogout() {
+    try {
+      await authService.logout()
+      window.location.href = "/"
+    } catch (err) {
+      errorService.handle(err)
+    }
   }
 
   return (
@@ -92,7 +110,7 @@ const Header: React.FC<HeaderProps> = ({
               </Grid>
 
               <Grid item>
-                <IconButton onClick={handleOpenSidebar} color="inherit">
+                <IconButton onClick={handleOpenMenu} color="inherit">
                   <SettingsIcon />
                 </IconButton>
               </Grid>
@@ -117,7 +135,21 @@ const Header: React.FC<HeaderProps> = ({
         </Toolbar>
       </AppBar>
 
-      <Sidebar open={openSidebar} onClose={handleCloseSidebar} />
+      <Menu
+        anchorEl={menuAnchor}
+        keepMounted
+        open={Boolean(menuAnchor)}
+        onClose={handleCloseMenu}
+        onClick={handleCloseMenu}
+      >
+        <MenuItem onClick={handleLogout}>
+          <ListItemIcon>
+            <LogoutIcon />
+          </ListItemIcon>
+
+          <ListItemText primary="Logout" />
+        </MenuItem>
+      </Menu>
     </>
   )
 }
