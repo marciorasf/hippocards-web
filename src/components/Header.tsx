@@ -27,6 +27,7 @@ const useStyles = makeStyles((theme) => ({
   },
   toolbar: {
     position: "relative",
+    padding: theme.spacing(1, 0),
   },
   fab: {
     position: "absolute",
@@ -37,12 +38,18 @@ const useStyles = makeStyles((theme) => ({
 }))
 
 type HeaderProps = {
+  title?: string
   goBackTo?: string
   fabFn?: () => void
   children?: React.ReactNode
 }
 
-const Header: React.FC<HeaderProps> = ({ goBackTo, fabFn, children }) => {
+const Header: React.FC<HeaderProps> = ({
+  title,
+  goBackTo,
+  fabFn,
+  children,
+}) => {
   const [openSidebar, setOpenSidebar] = useState(false)
   const classes = useStyles()
 
@@ -74,8 +81,8 @@ const Header: React.FC<HeaderProps> = ({ goBackTo, fabFn, children }) => {
               </Grid>
 
               <Grid item xs>
-                <Typography variant="h6" align="center">
-                  Flashcards
+                <Typography variant="h5" align="center">
+                  {title || "Flashcards"}
                 </Typography>
               </Grid>
 

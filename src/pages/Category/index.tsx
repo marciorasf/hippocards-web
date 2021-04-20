@@ -52,7 +52,7 @@ type Dialog = "create" | "edit"
 
 const Categories: React.FC = () => {
   const [category, setCategory] = useState<CategoryWithFlashcards | null>()
-  const [expandFilters, setExpandFilters] = useState(true)
+  const [expandFilters, setExpandFilters] = useState(false)
   const [openDialog, setOpenDialog] = useState<Dialog | null>(null)
   const [searchText, setSearchText] = useState("")
   const [filters, setFilters] = useState<Filters>({
@@ -248,7 +248,11 @@ const Categories: React.FC = () => {
   return (
     <Grid container>
       <Grid item xs={12}>
-        <Header goBackTo="/categories" fabFn={() => handleOpenDialog("create")}>
+        <Header
+          title={category?.name}
+          goBackTo="/categories"
+          fabFn={() => handleOpenDialog("create")}
+        >
           <ButtonBase
             onClick={handleToggleExpandFilters}
             style={{
