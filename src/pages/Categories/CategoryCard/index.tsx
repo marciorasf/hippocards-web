@@ -110,7 +110,7 @@ const CategoryCard: React.FC<CategoryCardProps> = ({
                         alignItems="center"
                         justifyContent="center"
                       >
-                        <Typography variant="h6" color="textSecondary">
+                        <Typography variant="h6">
                           {`${category.flashcardsInfo.isKnownCount} / ${category.flashcardsInfo.flashcardsCount}`}
                         </Typography>
                       </Box>

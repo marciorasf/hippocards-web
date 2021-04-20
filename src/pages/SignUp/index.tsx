@@ -14,12 +14,11 @@ import {
   Container,
   Link as MuiLink,
 } from "@material-ui/core"
+import useStyles from "@pages/SignUp/styles"
 import authService, { LoginInput } from "@services/auth"
 import errorService from "@services/error"
 import userService, { CreateUserInput } from "@services/user"
 import { useUserStore } from "@stores/user"
-
-import useStyles from "./styles"
 
 const SignUp: React.FC = () => {
   const userStore = useUserStore()

@@ -26,13 +26,12 @@ import {
 } from "@material-ui/icons"
 import FlashcardCard from "@pages/Category/FlashcardCard"
 import FlashcardDialog from "@pages/Category/FlashcardDialog"
+import useStyles from "@pages/Category/styles"
 import categoryService from "@services/category"
 import errorService from "@services/error"
 import flashcardService, { CreateFlashcardInput } from "@services/flashcard"
 import { removeAccents } from "@utils/removeAccents"
 import stringToBoolean from "@utils/stringToBoolean"
-
-import useStyles from "./styles"
 
 async function getCategory(categoryId: number) {
   try {

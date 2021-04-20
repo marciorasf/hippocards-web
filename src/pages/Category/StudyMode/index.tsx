@@ -3,9 +3,8 @@ import React, { useEffect, useState } from "react"
 import { CategoryWithFlashcards } from "@interfaces/category"
 import { Flashcard } from "@interfaces/flashcard"
 import { Button, Container, Grid, Modal } from "@material-ui/core"
+import FlashcardCard from "@pages/Category/FlashcardCard"
 import useStyles from "@pages/Category/StudyMode/styles"
-
-import FlashcardCard from "../FlashcardCard"
 
 type StudyModeProps = {
   category: CategoryWithFlashcards

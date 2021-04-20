@@ -14,13 +14,12 @@ import {
   Typography,
   Link as MuiLink,
 } from "@material-ui/core"
+import useStyles from "@pages/LogIn/styles"
 import authService, { LoginInput } from "@services/auth"
 import errorService from "@services/error"
 import { useUserStore } from "@stores/user"
 
-import useStyles from "./styles"
-
-const Login: React.FC = () => {
+const LogIn: React.FC = () => {
   const userStore = useUserStore()
   const history = useHistory()
   const classes = useStyles()
@@ -130,4 +129,4 @@ const Login: React.FC = () => {
   )
 }
 
-export default Login
+export default LogIn

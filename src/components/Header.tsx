@@ -1,6 +1,7 @@
 import React, { SyntheticEvent, useState } from "react"
 import { Link } from "react-router-dom"
 
+import Spacing from "@components/Spacing"
 import {
   AppBar,
   Toolbar,
@@ -24,8 +25,6 @@ import {
 } from "@material-ui/icons"
 import authService from "@services/auth"
 import errorService from "@services/error"
-
-import Spacing from "./Spacing"
 
 type MakeStylesProps = {
   hasFab: boolean
