@@ -1,4 +1,5 @@
 import React, { useState } from "react"
+import { Link } from "react-router-dom"
 
 import {
   AppBar,
@@ -8,18 +9,40 @@ import {
   makeStyles,
   Grid,
   Container,
+  Fab,
 } from "@material-ui/core"
-import { Menu as MenuIcon } from "@material-ui/icons"
+import {
+  MoreVert as SettingsIcon,
+  ChevronLeft as BackIcon,
+  Add as AddIcon,
+} from "@material-ui/icons"
 
 import Sidebar from "./Sidebar"
+import Spacing from "./Spacing"
 
 const useStyles = makeStyles((theme) => ({
   appBar: {
-    marginBottom: theme.spacing(4),
+    marginBottom: theme.spacing(6),
+    backgroundColor: theme.palette.header.main,
+  },
+  toolbar: {
+    position: "relative",
+  },
+  fab: {
+    position: "absolute",
+    top: "100%",
+    transform: "translateY(-50%)",
+    marginLeft: theme.spacing(2),
   },
 }))
 
-const Header: React.FC = () => {
+type HeaderProps = {
+  goBackTo?: string
+  fabFn?: () => void
+  children?: React.ReactNode
+}
+
+const Header: React.FC<HeaderProps> = ({ goBackTo, fabFn, children }) => {
   const [openSidebar, setOpenSidebar] = useState(false)
   const classes = useStyles()
 
@@ -33,24 +56,51 @@ const Header: React.FC = () => {
 
   return (
     <>
-      <AppBar position="static" color="secondary" className={classes.appBar}>
-        <Toolbar disableGutters>
-          <Container maxWidth="md">
-            <Grid container alignItems="center" spacing={2}>
+      <AppBar position="static" className={classes.appBar}>
+        <Toolbar disableGutters className={classes.toolbar}>
+          <Container maxWidth="md" disableGutters>
+            <Grid
+              container
+              justify="space-between"
+              alignItems="center"
+              spacing={2}
+            >
               <Grid item>
-                <IconButton
-                  edge="start"
-                  onClick={handleOpenSidebar}
-                  color="inherit"
-                >
-                  <MenuIcon />
-                </IconButton>
+                {goBackTo && (
+                  <IconButton component={Link} to={goBackTo}>
+                    <BackIcon />
+                  </IconButton>
+                )}
+              </Grid>
+
+              <Grid item xs>
+                <Typography variant="h6" align="center">
+                  Flashcards
+                </Typography>
               </Grid>
 
               <Grid item>
-                <Typography variant="h6">Flashcards</Typography>
+                <IconButton onClick={handleOpenSidebar} color="inherit">
+                  <SettingsIcon />
+                </IconButton>
               </Grid>
             </Grid>
+
+            {children && (
+              <>
+                <Spacing orientation="horizontal" size={3} />
+
+                <Container>{children}</Container>
+              </>
+            )}
+
+            <Spacing orientation="horizontal" size={fabFn ? 6 : 3} />
+
+            {fabFn && (
+              <Fab color="secondary" className={classes.fab} onClick={fabFn}>
+                <AddIcon />
+              </Fab>
+            )}
           </Container>
         </Toolbar>
       </AppBar>
