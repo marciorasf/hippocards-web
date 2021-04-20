@@ -28,7 +28,7 @@ const SearchInputField: React.FC<SearchInputFieldProps> = ({
       label={label}
       value={value}
       onChange={onChangeAdapter}
-      variant="standard"
+      variant="outlined"
       InputProps={{
         endAdornment: (
           <InputAdornment position="end">{<SearchIcon />}</InputAdornment>

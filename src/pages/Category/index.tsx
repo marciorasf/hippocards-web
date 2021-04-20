@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react"
-import { Link, useParams } from "react-router-dom"
+import { useParams } from "react-router-dom"
 
 import {
   SearchInputField,
@@ -11,26 +11,26 @@ import { CategoryWithFlashcards } from "@interfaces/category"
 import { Flashcard } from "@interfaces/flashcard"
 import {
   Grid,
-  Card,
-  CardActionArea,
-  CardContent,
   Typography,
-  IconButton,
   Select,
   MenuItem,
   FormControl,
   InputLabel,
+  ButtonBase,
+  Collapse,
 } from "@material-ui/core"
-import { Add as AddIcon, ArrowBack as ArrowBackIcon } from "@material-ui/icons"
+import {
+  FilterList as FilterIcon,
+  ExpandMore as ExpandMoreIcon,
+  ExpandLess as ExpandLessIcon,
+} from "@material-ui/icons"
 import FlashcardCard from "@pages/Category/FlashcardCard"
 import FlashcardDialog from "@pages/Category/FlashcardDialog"
 import categoryService from "@services/category"
 import errorService from "@services/error"
 import flashcardService, { CreateFlashcardInput } from "@services/flashcard"
-import useCommonStyles from "@styles/commonStyles"
 import { removeAccents } from "@utils/removeAccents"
-
-import useStyles from "./styles"
+import stringToBoolean from "@utils/stringToBoolean"
 
 async function getCategory(categoryId: number) {
   try {
@@ -41,13 +41,7 @@ async function getCategory(categoryId: number) {
   }
 }
 
-type FilterValue = null | boolean
-
-const filterValueMap = {
-  null: null,
-  false: false,
-  true: true,
-}
+type FilterValue = "both" | "false" | "true"
 
 type Filters = {
   isKnown: FilterValue
@@ -58,20 +52,18 @@ type Dialog = "create" | "edit"
 
 const Categories: React.FC = () => {
   const [category, setCategory] = useState<CategoryWithFlashcards | null>()
+  const [expandFilters, setExpandFilters] = useState(true)
   const [openDialog, setOpenDialog] = useState<Dialog | null>(null)
   const [searchText, setSearchText] = useState("")
   const [filters, setFilters] = useState<Filters>({
-    isKnown: null,
-    isBookmarked: null,
+    isKnown: "both",
+    isBookmarked: "both",
   })
 
   const [
     currentFlashcardOnEdition,
     setCurrentFlashcardOnEdition,
   ] = useState<Flashcard>()
-
-  const classes = useStyles()
-  const commonClasses = useCommonStyles()
 
   const { id: categoryId } = useParams<{ id: string }>()
 
@@ -81,6 +73,10 @@ const Categories: React.FC = () => {
 
   function handleCloseDialog() {
     setOpenDialog(null)
+  }
+
+  function handleToggleExpandFilters() {
+    setExpandFilters(!expandFilters)
   }
 
   function insertFlashcardOnCategory(createdFlashcard: Flashcard) {
@@ -215,14 +211,14 @@ const Categories: React.FC = () => {
       return false
     }
 
-    if (filters.isKnown !== null) {
-      if (flashcard.isKnown !== filters.isKnown) {
+    if (filters.isKnown !== "both") {
+      if (flashcard.isKnown !== stringToBoolean(filters.isKnown)) {
         return false
       }
     }
 
-    if (filters.isBookmarked !== null) {
-      if (flashcard.isBookmarked !== filters.isBookmarked) {
+    if (filters.isBookmarked !== "both") {
+      if (flashcard.isBookmarked !== stringToBoolean(filters.isBookmarked)) {
         return false
       }
     }
@@ -252,104 +248,99 @@ const Categories: React.FC = () => {
   return (
     <Grid container>
       <Grid item xs={12}>
-        <Header />
+        <Header goBackTo="/categories" fabFn={() => handleOpenDialog("create")}>
+          <ButtonBase
+            onClick={handleToggleExpandFilters}
+            style={{
+              width: "100%",
+              borderRadius: 4,
+              padding: 8,
+              margin: "0, -8px",
+            }}
+          >
+            <Grid
+              container
+              alignItems="center"
+              justify="space-between"
+              spacing={2}
+            >
+              <Grid item>
+                <FilterIcon />
+              </Grid>
+
+              <Grid item xs>
+                <Typography variant="body1" align="left">
+                  Filter flashcards
+                </Typography>
+              </Grid>
+
+              <Grid item>
+                {expandFilters ? <ExpandLessIcon /> : <ExpandMoreIcon />}
+              </Grid>
+            </Grid>
+          </ButtonBase>
+
+          <Spacing orientation="horizontal" size={1} />
+
+          <Collapse in={expandFilters}>
+            <Grid container spacing={2}>
+              <Grid item xs={12}>
+                <SearchInputField
+                  label="Search"
+                  value={searchText}
+                  onChange={handleChangeSearchText}
+                />
+              </Grid>
+
+              <Grid item xs={6}>
+                <FormControl fullWidth variant="outlined">
+                  <InputLabel>Bookmarked</InputLabel>
+
+                  <Select
+                    value={filters.isBookmarked}
+                    label="Bookmarked"
+                    onChange={({ target }) =>
+                      handleChangeFilterValue(
+                        "isBookmarked",
+                        target.value as FilterValue
+                      )
+                    }
+                  >
+                    <MenuItem value="both">Both</MenuItem>
+                    <MenuItem value="true">Yes</MenuItem>
+                    <MenuItem value="false">No</MenuItem>
+                  </Select>
+                </FormControl>
+              </Grid>
+
+              <Grid item xs={6}>
+                <FormControl fullWidth variant="outlined">
+                  <InputLabel>Learned</InputLabel>
+
+                  <Select
+                    value={filters.isKnown}
+                    label="Learned"
+                    onChange={({ target }) =>
+                      handleChangeFilterValue(
+                        "isKnown",
+                        target.value as FilterValue
+                      )
+                    }
+                  >
+                    <MenuItem value="both">Both</MenuItem>
+                    <MenuItem value="true">Yes</MenuItem>
+                    <MenuItem value="false">No</MenuItem>
+                  </Select>
+                </FormControl>
+              </Grid>
+            </Grid>
+          </Collapse>
+        </Header>
       </Grid>
 
       <Grid item xs={12}>
         <PageContentContainer>
-          <Grid
-            container
-            justify="space-between"
-            alignItems="center"
-            spacing={2}
-          >
-            <Grid item>
-              <Grid container alignItems="center" spacing={1}>
-                <Grid item>
-                  <IconButton component={Link} to="/categories">
-                    <ArrowBackIcon />
-                  </IconButton>
-                </Grid>
-
-                <Grid item>
-                  <Typography variant="h4">{category?.name}</Typography>
-                </Grid>
-              </Grid>
-            </Grid>
-
-            <Grid item>
-              <SearchInputField
-                label="Search"
-                value={searchText}
-                onChange={handleChangeSearchText}
-              />
-            </Grid>
-
-            <Grid item xs={6}>
-              <FormControl fullWidth>
-                <InputLabel>isBookmarked</InputLabel>
-
-                <Select
-                  value={filters.isBookmarked}
-                  onChange={({ target }) =>
-                    handleChangeFilterValue(
-                      "isBookmarked",
-                      filterValueMap[
-                        target.value as "false" | "true" | "null"
-                      ] as FilterValue
-                    )
-                  }
-                >
-                  <MenuItem value="null">All</MenuItem>
-                  <MenuItem value="true">Yes</MenuItem>
-                  <MenuItem value="false">No</MenuItem>
-                </Select>
-              </FormControl>
-            </Grid>
-
-            <Grid item xs={6}>
-              <FormControl fullWidth>
-                <InputLabel>isKnown</InputLabel>
-
-                <Select
-                  value={filters.isKnown}
-                  onChange={({ target }) =>
-                    handleChangeFilterValue(
-                      "isKnown",
-                      filterValueMap[
-                        target.value as "false" | "true" | "null"
-                      ] as FilterValue
-                    )
-                  }
-                >
-                  <MenuItem value="null">All</MenuItem>
-                  <MenuItem value="true">Yes</MenuItem>
-                  <MenuItem value="false">No</MenuItem>
-                </Select>
-              </FormControl>
-            </Grid>
-
-            <Grid item xs={2}></Grid>
-          </Grid>
-
-          <Spacing orientation="horizontal" size={4} />
-
           <Grid container spacing={2} alignItems="stretch">
-            <Grid item md={4} sm={6} xs={12}>
-              <Card className={classes.card}>
-                <CardActionArea
-                  className={commonClasses.fullHeight}
-                  onClick={() => handleOpenDialog("create")}
-                >
-                  <CardContent>
-                    <Grid container justify="center" alignItems="center">
-                      <AddIcon fontSize="large" />
-                    </Grid>
-                  </CardContent>
-                </CardActionArea>
-              </Card>
-            </Grid>
-
             {category?.flashcards
               ?.filter(filterFlashcards)
               ?.map((flashcard) => (
