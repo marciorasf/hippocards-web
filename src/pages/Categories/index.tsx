@@ -36,7 +36,7 @@ async function getCategories() {
 
 type Dialog = "create" | "edit"
 
-const CategoriesDashboard: React.FC = () => {
+const Categories: React.FC = () => {
   const [categories, setCategories] = useState<CategoryWithFlashcardsInfo[]>([])
   const [openDialog, setOpenDialog] = useState<Dialog | null>(null)
   const [expandFilters, setExpandFilters] = useState(false)
@@ -250,4 +250,4 @@ const CategoriesDashboard: React.FC = () => {
   )
 }
 
-export default CategoriesDashboard
+export default Categories

@@ -16,6 +16,8 @@ import {
   MenuItem,
   ListItemText,
   ListItemIcon,
+  Button,
+  Box,
 } from "@material-ui/core"
 import {
   MoreVert as SettingsIcon,
@@ -52,6 +54,7 @@ type HeaderProps = {
   goBackTo?: string
   fabFn?: () => void
   children?: React.ReactNode
+  isLandingPage?: boolean
 }
 
 const Header: React.FC<HeaderProps> = ({
@@ -59,6 +62,7 @@ const Header: React.FC<HeaderProps> = ({
   goBackTo,
   fabFn,
   children,
+  isLandingPage,
 }) => {
   const [menuAnchor, setMenuAnchor] = useState<(EventTarget & Element) | null>(
     null
@@ -94,7 +98,7 @@ const Header: React.FC<HeaderProps> = ({
               alignItems="center"
               spacing={2}
             >
-              <Grid item>
+              <Grid item xs={3}>
                 {goBackTo && (
                   <IconButton component={Link} to={goBackTo}>
                     <BackIcon />
@@ -102,16 +106,33 @@ const Header: React.FC<HeaderProps> = ({
                 )}
               </Grid>
 
-              <Grid item xs>
+              <Grid item xs={6}>
                 <Typography variant="h5" align="center">
                   {title || "Flashcards"}
                 </Typography>
               </Grid>
 
-              <Grid item>
-                <IconButton onClick={handleOpenMenu} color="inherit">
-                  <SettingsIcon />
-                </IconButton>
+              <Grid item xs={3}>
+                <Box
+                  display="flex"
+                  justifyContent="flex-end"
+                  paddingRight={isLandingPage ? 1 : 0}
+                >
+                  {isLandingPage ? (
+                    <Button
+                      variant="contained"
+                      color="primary"
+                      component={Link}
+                      to="/login"
+                    >
+                      Login
+                    </Button>
+                  ) : (
+                    <IconButton onClick={handleOpenMenu} color="inherit">
+                      <SettingsIcon />
+                    </IconButton>
+                  )}
+                </Box>
               </Grid>
             </Grid>
 

@@ -36,7 +36,7 @@ const Landing: React.FC = () => {
   return (
     <Grid container>
       <Grid item xs={12}>
-        <Header />
+        <Header isLandingPage />
       </Grid>
 
       <Grid item xs={12}>

@@ -1,9 +1,8 @@
 import React from "react"
 import { Route } from "react-router-dom"
 
-import CategoriesDashboard from "@pages/Categories"
+import Categories from "@pages/Categories"
 import Category from "@pages/Category"
-import Landing from "@pages/Landing"
 
 const privateRoutes = [
   <Route key="category" exact path="/categories/:id" component={Category} />,
@@ -11,9 +10,9 @@ const privateRoutes = [
     key="categories-dashboard"
     exact
     path="/categories"
-    component={CategoriesDashboard}
+    component={Categories}
   />,
-  <Route key="*" path="/" component={Landing} />,
+  <Route key="*" path="/" component={Categories} />,
 ]
 
 export default privateRoutes
