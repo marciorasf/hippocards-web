@@ -95,13 +95,13 @@ const Header: React.FC<HeaderProps> = ({
 
             {children && (
               <>
-                <Spacing orientation="horizontal" size={3} />
+                <Spacing orientation="horizontal" size={2} />
 
                 <Container>{children}</Container>
               </>
             )}
 
-            <Spacing orientation="horizontal" size={fabFn ? 6 : 3} />
+            <Spacing orientation="horizontal" size={fabFn ? 5 : 3} />
 
             {fabFn && (
               <Fab color="secondary" className={classes.fab} onClick={fabFn}>

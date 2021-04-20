@@ -284,9 +284,9 @@ const Categories: React.FC = () => {
             </Grid>
           </ButtonBase>
 
-          <Spacing orientation="horizontal" size={1} />
-
           <Collapse in={expandFilters}>
+            <Spacing orientation="horizontal" size={1} />
+
             <Grid container spacing={2}>
               <Grid item xs={12}>
                 <SearchInputField
