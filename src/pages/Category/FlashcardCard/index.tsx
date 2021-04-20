@@ -26,6 +26,8 @@ import {
   CheckCircle as KnownIcon,
   Bookmark as BookmarkedIcon,
   BookmarkBorder as NotBookmarkedIcon,
+  ExpandLess as ExpandLessIcon,
+  ExpandMore as ExpandMoreIcon,
 } from "@material-ui/icons"
 import useStyles from "@pages/Category/FlashcardCard/styles"
 import useCommonStyles from "@styles/commonStyles"
@@ -89,19 +91,30 @@ const FlashcardCard: React.FC<FlashcardCardProps> = ({
             className={commonClasses.fullHeight}
           >
             <CardContent className={commonClasses.fullHeight}>
-              <Grid container direction="column">
+              <Grid container direction="column" spacing={4}>
                 <Grid item>
-                  <Typography>
-                    <b>Question:</b> {flashcard.question}
-                  </Typography>
+                  <Typography variant="h6">Question</Typography>
+
+                  <Spacing orientation="horizontal" size={1.25} />
+
+                  <Typography variant="body2">{flashcard.question}</Typography>
                 </Grid>
 
                 <Grid item>
+                  <Grid container alignItems="center" spacing={2}>
+                    <Grid item>
+                      <Typography variant="h6">Answer</Typography>
+                    </Grid>
+
+                    <Grid item>
+                      {showAnswer ? <ExpandLessIcon /> : <ExpandMoreIcon />}
+                    </Grid>
+                  </Grid>
+
                   <Collapse in={showAnswer}>
-                    <Spacing orientation="horizontal" size={4} />
-                    <Typography>
-                      <b>Answer:</b> {flashcard.answer}
-                    </Typography>
+                    <Spacing orientation="horizontal" size={1.25} />
+
+                    <Typography variant="body2">{flashcard.answer}</Typography>
                   </Collapse>
                 </Grid>
               </Grid>
@@ -132,7 +145,9 @@ const FlashcardCard: React.FC<FlashcardCardProps> = ({
               <Grid item>
                 <Tooltip
                   title={
-                    flashcard.isKnown ? "Mark as unknown" : "Mark as known"
+                    flashcard.isKnown
+                      ? "Mark as learned"
+                      : "Mark as not learned"
                   }
                 >
                   <IconButton
