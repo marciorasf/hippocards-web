@@ -10,6 +10,7 @@ import {
   Grid,
   Container,
   Fab,
+  Theme,
 } from "@material-ui/core"
 import {
   MoreVert as SettingsIcon,
@@ -20,9 +21,13 @@ import {
 import Sidebar from "./Sidebar"
 import Spacing from "./Spacing"
 
-const useStyles = makeStyles((theme) => ({
+type MakeStylesProps = {
+  hasFab: boolean
+}
+const useStyles = makeStyles<Theme, MakeStylesProps>((theme) => ({
   appBar: {
-    marginBottom: theme.spacing(6),
+    marginBottom: (props) =>
+      props.hasFab ? theme.spacing(6) : theme.spacing(4),
     backgroundColor: theme.palette.header.main,
   },
   toolbar: {
@@ -51,7 +56,7 @@ const Header: React.FC<HeaderProps> = ({
   children,
 }) => {
   const [openSidebar, setOpenSidebar] = useState(false)
-  const classes = useStyles()
+  const classes = useStyles({ hasFab: Boolean(fabFn) })
 
   function handleOpenSidebar() {
     setOpenSidebar(true)
