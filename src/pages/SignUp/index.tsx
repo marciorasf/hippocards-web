@@ -3,7 +3,6 @@ import React from "react"
 import { useHistory, Link } from "react-router-dom"
 
 import {
-  Header,
   FormikInputField,
   FormikPasswordInputField,
   Spacing,
@@ -23,7 +22,7 @@ import { useUserStore } from "@stores/user"
 
 const useStyles = makeStyles({
   redirectLink: {
-    alignSelf: "flex-end",
+    alignSelf: "center",
   },
 })
 
@@ -60,79 +59,85 @@ const SignUp: React.FC = () => {
   }
 
   return (
-    <Grid container>
-      <Grid item xs={12}>
-        <Header />
-      </Grid>
+    <Container maxWidth="xs">
+      <Spacing orientation="horizontal" size={10} />
 
-      <Grid item xs={12}>
-        <Container maxWidth="xs">
-          <Spacing orientation="horizontal" size={6} />
+      <Typography variant="h3">Sign Up</Typography>
 
-          <Typography variant="h4">Sign Up</Typography>
+      <Spacing orientation="horizontal" size={0.5} />
 
-          <Spacing orientation="horizontal" size={4} />
+      <Typography variant="h3">Flashcards</Typography>
 
-          <Formik
-            initialValues={{ email: "", password: "" }}
-            onSubmit={async (values, { setErrors }) => {
-              const message = await handleSignUp(values)
+      <Spacing orientation="horizontal" size={12} />
 
-              if (message === "email_in_use") {
-                return setErrors({
-                  email: "Email already in use",
-                })
-              }
-            }}
-          >
-            {({ isSubmitting }) => (
-              <Form>
-                <Grid container direction="column" spacing={2}>
-                  <Grid item>
-                    <FormikInputField
-                      name="email"
-                      label="Email"
-                      inputProps={{
-                        type: "email",
-                        required: true,
-                      }}
-                    />
-                  </Grid>
+      <Formik
+        initialValues={{ email: "", password: "" }}
+        onSubmit={async (values, { setErrors }) => {
+          const message = await handleSignUp(values)
 
-                  <Grid item>
-                    <FormikPasswordInputField
-                      name="password"
-                      label="Password"
-                      inputProps={{
-                        required: true,
-                      }}
-                    />
-                  </Grid>
+          if (message === "email_in_use") {
+            return setErrors({
+              email: "Email already in use",
+            })
+          }
+        }}
+      >
+        {({ isSubmitting }) => (
+          <Form>
+            <Grid container direction="column">
+              <Grid item>
+                <FormikInputField
+                  name="email"
+                  label="Email"
+                  inputProps={{
+                    type: "email",
+                    required: true,
+                  }}
+                />
+              </Grid>
 
-                  <Grid item className={classes.redirectLink}>
-                    <MuiLink component={Link} to="/Login">
-                      Already have an account?
-                    </MuiLink>
-                  </Grid>
+              <Spacing orientation="horizontal" size={3} />
 
-                  <Grid item>
-                    <Button
-                      variant="contained"
-                      color="primary"
-                      fullWidth
-                      type="submit"
-                      disabled={isSubmitting}
-                    >
-                      sign up
-                    </Button>
-                  </Grid>
-                </Grid>
-              </Form>
-            )}
-          </Formik>
-        </Container>
-      </Grid>
-    </Grid>
+              <Grid item>
+                <FormikPasswordInputField
+                  name="password"
+                  label="Password"
+                  inputProps={{
+                    required: true,
+                  }}
+                />
+              </Grid>
+
+              <Spacing orientation="horizontal" size={8} />
+
+              <Grid item>
+                <Button
+                  variant="contained"
+                  color="primary"
+                  fullWidth
+                  type="submit"
+                  disabled={isSubmitting}
+                  size="large"
+                >
+                  sign up
+                </Button>
+              </Grid>
+
+              <Spacing orientation="horizontal" size={1} />
+
+              <Grid item className={classes.redirectLink}>
+                <Typography variant="body2">
+                  Already have an account?{" "}
+                  <MuiLink component={Link} to="/login">
+                    Log in
+                  </MuiLink>
+                </Typography>
+              </Grid>
+            </Grid>
+          </Form>
+        )}
+      </Formik>
+    </Container>
   )
 }
 

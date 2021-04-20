@@ -3,7 +3,6 @@ import React from "react"
 import { Link, useHistory } from "react-router-dom"
 
 import {
-  Header,
   FormikInputField,
   FormikPasswordInputField,
   Spacing,
@@ -22,7 +21,7 @@ import { useUserStore } from "@stores/user"
 
 const useStyles = makeStyles({
   redirectLink: {
-    alignSelf: "flex-end",
+    alignSelf: "center",
   },
 })
 
@@ -49,85 +48,91 @@ const Login: React.FC = () => {
   }
 
   return (
-    <Grid container>
-      <Grid item xs={12}>
-        <Header />
-      </Grid>
+    <Container maxWidth="xs">
+      <Spacing orientation="horizontal" size={10} />
 
-      <Grid item xs={12}>
-        <Container maxWidth="xs">
-          <Spacing orientation="horizontal" size={6} />
+      <Typography variant="h3">Log in</Typography>
 
-          <Typography variant="h4">Login</Typography>
+      <Spacing orientation="horizontal" size={0.5} />
 
-          <Spacing orientation="horizontal" size={4} />
+      <Typography variant="h3">Flashcards</Typography>
 
-          <Formik
-            initialValues={{ email: "", password: "" }}
-            onSubmit={async (values, { setErrors }) => {
-              const message = await handleLogin(values)
+      <Spacing orientation="horizontal" size={12} />
 
-              if (message === "user_not_found") {
-                return setErrors({
-                  email: "Email not found",
-                })
-              }
+      <Formik
+        initialValues={{ email: "", password: "" }}
+        onSubmit={async (values, { setErrors }) => {
+          const message = await handleLogin(values)
 
-              if (message === "wrong_password") {
-                return setErrors({
-                  password: "Wrong password",
-                })
-              }
-            }}
-          >
-            {({ isSubmitting }) => (
-              <Form>
-                <Grid container direction="column" spacing={2}>
-                  <Grid item>
-                    <FormikInputField
-                      name="email"
-                      label="Email"
-                      inputProps={{
-                        type: "email",
-                        required: true,
-                      }}
-                    />
-                  </Grid>
+          if (message === "user_not_found") {
+            return setErrors({
+              email: "Email not found",
+            })
+          }
 
-                  <Grid item>
-                    <FormikPasswordInputField
-                      name="password"
-                      label="Password"
-                      inputProps={{
-                        required: true,
-                      }}
-                    />
-                  </Grid>
+          if (message === "wrong_password") {
+            return setErrors({
+              password: "Wrong password",
+            })
+          }
+        }}
+      >
+        {({ isSubmitting }) => (
+          <Form>
+            <Grid container direction="column">
+              <Grid item>
+                <FormikInputField
+                  name="email"
+                  label="Email"
+                  inputProps={{
+                    type: "email",
+                    required: true,
+                  }}
+                />
+              </Grid>
 
-                  <Grid item className={classes.redirectLink}>
-                    <MuiLink component={Link} to="/signup">
-                      Doesn't have an account?
-                    </MuiLink>
-                  </Grid>
+              <Spacing orientation="horizontal" size={3} />
 
-                  <Grid item>
-                    <Button
-                      variant="contained"
-                      color="primary"
-                      fullWidth
-                      type="submit"
-                      disabled={isSubmitting}
-                    >
-                      login
-                    </Button>
-                  </Grid>
-                </Grid>
-              </Form>
-            )}
-          </Formik>
-        </Container>
-      </Grid>
-    </Grid>
+              <Grid item>
+                <FormikPasswordInputField
+                  name="password"
+                  label="Password"
+                  inputProps={{
+                    required: true,
+                  }}
+                />
+              </Grid>
+
+              <Spacing orientation="horizontal" size={8} />
+
+              <Grid item>
+                <Button
+                  variant="contained"
+                  color="primary"
+                  fullWidth
+                  type="submit"
+                  disabled={isSubmitting}
+                  size="large"
+                >
+                  login
+                </Button>
+              </Grid>
+
+              <Spacing orientation="horizontal" size={1} />
+
+              <Grid item className={classes.redirectLink}>
+                <Typography variant="body2">
+                  Doesn't have an account?{" "}
+                  <MuiLink component={Link} to="/signup">
+                    Sign Up
+                  </MuiLink>
+                </Typography>
+              </Grid>
+            </Grid>
+          </Form>
+        )}
+      </Formik>
+    </Container>
   )
 }
 
