@@ -32,6 +32,8 @@ import flashcardService, { CreateFlashcardInput } from "@services/flashcard"
 import { removeAccents } from "@utils/removeAccents"
 import stringToBoolean from "@utils/stringToBoolean"
 
+import useStyles from "./styles"
+
 async function getCategory(categoryId: number) {
   try {
     return categoryService.retrieveOne(categoryId)
@@ -59,11 +61,12 @@ const Categories: React.FC = () => {
     isKnown: "both",
     isBookmarked: "both",
   })
-
   const [
     currentFlashcardOnEdition,
     setCurrentFlashcardOnEdition,
   ] = useState<Flashcard>()
+
+  const classes = useStyles()
 
   const { id: categoryId } = useParams<{ id: string }>()
 
@@ -255,12 +258,7 @@ const Categories: React.FC = () => {
         >
           <ButtonBase
             onClick={handleToggleExpandFilters}
-            style={{
-              width: "100%",
-              borderRadius: 4,
-              padding: 8,
-              margin: "0, -8px",
-            }}
+            className={classes.filtersButton}
           >
             <Grid
               container

@@ -13,17 +13,12 @@ import {
   Grid,
   Typography,
   Link as MuiLink,
-  makeStyles,
 } from "@material-ui/core"
 import authService, { LoginInput } from "@services/auth"
 import errorService from "@services/error"
 import { useUserStore } from "@stores/user"
 
-const useStyles = makeStyles({
-  redirectLink: {
-    alignSelf: "center",
-  },
-})
+import useStyles from "./styles"
 
 const Login: React.FC = () => {
   const userStore = useUserStore()
