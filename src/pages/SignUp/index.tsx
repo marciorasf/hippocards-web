@@ -1,6 +1,6 @@
 import { Formik, Form } from "formik"
 import React from "react"
-import { useHistory, Link } from "react-router-dom"
+import { Link } from "react-router-dom"
 
 import {
   FormikInputField,
@@ -22,7 +22,6 @@ import { useUserStore } from "@stores/user"
 
 const SignUp: React.FC = () => {
   const userStore = useUserStore()
-  const history = useHistory()
   const classes = useStyles()
 
   async function handleLogin(loginData: LoginInput) {
@@ -33,7 +32,7 @@ const SignUp: React.FC = () => {
         email: user.email,
       })
 
-      history.push("/categories")
+      window.location.href = "/categories"
     } catch (err) {
       errorService.handle(err)
     }

@@ -104,7 +104,7 @@ const Header: React.FC<HeaderProps> = ({
   async function handleLogout() {
     try {
       await authService.logout()
-      window.location.href = "/welcome"
+      window.location.href = "/"
     } catch (err) {
       errorService.handle(err)
     }
