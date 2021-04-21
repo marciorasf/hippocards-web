@@ -18,7 +18,7 @@ const Landing: React.FC = () => {
 
       <Grid item xs={12}>
         <PageContentContainer>
-          <Typography variant="h3">Landing</Typography>
+          <Typography variant="h3">Coming Soon</Typography>
 
           <Spacing orientation="horizontal" size={8} />
 
