@@ -1,4 +1,4 @@
-import React, { SyntheticEvent, useEffect, useState } from "react"
+import React, { SyntheticEvent, useState } from "react"
 import { useResizeDetector } from "react-resize-detector"
 import { Link } from "react-router-dom"
 
@@ -110,10 +110,6 @@ const Header: React.FC<HeaderProps> = ({
     }
   }
 
-  useEffect(() => {
-    console.log(headerHeight)
-  }, [headerHeight])
-
   return (
     <Container
       disableGutters
@@ -157,7 +153,7 @@ const Header: React.FC<HeaderProps> = ({
                       component={Link}
                       to="/login"
                     >
-                      {userStore.user.id ? "My Categories" : "Login"}
+                      {userStore.user.id ? "Categories" : "Login"}
                     </Button>
                   ) : (
                     <IconButton onClick={handleOpenMenu} color="inherit">
