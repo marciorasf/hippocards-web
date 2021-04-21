@@ -11,9 +11,21 @@ import {
   DialogActions,
   Button,
   Grid,
+  IconButton,
+  makeStyles,
 } from "@material-ui/core"
+import { Close as CloseIcon } from "@material-ui/icons"
 import { CreateCategoryInput, UpdateCategoryInput } from "@services/category"
 import handleBackButton from "@utils/handleBackButton"
+
+const useStyles = makeStyles((theme) => ({
+  closeButton: {
+    position: "absolute",
+    right: theme.spacing(1),
+    top: theme.spacing(1),
+    color: theme.palette.grey[500],
+  },
+}))
 
 type CategoryDialogProps = {
   open: boolean
@@ -32,6 +44,8 @@ const CategoryDialog: React.FC<CategoryDialogProps> = ({
   okButtonLabel,
   initialValues,
 }) => {
+  const classes = useStyles()
+
   const isMobile = useIsMobile()
 
   useDidMount(() => {
@@ -54,7 +68,16 @@ const CategoryDialog: React.FC<CategoryDialogProps> = ({
       >
         {({ isSubmitting }) => (
           <Form>
-            <DialogTitle>{title}</DialogTitle>
+            <DialogTitle>
+              {title}
+              <IconButton
+                aria-label="close"
+                className={classes.closeButton}
+                onClick={onClose}
+              >
+                <CloseIcon />
+              </IconButton>
+            </DialogTitle>
 
             <DialogContent>
               <Grid container spacing={2}>

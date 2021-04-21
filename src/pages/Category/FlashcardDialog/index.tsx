@@ -11,9 +11,21 @@ import {
   DialogActions,
   Button,
   Grid,
+  IconButton,
+  makeStyles,
 } from "@material-ui/core"
+import { Close as CloseIcon } from "@material-ui/icons"
 import { CreateFlashcardInput } from "@services/flashcard"
 import handleBackButton from "@utils/handleBackButton"
+
+const useStyles = makeStyles((theme) => ({
+  closeButton: {
+    position: "absolute",
+    right: theme.spacing(1),
+    top: theme.spacing(1),
+    color: theme.palette.grey[500],
+  },
+}))
 
 type FlashcardDialogProps = {
   open: boolean
@@ -32,6 +44,8 @@ const FlashcardDialog: React.FC<FlashcardDialogProps> = ({
   okButtonLabel,
   initialValues,
 }) => {
+  const classes = useStyles()
+
   const isMobile = useIsMobile()
 
   useDidMount(() => {
@@ -55,7 +69,16 @@ const FlashcardDialog: React.FC<FlashcardDialogProps> = ({
       >
         {({ isSubmitting }) => (
           <Form>
-            <DialogTitle>{title}</DialogTitle>
+            <DialogTitle>
+              {title}
+              <IconButton
+                aria-label="close"
+                className={classes.closeButton}
+                onClick={onClose}
+              >
+                <CloseIcon />
+              </IconButton>
+            </DialogTitle>
 
             <DialogContent>
               <Grid container spacing={2}>
