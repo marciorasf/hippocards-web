@@ -29,6 +29,7 @@ import {
 } from "@material-ui/icons"
 import authService from "@services/auth"
 import errorService from "@services/error"
+import { useUserStore } from "@stores/user"
 
 type MakeStylesProps = {
   hasFab: boolean
@@ -73,6 +74,7 @@ const Header: React.FC<HeaderProps> = ({
     null
   )
   const isMobile = useIsMobile()
+  const userStore = useUserStore()
 
   const { height: headerHeight, ref: headerRef } = useResizeDetector()
 
@@ -155,7 +157,7 @@ const Header: React.FC<HeaderProps> = ({
                       component={Link}
                       to="/login"
                     >
-                      Login
+                      {userStore.user.id ? "My Categories" : "Login"}
                     </Button>
                   ) : (
                     <IconButton onClick={handleOpenMenu} color="inherit">
