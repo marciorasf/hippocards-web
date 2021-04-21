@@ -3,8 +3,9 @@ import { useHistory } from "react-router-dom"
 
 import { Header, PageContentContainer } from "@components"
 import useDidMount from "@hooks/useDidMount"
+import useIsMobile from "@hooks/useIsMobile"
 import { Category, CategoryWithFlashcardsInfo } from "@interfaces/category"
-import { Grid, useMediaQuery, useTheme } from "@material-ui/core"
+import { Grid } from "@material-ui/core"
 import CategoryCard from "@pages/Categories/CategoryCard"
 import CategoryDialog from "@pages/Categories/CategoryDialog"
 import categoryService, {
@@ -37,8 +38,7 @@ const Categories: React.FC = () => {
     setCurrentCategoryOnEdition,
   ] = useState<Category>()
 
-  const theme = useTheme()
-  const isSmall = useMediaQuery(theme.breakpoints.down("xs"))
+  const isMobile = useIsMobile()
 
   const history = useHistory()
 
@@ -154,7 +154,7 @@ const Categories: React.FC = () => {
     <Grid container>
       <Grid item xs={12}>
         <Header title="Categories" fabFn={() => handleOpenDialog("create")}>
-          {isSmall ? (
+          {isMobile ? (
             <MobileFilters
               searchText={searchText}
               setSearchText={setSearchText}

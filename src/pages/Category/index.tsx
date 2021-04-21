@@ -2,9 +2,10 @@ import React, { useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
 
 import { Header, PageContentContainer } from "@components"
+import useIsMobile from "@hooks/useIsMobile"
 import { CategoryWithFlashcards } from "@interfaces/category"
 import { Flashcard } from "@interfaces/flashcard"
-import { Grid, useTheme, useMediaQuery } from "@material-ui/core"
+import { Grid } from "@material-ui/core"
 import FlashcardCard from "@pages/Category/FlashcardCard"
 import FlashcardDialog from "@pages/Category/FlashcardDialog"
 import categoryService from "@services/category"
@@ -47,8 +48,7 @@ const Categories: React.FC = () => {
     setCurrentFlashcardOnEdition,
   ] = useState<Flashcard>()
 
-  const theme = useTheme()
-  const isSmall = useMediaQuery(theme.breakpoints.down("xs"))
+  const isMobile = useIsMobile()
 
   const { id: categoryId } = useParams<{ id: string }>()
 
@@ -220,7 +220,7 @@ const Categories: React.FC = () => {
           goBackTo="/categories"
           fabFn={() => handleOpenDialog("create")}
         >
-          {isSmall ? (
+          {isMobile ? (
             <MobileFilters
               searchText={searchText}
               setSearchText={setSearchText}
