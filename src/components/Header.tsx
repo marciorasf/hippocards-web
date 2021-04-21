@@ -120,7 +120,6 @@ const Header: React.FC<HeaderProps> = ({
         position="fixed"
         className={classes.appBar}
         ref={headerRef}
-        // onAnimationEnd={resizeHeight}
         elevation={4}
       >
         <Toolbar disableGutters>
