@@ -12,7 +12,6 @@ import {
   MenuItem,
   ListItemIcon,
   ListItemText,
-  CircularProgress,
   Box,
   Typography,
 } from "@material-ui/core"
@@ -23,6 +22,8 @@ import {
 } from "@material-ui/icons"
 import useStyles from "@pages/Categories/CategoryCard/styles"
 import useCommonStyles from "@styles/commonStyles"
+
+import AnimatedCircularProgress from "./AnimatedCircularProgress"
 
 type CategoryCardProps = {
   category: CategoryWithFlashcardsInfo
@@ -94,12 +95,7 @@ const CategoryCard: React.FC<CategoryCardProps> = ({
                 <CardContent className={commonClasses.fullHeight}>
                   <Box display="flex" justifyContent="center" padding={1}>
                     <Box position="relative" display="inline-flex">
-                      <CircularProgress
-                        variant="determinate"
-                        value={getProgressValue()}
-                        size={184}
-                        thickness={2.4}
-                      />
+                      <AnimatedCircularProgress value={getProgressValue()} />
                       <Box
                         top={0}
                         left={0}
