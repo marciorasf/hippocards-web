@@ -153,7 +153,7 @@ const Header: React.FC<HeaderProps> = ({
                       component={Link}
                       to="/login"
                     >
-                      {userStore.user.id ? "Categories" : "Login"}
+                      {userStore.user.id ? "Start" : "Login"}
                     </Button>
                   ) : (
                     <IconButton onClick={handleOpenMenu} color="inherit">

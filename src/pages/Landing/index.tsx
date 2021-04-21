@@ -1,36 +1,13 @@
 import React from "react"
 
+import underConstructionImg from "@assets/images/under-construction.svg"
 import { Header, PageContentContainer, Spacing } from "@components"
-import {
-  Checkbox,
-  Grid,
-  List,
-  ListItem,
-  ListItemText,
-  ListItemIcon,
-  Typography,
-} from "@material-ui/core"
+import { Box, Grid, Typography } from "@material-ui/core"
 
 type TodoItem = {
   label: string
   done: boolean
 }
-
-const todoItems: TodoItem[] = [
-  { label: "Add palette page", done: true },
-  { label: "Improve basic design", done: true },
-  { label: "See flashcard answer on card click", done: true },
-  { label: "Mark flashcard as known", done: true },
-  { label: "Mark flashcard as bookmarked", done: true },
-  { label: "Add filter on CategoryPage", done: true },
-  {
-    label: "Make filters/header/menu design",
-    done: false,
-  },
-  { label: "Create Study Mode", done: false },
-  { label: "Redesign full app", done: false },
-  { label: "Deploy", done: false },
-]
 
 const Landing: React.FC = () => {
   return (
@@ -43,26 +20,15 @@ const Landing: React.FC = () => {
         <PageContentContainer>
           <Typography variant="h3">Landing</Typography>
 
-          <Spacing orientation="horizontal" size={4} />
+          <Spacing orientation="horizontal" size={8} />
 
-          <Typography variant="h4">To Do</Typography>
-
-          <List dense>
-            {todoItems.map((item) => (
-              <ListItem key={item.label}>
-                <ListItemIcon>
-                  <Checkbox
-                    edge="start"
-                    tabIndex={-1}
-                    disableRipple
-                    checked={item.done}
-                  />
-                </ListItemIcon>
-
-                <ListItemText primary={item.label} />
-              </ListItem>
-            ))}
-          </List>
+          <Box display="flex" justifyContent="center">
+            <img
+              src={underConstructionImg}
+              alt="under construction"
+              height={300}
+            />
+          </Box>
         </PageContentContainer>
       </Grid>
     </Grid>
