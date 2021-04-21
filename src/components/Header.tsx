@@ -92,12 +92,7 @@ const Header: React.FC<HeaderProps> = ({
       <AppBar position="static" className={classes.appBar}>
         <Toolbar disableGutters>
           <Container maxWidth="md" disableGutters className={classes.container}>
-            <Grid
-              container
-              justify="space-between"
-              alignItems="center"
-              spacing={2}
-            >
+            <Grid container justify="space-between" alignItems="center">
               <Grid item xs={3}>
                 {goBackTo && (
                   <IconButton component={Link} to={goBackTo}>
