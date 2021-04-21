@@ -5,7 +5,7 @@ import { Header, PageContentContainer, Loading } from "@components"
 import useIsMobile from "@hooks/useIsMobile"
 import { CategoryWithFlashcards } from "@interfaces/category"
 import { Flashcard } from "@interfaces/flashcard"
-import { Button, Grid } from "@material-ui/core"
+import { Grid } from "@material-ui/core"
 import FlashcardCard from "@pages/Category/FlashcardCard"
 import FlashcardDialog from "@pages/Category/FlashcardDialog"
 import categoryService from "@services/category"
@@ -246,13 +246,6 @@ const Categories: React.FC = () => {
 
       <Grid item xs={12}>
         <PageContentContainer>
-          <Button
-            onClick={() => {
-              setLoading(!loading)
-            }}
-          >
-            Toggle
-          </Button>
           <Loading
             loading={loading}
             customLoadingElement={<CategorySkeleton />}
