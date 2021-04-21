@@ -20,10 +20,9 @@ import {
   DeleteOutlined as DeleteIcon,
   MoreVert as MoreVertIcon,
 } from "@material-ui/icons"
+import AnimatedCircularProgress from "@pages/Categories/CategoryCard/AnimatedCircularProgress"
 import useStyles from "@pages/Categories/CategoryCard/styles"
 import useCommonStyles from "@styles/commonStyles"
-
-import AnimatedCircularProgress from "./AnimatedCircularProgress"
 
 type CategoryCardProps = {
   category: CategoryWithFlashcardsInfo

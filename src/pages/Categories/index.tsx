@@ -6,8 +6,11 @@ import useDidMount from "@hooks/useDidMount"
 import useIsMobile from "@hooks/useIsMobile"
 import { Category, CategoryWithFlashcardsInfo } from "@interfaces/category"
 import { Grid } from "@material-ui/core"
+import CategoriesSkeleton from "@pages/Categories/CategoriesSkeleton"
 import CategoryCard from "@pages/Categories/CategoryCard"
 import CategoryDialog from "@pages/Categories/CategoryDialog"
+import DesktopFilters from "@pages/Categories/DesktopFilters"
+import MobileFilters from "@pages/Categories/MobileFilters"
 import categoryService, {
   CreateCategoryInput,
   UpdateCategoryInput,
@@ -15,10 +18,6 @@ import categoryService, {
 import errorService from "@services/error"
 import handleBackButton, { newStateName } from "@utils/handleBackButton"
 import { removeAccents } from "@utils/removeAccents"
-
-import CategoriesSkeleton from "./CategoriesSkeleton"
-import DesktopFilters from "./DesktopFilters"
-import MobileFilters from "./MobileFilters"
 
 async function getCategories() {
   try {

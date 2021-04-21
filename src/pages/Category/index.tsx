@@ -6,18 +6,17 @@ import useIsMobile from "@hooks/useIsMobile"
 import { CategoryWithFlashcards } from "@interfaces/category"
 import { Flashcard } from "@interfaces/flashcard"
 import { Grid } from "@material-ui/core"
+import CategorySkeleton from "@pages/Category/CategorySkeleton"
+import DesktopFilters from "@pages/Category/DesktopFilters"
 import FlashcardCard from "@pages/Category/FlashcardCard"
 import FlashcardDialog from "@pages/Category/FlashcardDialog"
+import MobileFilters from "@pages/Category/MobileFilters"
 import categoryService from "@services/category"
 import errorService from "@services/error"
 import flashcardService, { CreateFlashcardInput } from "@services/flashcard"
 import handleBackButton, { newStateName } from "@utils/handleBackButton"
 import { removeAccents } from "@utils/removeAccents"
 import stringToBoolean from "@utils/stringToBoolean"
-
-import CategorySkeleton from "./CategorySkeleton"
-import DesktopFilters from "./DesktopFilters"
-import MobileFilters from "./MobileFilters"
 
 async function getCategory(categoryId: number) {
   try {
