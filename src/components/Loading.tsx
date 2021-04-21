@@ -10,26 +10,33 @@ const useStyles = makeStyles({
 
 type LoadingProps = {
   loading: boolean
+  customLoadingElement?: React.ReactNode
 }
 
-const Loading: React.FC<LoadingProps> = (props) => {
-  const { children, loading } = props
-
+const Loading: React.FC<LoadingProps> = ({
+  children,
+  loading,
+  customLoadingElement,
+}) => {
   const classes = useStyles()
 
   let component
 
   if (loading) {
-    component = (
-      <Grid
-        container
-        justify="center"
-        alignItems="center"
-        className={classes.container}
-      >
-        <CircularProgress color="secondary" />
-      </Grid>
-    )
+    if (customLoadingElement) {
+      component = customLoadingElement
+    } else {
+      component = (
+        <Grid
+          container
+          justify="center"
+          alignItems="center"
+          className={classes.container}
+        >
+          <CircularProgress color="secondary" />
+        </Grid>
+      )
+    }
   } else {
     component = <Fade in={!loading}>{children as React.ReactElement}</Fade>
   }
