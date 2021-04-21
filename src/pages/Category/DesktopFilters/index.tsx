@@ -50,7 +50,7 @@ const DesktopFilters: React.FC<DesktopFiltersProps> = ({
       <Spacing orientation="horizontal" size={1.5} />
 
       <Grid container spacing={2}>
-        <Grid item xs={4}>
+        <Grid item md={4} sm={6}>
           <SearchInputField
             label="Search"
             value={searchText}
@@ -58,7 +58,7 @@ const DesktopFilters: React.FC<DesktopFiltersProps> = ({
           />
         </Grid>
 
-        <Grid item xs={4}>
+        <Grid item md={2} sm={3}>
           <FormControl fullWidth variant="outlined">
             <InputLabel>Bookmarked</InputLabel>
 
@@ -79,7 +79,7 @@ const DesktopFilters: React.FC<DesktopFiltersProps> = ({
           </FormControl>
         </Grid>
 
-        <Grid item xs={4}>
+        <Grid item md={2} sm={3}>
           <FormControl fullWidth variant="outlined">
             <InputLabel>Learned</InputLabel>
 

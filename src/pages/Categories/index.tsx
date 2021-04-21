@@ -38,7 +38,7 @@ const Categories: React.FC = () => {
   ] = useState<Category>()
 
   const theme = useTheme()
-  const isSmall = useMediaQuery(theme.breakpoints.down("sm"))
+  const isSmall = useMediaQuery(theme.breakpoints.down("xs"))
 
   const history = useHistory()
 

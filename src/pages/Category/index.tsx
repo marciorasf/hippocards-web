@@ -48,7 +48,7 @@ const Categories: React.FC = () => {
   ] = useState<Flashcard>()
 
   const theme = useTheme()
-  const isSmall = useMediaQuery(theme.breakpoints.down("sm"))
+  const isSmall = useMediaQuery(theme.breakpoints.down("xs"))
 
   const { id: categoryId } = useParams<{ id: string }>()
 

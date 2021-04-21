@@ -28,7 +28,7 @@ const DesktopFilters: React.FC<DesktopFiltersProps> = ({
       <Spacing orientation="horizontal" size={1.5} />
 
       <Grid container>
-        <Grid item xs={4}>
+        <Grid item md={4} sm={6}>
           <SearchInputField
             label="Search"
             value={searchText}
