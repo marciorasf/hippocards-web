@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
 
-import { Header, PageContentContainer } from "@components"
+import { Header, PageContentContainer, Loading } from "@components"
 import useIsMobile from "@hooks/useIsMobile"
 import { CategoryWithFlashcards } from "@interfaces/category"
 import { Flashcard } from "@interfaces/flashcard"
-import { Grid } from "@material-ui/core"
+import { Button, Grid } from "@material-ui/core"
 import FlashcardCard from "@pages/Category/FlashcardCard"
 import FlashcardDialog from "@pages/Category/FlashcardDialog"
 import categoryService from "@services/category"
@@ -14,6 +14,7 @@ import flashcardService, { CreateFlashcardInput } from "@services/flashcard"
 import { removeAccents } from "@utils/removeAccents"
 import stringToBoolean from "@utils/stringToBoolean"
 
+import CategorySkeleton from "./CategorySkeleton"
 import DesktopFilters from "./DesktopFilters"
 import MobileFilters from "./MobileFilters"
 
@@ -47,6 +48,7 @@ const Categories: React.FC = () => {
     currentFlashcardOnEdition,
     setCurrentFlashcardOnEdition,
   ] = useState<Flashcard>()
+  const [loading, setLoading] = useState(true)
 
   const isMobile = useIsMobile()
 
@@ -205,8 +207,12 @@ const Categories: React.FC = () => {
 
   useEffect(() => {
     async function getAndUpdateCategory() {
+      setLoading(true)
+
       const categoryData = await getCategory(+categoryId)
       setCategory(categoryData)
+
+      setLoading(false)
     }
 
     getAndUpdateCategory()
@@ -240,24 +246,36 @@ const Categories: React.FC = () => {
 
       <Grid item xs={12}>
         <PageContentContainer>
-          <Grid container spacing={2} alignItems="stretch">
-            {category?.flashcards
-              ?.filter(filterFlashcards)
-              ?.map((flashcard) => (
-                <Grid key={flashcard.id} item md={4} sm={6} xs={12}>
-                  <FlashcardCard
-                    key={flashcard.id}
-                    flashcard={flashcard}
-                    handleClickEdit={handleClickEditFlashcard}
-                    handleClickDelete={handleDeleteFlashcard}
-                    handleClickMarkAsKnown={handleToggleIsFlashcardKnown}
-                    handleClickMarkAsBookmarked={
-                      handleToggleIsFlashcardBookmarked
-                    }
-                  />
-                </Grid>
-              ))}
-          </Grid>
+          <Button
+            onClick={() => {
+              setLoading(!loading)
+            }}
+          >
+            Toggle
+          </Button>
+          <Loading
+            loading={loading}
+            customLoadingElement={<CategorySkeleton />}
+          >
+            <Grid container spacing={2} alignItems="stretch">
+              {category?.flashcards
+                ?.filter(filterFlashcards)
+                ?.map((flashcard) => (
+                  <Grid key={flashcard.id} item md={4} sm={6} xs={12}>
+                    <FlashcardCard
+                      key={flashcard.id}
+                      flashcard={flashcard}
+                      handleClickEdit={handleClickEditFlashcard}
+                      handleClickDelete={handleDeleteFlashcard}
+                      handleClickMarkAsKnown={handleToggleIsFlashcardKnown}
+                      handleClickMarkAsBookmarked={
+                        handleToggleIsFlashcardBookmarked
+                      }
+                    />
+                  </Grid>
+                ))}
+            </Grid>
+          </Loading>
 
           <FlashcardDialog
             title="Add flashcard"
