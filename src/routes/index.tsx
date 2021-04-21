@@ -1,20 +1,51 @@
 import React, { useState } from "react"
-import { Route, Switch, useHistory } from "react-router-dom"
+import { Redirect, Route, Switch, RouteProps } from "react-router-dom"
 
 import { __is_dev_env__ } from "@/config"
 import { Loading } from "@components"
 import useDidMount from "@hooks/useDidMount"
+import Categories from "@pages/Categories"
+import Category from "@pages/Category"
+import Landing from "@pages/Landing"
+import LogIn from "@pages/LogIn"
+import SignUp from "@pages/SignUp"
 import developmentRoutes from "@routes/development"
-import privateRoutes from "@routes/private"
-import publicRoutes from "@routes/public"
 import authService from "@services/auth"
 import errorService from "@services/error"
 import { useUserStore } from "@stores/user"
 
-const PrivateComponent = () => {
-  const [loading, setLoading] = useState(true)
+type CustomRouteProps = RouteProps & {
+  isLoggedIn: boolean
+}
 
-  const history = useHistory()
+const LoggedInRoute: React.FC<CustomRouteProps> = ({
+  component,
+  isLoggedIn,
+  ...rest
+}) => {
+  if (isLoggedIn) {
+    return <Route component={component} {...rest} />
+  }
+
+  return <Redirect to={{ pathname: "/login" }} />
+}
+
+const NotLoggedInRoute: React.FC<CustomRouteProps> = ({
+  component,
+  isLoggedIn,
+  ...rest
+}) => {
+  if (!isLoggedIn) {
+    return <Route component={component} {...rest} />
+  }
+
+  return <Redirect to={{ pathname: "/categories" }} />
+}
+
+const LoadDataComponent = () => {
+  const [loading, setLoading] = useState(true)
+  const [isLoggedIn, setIsLoggedIn] = useState(false)
+
   const userStore = useUserStore()
 
   const getInitialData = async () => {
@@ -25,9 +56,11 @@ const PrivateComponent = () => {
         id: user.id,
         email: user.email,
       })
+
+      setIsLoggedIn(true)
     } catch (error) {
       errorService.handle(error)
-      history.push("/login")
+      setIsLoggedIn(false)
     }
 
     setLoading(false)
@@ -39,16 +72,41 @@ const PrivateComponent = () => {
 
   return (
     <Loading loading={loading}>
-      <Switch>{privateRoutes}</Switch>
+      <Switch>
+        <LoggedInRoute
+          isLoggedIn={isLoggedIn}
+          exact
+          path="/categories/:id"
+          component={Category}
+        />
+        <LoggedInRoute
+          isLoggedIn={isLoggedIn}
+          exact
+          path="/categories"
+          component={Categories}
+        />
+        <NotLoggedInRoute
+          exact
+          isLoggedIn={isLoggedIn}
+          path="/login"
+          component={LogIn}
+        />
+        <NotLoggedInRoute
+          exact
+          isLoggedIn={isLoggedIn}
+          path="/signup"
+          component={SignUp}
+        />
+        <Route path="/" component={Landing} />
+      </Switch>
     </Loading>
   )
 }
 
 const Routes = () => (
   <Switch>
-    {publicRoutes}
     {__is_dev_env__ && developmentRoutes}
-    <Route path="/" component={PrivateComponent} />
+    <Route path="/" component={LoadDataComponent} />
   </Switch>
 )
 
