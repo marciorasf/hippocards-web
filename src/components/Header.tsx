@@ -1,7 +1,9 @@
-import React, { SyntheticEvent, useRef, useState } from "react"
+import React, { SyntheticEvent, useEffect, useState } from "react"
+import { useResizeDetector } from "react-resize-detector"
 import { Link } from "react-router-dom"
 
 import Spacing from "@components/Spacing"
+import useIsMobile from "@hooks/useIsMobile"
 import {
   AppBar,
   Toolbar,
@@ -70,10 +72,23 @@ const Header: React.FC<HeaderProps> = ({
   const [menuAnchor, setMenuAnchor] = useState<(EventTarget & Element) | null>(
     null
   )
-  const [headerHeight, setHeaderHeight] = useState(48)
+  const isMobile = useIsMobile()
 
-  const classes = useStyles({ hasFab: Boolean(fabFn), headerHeight })
-  const headerRef = useRef<HTMLDivElement>()
+  const { height: headerHeight, ref: headerRef } = useResizeDetector()
+
+  let defaultHeight = 52
+  if (!isLandingPage) {
+    if (isMobile) {
+      defaultHeight = 163
+    } else {
+      defaultHeight = 212
+    }
+  }
+
+  const classes = useStyles({
+    hasFab: Boolean(fabFn),
+    headerHeight: headerHeight || defaultHeight,
+  })
 
   function handleCloseMenu() {
     setMenuAnchor(null)
@@ -93,13 +108,9 @@ const Header: React.FC<HeaderProps> = ({
     }
   }
 
-  function resizeHeight() {
-    const height = headerRef.current?.clientHeight
-
-    if (height) {
-      setHeaderHeight(height)
-    }
-  }
+  useEffect(() => {
+    console.log(headerHeight)
+  }, [headerHeight])
 
   return (
     <Container
@@ -111,7 +122,7 @@ const Header: React.FC<HeaderProps> = ({
         position="fixed"
         className={classes.appBar}
         ref={headerRef}
-        onAnimationEnd={resizeHeight}
+        // onAnimationEnd={resizeHeight}
         elevation={4}
       >
         <Toolbar disableGutters>
