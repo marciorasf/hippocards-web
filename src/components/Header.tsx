@@ -1,4 +1,4 @@
-import React, { SyntheticEvent, useState } from "react"
+import React, { SyntheticEvent, useRef, useState } from "react"
 import { Link } from "react-router-dom"
 
 import Spacing from "@components/Spacing"
@@ -30,11 +30,14 @@ import errorService from "@services/error"
 
 type MakeStylesProps = {
   hasFab: boolean
+  headerHeight: number
 }
 const useStyles = makeStyles<Theme, MakeStylesProps>((theme) => ({
+  headerContainer: {
+    marginBottom: ({ headerHeight, hasFab }) =>
+      headerHeight + (hasFab ? theme.spacing(6) : theme.spacing(4)),
+  },
   appBar: {
-    marginBottom: ({ hasFab }) =>
-      hasFab ? theme.spacing(6) : theme.spacing(4),
     backgroundColor: theme.palette.header.main,
   },
   container: {
@@ -67,7 +70,10 @@ const Header: React.FC<HeaderProps> = ({
   const [menuAnchor, setMenuAnchor] = useState<(EventTarget & Element) | null>(
     null
   )
-  const classes = useStyles({ hasFab: Boolean(fabFn) })
+  const [headerHeight, setHeaderHeight] = useState(48)
+
+  const classes = useStyles({ hasFab: Boolean(fabFn), headerHeight })
+  const headerRef = useRef<HTMLDivElement>()
 
   function handleCloseMenu() {
     setMenuAnchor(null)
@@ -87,9 +93,27 @@ const Header: React.FC<HeaderProps> = ({
     }
   }
 
+  function resizeHeight() {
+    const height = headerRef.current?.clientHeight
+
+    if (height) {
+      setHeaderHeight(height)
+    }
+  }
+
   return (
-    <>
-      <AppBar position="static" className={classes.appBar}>
+    <Container
+      disableGutters
+      maxWidth={false}
+      className={classes.headerContainer}
+    >
+      <AppBar
+        position="fixed"
+        className={classes.appBar}
+        ref={headerRef}
+        onAnimationEnd={resizeHeight}
+        elevation={4}
+      >
         <Toolbar disableGutters>
           <Container maxWidth="md" disableGutters className={classes.container}>
             <Grid container justify="space-between" alignItems="center">
@@ -176,7 +200,7 @@ const Header: React.FC<HeaderProps> = ({
           <ListItemText primary="Logout" />
         </MenuItem>
       </Menu>
-    </>
+    </Container>
   )
 }
 
