@@ -11,6 +11,7 @@ import FlashcardDialog from "@pages/Category/FlashcardDialog"
 import categoryService from "@services/category"
 import errorService from "@services/error"
 import flashcardService, { CreateFlashcardInput } from "@services/flashcard"
+import handleBackButton, { newStateName } from "@utils/handleBackButton"
 import { removeAccents } from "@utils/removeAccents"
 import stringToBoolean from "@utils/stringToBoolean"
 
@@ -54,12 +55,18 @@ const Categories: React.FC = () => {
 
   const { id: categoryId } = useParams<{ id: string }>()
 
-  function handleOpenDialog(dialog: Dialog) {
-    setOpenDialog(dialog)
-  }
-
   function handleCloseDialog() {
     setOpenDialog(null)
+
+    if (window.history.state === newStateName) {
+      window.history.back()
+    }
+  }
+
+  function handleOpenDialog(dialog: Dialog) {
+    setOpenDialog(dialog)
+
+    handleBackButton(handleCloseDialog)
   }
 
   function insertFlashcardOnCategory(createdFlashcard: Flashcard) {

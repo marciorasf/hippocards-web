@@ -2,8 +2,6 @@ import { Formik, Form } from "formik"
 import React from "react"
 
 import { FormikInputField } from "@components"
-import useDidMount from "@hooks/useDidMount"
-import useIsMobile from "@hooks/useIsMobile"
 import {
   Dialog,
   DialogTitle,
@@ -16,7 +14,6 @@ import {
 } from "@material-ui/core"
 import { Close as CloseIcon } from "@material-ui/icons"
 import { CreateFlashcardInput } from "@services/flashcard"
-import handleBackButton from "@utils/handleBackButton"
 
 const useStyles = makeStyles((theme) => ({
   closeButton: {
@@ -45,14 +42,6 @@ const FlashcardDialog: React.FC<FlashcardDialogProps> = ({
   initialValues,
 }) => {
   const classes = useStyles()
-
-  const isMobile = useIsMobile()
-
-  useDidMount(() => {
-    if (isMobile) {
-      handleBackButton(onClose)
-    }
-  })
 
   return (
     <Dialog open={open} onClose={onClose} fullWidth>

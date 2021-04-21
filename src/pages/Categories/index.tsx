@@ -13,6 +13,7 @@ import categoryService, {
   UpdateCategoryInput,
 } from "@services/category"
 import errorService from "@services/error"
+import handleBackButton, { newStateName } from "@utils/handleBackButton"
 import { removeAccents } from "@utils/removeAccents"
 
 import CategoriesSkeleton from "./CategoriesSkeleton"
@@ -57,12 +58,18 @@ const Categories: React.FC = () => {
     history.push(`/categories/${category.id}`)
   }
 
-  function handleOpenDialog(dialog: Dialog) {
-    setOpenDialog(dialog)
-  }
-
   function handleCloseDialog() {
     setOpenDialog(null)
+
+    if (window.history.state === newStateName) {
+      window.history.back()
+    }
+  }
+
+  function handleOpenDialog(dialog: Dialog) {
+    setOpenDialog(dialog)
+
+    handleBackButton(handleCloseDialog)
   }
 
   function insertCategoryOnCategories(
