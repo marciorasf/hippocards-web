@@ -1,7 +1,7 @@
 import React, { useState } from "react"
 import { useHistory } from "react-router-dom"
 
-import { Header, PageContentContainer } from "@components"
+import { Header, Loading, PageContentContainer } from "@components"
 import useDidMount from "@hooks/useDidMount"
 import useIsMobile from "@hooks/useIsMobile"
 import { Category, CategoryWithFlashcardsInfo } from "@interfaces/category"
@@ -15,6 +15,7 @@ import categoryService, {
 import errorService from "@services/error"
 import { removeAccents } from "@utils/removeAccents"
 
+import CategoriesSkeleton from "./CategoriesSkeleton"
 import DesktopFilters from "./DesktopFilters"
 import MobileFilters from "./MobileFilters"
 
@@ -37,14 +38,19 @@ const Categories: React.FC = () => {
     currentCategoryOnEdition,
     setCurrentCategoryOnEdition,
   ] = useState<Category>()
+  const [loading, setLoading] = useState(true)
 
   const isMobile = useIsMobile()
 
   const history = useHistory()
 
   async function getAndUpdateCategories() {
+    setLoading(true)
+
     const categoriesData = await getCategories()
     setCategories(categoriesData)
+
+    setLoading(false)
   }
 
   function goToCategoryPage(category: Category) {
@@ -170,19 +176,24 @@ const Categories: React.FC = () => {
 
       <Grid item xs={12}>
         <PageContentContainer>
-          <Grid container spacing={2} alignItems="stretch">
-            {categories.filter(filterCategories).map((category) => (
-              <Grid key={category.id} item md={4} sm={6} xs={12}>
-                <CategoryCard
-                  key={category.id}
-                  category={category}
-                  handleClickCard={goToCategoryPage}
-                  handleClickEdit={handleClickEditCategory}
-                  handleClickDelete={handleDeleteCategory}
-                />
-              </Grid>
-            ))}
-          </Grid>
+          <Loading
+            loading={loading}
+            customLoadingElement={<CategoriesSkeleton />}
+          >
+            <Grid container spacing={2} alignItems="stretch">
+              {categories.filter(filterCategories).map((category) => (
+                <Grid key={category.id} item md={4} sm={6} xs={12}>
+                  <CategoryCard
+                    key={category.id}
+                    category={category}
+                    handleClickCard={goToCategoryPage}
+                    handleClickEdit={handleClickEditCategory}
+                    handleClickDelete={handleDeleteCategory}
+                  />
+                </Grid>
+              ))}
+            </Grid>
+          </Loading>
 
           <CategoryDialog
             title="Add category"
