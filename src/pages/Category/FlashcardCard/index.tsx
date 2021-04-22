@@ -93,7 +93,9 @@ const FlashcardCard: React.FC<FlashcardCardProps> = ({
             <CardContent className={commonClasses.fullHeight}>
               <Grid container direction="column" spacing={4}>
                 <Grid item>
-                  <Typography variant="h6">Question</Typography>
+                  <Typography variant="body1" className={classes.questionFont}>
+                    Question
+                  </Typography>
 
                   <Spacing orientation="horizontal" size={1.25} />
 
@@ -103,7 +105,12 @@ const FlashcardCard: React.FC<FlashcardCardProps> = ({
                 <Grid item>
                   <Grid container alignItems="center" spacing={2}>
                     <Grid item>
-                      <Typography variant="h6">Answer</Typography>
+                      <Typography
+                        variant="body1"
+                        className={classes.questionFont}
+                      >
+                        Answer
+                      </Typography>
                     </Grid>
 
                     <Grid item>

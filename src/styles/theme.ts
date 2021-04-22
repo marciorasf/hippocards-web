@@ -30,6 +30,7 @@ const theme = createMuiTheme({
     h3: {
       fontFamily: '"Poppins", sans-serif',
       fontWeight: 600,
+      letterSpacing: "0.025em",
     },
     h4: {
       fontFamily: '"Poppins", sans-serif',
@@ -38,6 +39,7 @@ const theme = createMuiTheme({
     h5: {
       fontFamily: '"Poppins", sans-serif',
       fontWeight: 600,
+      letterSpacing: "0.02em",
     },
     h6: {
       fontFamily: '"Poppins", sans-serif',
@@ -51,12 +53,18 @@ const theme = createMuiTheme({
     },
     body1: {
       fontWeight: 400,
+      letterSpacing: "0.02em",
     },
     body2: {
       fontWeight: 400,
+      fontSize: "0.9rem",
+      letterSpacing: "0.02em",
+      lineHeight: 1.5,
     },
     button: {
-      fontWeight: 600,
+      fontWeight: 700,
+      fontSize: "0.9rem",
+      letterSpacing: "0.02em",
     },
     caption: {
       fontWeight: 700,
