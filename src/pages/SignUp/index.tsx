@@ -55,7 +55,7 @@ const SignUp: React.FC = () => {
     <Container maxWidth="xs">
       <Spacing orientation="horizontal" size={10} />
 
-      <Typography variant="h3">Sign Up</Typography>
+      <Typography variant="h3">Sign up</Typography>
 
       <Spacing orientation="horizontal" size={0.5} />
 

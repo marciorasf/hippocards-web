@@ -4,11 +4,6 @@ import underConstructionImg from "@assets/images/under-construction.svg"
 import { Header, PageContentContainer, Spacing } from "@components"
 import { Box, Grid, Typography } from "@material-ui/core"
 
-type TodoItem = {
-  label: string
-  done: boolean
-}
-
 const Landing: React.FC = () => {
   return (
     <Grid container>
@@ -18,7 +13,7 @@ const Landing: React.FC = () => {
 
       <Grid item xs={12}>
         <PageContentContainer>
-          <Typography variant="h3">Coming Soon</Typography>
+          <Typography variant="h3">Coming soon...</Typography>
 
           <Spacing orientation="horizontal" size={8} />
 
@@ -31,7 +26,7 @@ const Landing: React.FC = () => {
           </Box>
         </PageContentContainer>
       </Grid>
-    </Grid>
+    </Grid> 
   )
 }
 

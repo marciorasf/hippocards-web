@@ -20,33 +20,27 @@ const theme = createMuiTheme({
   typography: {
     fontFamily: '"Nunito", "Helvetica", "Arial", sans-serif',
     h1: {
-      fontFamily: '"Montserrat", sans-serif',
-      fontVariant: "small-caps",
+      fontFamily: '"Poppins", sans-serif',
       fontWeight: 500,
     },
     h2: {
-      fontFamily: '"Montserrat", sans-serif',
-      fontVariant: "small-caps",
+      fontFamily: '"Poppins", sans-serif',
       fontWeight: 500,
     },
     h3: {
-      fontFamily: '"Montserrat", sans-serif',
-      fontVariant: "small-caps",
+      fontFamily: '"Poppins", sans-serif',
       fontWeight: 600,
     },
     h4: {
-      fontFamily: '"Montserrat", sans-serif',
-      fontVariant: "small-caps",
+      fontFamily: '"Poppins", sans-serif',
       fontWeight: 600,
     },
     h5: {
-      fontFamily: '"Montserrat", sans-serif',
-      fontVariant: "small-caps",
+      fontFamily: '"Poppins", sans-serif',
       fontWeight: 600,
     },
     h6: {
-      fontFamily: '"Montserrat", sans-serif',
-      fontVariant: "small-caps",
+      fontFamily: '"Poppins", sans-serif',
       fontWeight: 600,
     },
     subtitle1: {

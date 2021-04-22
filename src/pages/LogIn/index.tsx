@@ -44,7 +44,7 @@ const LogIn: React.FC = () => {
     <Container maxWidth="xs">
       <Spacing orientation="horizontal" size={10} />
 
-      <Typography variant="h3">Log In</Typography>
+      <Typography variant="h3">Log in</Typography>
 
       <Spacing orientation="horizontal" size={0.5} />
 
