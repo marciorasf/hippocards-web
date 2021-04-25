@@ -1,8 +1,8 @@
-import React, { SyntheticEvent, useState } from "react"
+import React, { useState } from "react"
 import { useResizeDetector } from "react-resize-detector"
 import { Link } from "react-router-dom"
 
-import Spacing from "@components/Spacing"
+import { Sidebar, Spacing } from "@components"
 import useIsMobile from "@hooks/useIsMobile"
 import {
   AppBar,
@@ -14,21 +14,14 @@ import {
   Container,
   Fab,
   Theme,
-  Menu,
-  MenuItem,
-  ListItemText,
-  ListItemIcon,
   Button,
   Box,
 } from "@material-ui/core"
 import {
-  MoreVert as SettingsIcon,
   ChevronLeft as BackIcon,
   Add as AddIcon,
-  ExitToApp as LogoutIcon,
+  Menu as MenuIcon,
 } from "@material-ui/icons"
-import authService from "@services/auth"
-import errorService from "@services/error"
 import { useUserStore } from "@stores/user"
 
 type MakeStylesProps = {
@@ -70,9 +63,7 @@ const Header: React.FC<HeaderProps> = ({
   children,
   isLandingPage,
 }) => {
-  const [menuAnchor, setMenuAnchor] = useState<(EventTarget & Element) | null>(
-    null
-  )
+  const [openSidebar, setOpenSidebar] = useState(false)
   const isMobile = useIsMobile()
   const userStore = useUserStore()
 
@@ -92,22 +83,12 @@ const Header: React.FC<HeaderProps> = ({
     headerHeight: headerHeight || defaultHeight,
   })
 
-  function handleCloseMenu() {
-    setMenuAnchor(null)
+  function handleCloseSidebar() {
+    setOpenSidebar(false)
   }
 
-  function handleOpenMenu(event: SyntheticEvent) {
-    event.stopPropagation()
-    setMenuAnchor(event.currentTarget)
-  }
-
-  async function handleLogout() {
-    try {
-      await authService.logout()
-      window.location.href = "/"
-    } catch (err) {
-      errorService.handle(err)
-    }
+  function handleOpenSidebar() {
+    setOpenSidebar(true)
   }
 
   return (
@@ -155,8 +136,8 @@ const Header: React.FC<HeaderProps> = ({
                       {userStore.user.id ? "Start" : "Login"}
                     </Button>
                   ) : (
-                    <IconButton onClick={handleOpenMenu} color="inherit">
-                      <SettingsIcon />
+                    <IconButton onClick={handleOpenSidebar} color="inherit">
+                      <MenuIcon />
                     </IconButton>
                   )}
                 </Box>
@@ -193,21 +174,7 @@ const Header: React.FC<HeaderProps> = ({
         </Toolbar>
       </AppBar>
 
-      <Menu
-        anchorEl={menuAnchor}
-        keepMounted
-        open={Boolean(menuAnchor)}
-        onClose={handleCloseMenu}
-        onClick={handleCloseMenu}
-      >
-        <MenuItem onClick={handleLogout}>
-          <ListItemIcon>
-            <LogoutIcon />
-          </ListItemIcon>
-
-          <ListItemText primary="Logout" />
-        </MenuItem>
-      </Menu>
+      <Sidebar open={openSidebar} onClose={handleCloseSidebar} />
     </Container>
   )
 }

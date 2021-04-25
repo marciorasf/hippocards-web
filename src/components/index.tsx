@@ -8,3 +8,4 @@ export { default as FormikPasswordInputField } from "@components/FormikPasswordI
 export { default as SearchInputField } from "@components/SearchInputField"
 export { default as Skeleton } from "@components/Skeleton"
 export { default as ScrollToTop } from "@components/ScrollToTop"
+export { default as Sidebar } from "@components/Sidebar"
