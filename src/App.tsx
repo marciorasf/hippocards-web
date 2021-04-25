@@ -5,7 +5,7 @@ import { Container } from "@material-ui/core"
 
 function App() {
   return (
-    <Container style={{ height: "100vh" }} maxWidth={false} disableGutters>
+    <Container maxWidth={false} disableGutters>
       <Routes />
     </Container>
   )
