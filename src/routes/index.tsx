@@ -4,6 +4,7 @@ import { Redirect, Route, Switch, RouteProps } from "react-router-dom"
 import { __is_dev_env__ } from "@/config"
 import { Loading } from "@components"
 import useDidMount from "@hooks/useDidMount"
+import About from "@pages/About"
 import Categories from "@pages/Categories"
 import Category from "@pages/Category"
 import Landing from "@pages/Landing"
@@ -97,6 +98,7 @@ const LoadDataComponent = () => {
           path="/signup"
           component={SignUp}
         />
+        <Route path="/about" exact component={About} />
         <Route path="/" component={Landing} />
       </Switch>
     </Loading>

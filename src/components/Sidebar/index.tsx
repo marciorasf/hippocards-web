@@ -1,40 +1,41 @@
-import React, { useState } from "react"
+import React from "react"
 import { Link } from "react-router-dom"
 
-import useDidMount from "@hooks/useDidMount"
-import { Category } from "@interfaces/category"
+import logoImg from "@assets/images/lightning.png"
+import Spacing from "@components/Spacing"
 import {
+  Box,
+  Divider,
   Drawer,
+  IconButton,
   List,
   ListItem,
   ListItemIcon,
   ListItemText,
-  Collapse,
   makeStyles,
-  ListItemSecondaryAction,
-  IconButton,
+  Typography,
 } from "@material-ui/core"
 import {
   FolderOutlined as CategoryIcon,
-  ExpandLess as ExpandLessIcon,
-  ExpandMore as ExpandMoreIcon,
-  TextFieldsOutlined as TypographyIcon,
-  PaletteOutlined as PaletteIcon,
-  HomeOutlined as HomeIcon,
   ExitToApp as LogoutIcon,
-  LocalGasStation as LoginIcon,
-  HttpsTwoTone as SignUpIcon,
+  InfoOutlined as AboutIcon,
+  Close as CloseIcon,
 } from "@material-ui/icons"
 import authService from "@services/auth"
-import categoryService from "@services/category"
 import errorService from "@services/error"
 
-const useStyles = makeStyles((theme) => ({
-  list: {
-    width: 250,
+const useStyles = makeStyles(() => ({
+  drawerPaper: {
+    width: "100%",
   },
-  nested: {
-    paddingLeft: theme.spacing(8),
+  logo: {
+    height: 40,
+  },
+  list: {
+    width: "100%",
+  },
+  brandName: {
+    flex: 1,
   },
 }))
 
@@ -44,22 +45,7 @@ type SidebarProps = {
 }
 
 const Sidebar: React.FC<SidebarProps> = ({ open, onClose }) => {
-  const [categories, setCategories] = useState<Category[]>([])
-  const [openCategories, setOpenCategories] = useState(false)
   const classes = useStyles()
-
-  async function getAndUpdateCategories() {
-    try {
-      const cat = await categoryService.retrieveAll()
-      setCategories(cat)
-    } catch (err) {
-      errorService.handle(err)
-    }
-  }
-
-  function handleToggleOpenCategories() {
-    setOpenCategories(!openCategories)
-  }
 
   async function handleLogout() {
     try {
@@ -70,87 +56,46 @@ const Sidebar: React.FC<SidebarProps> = ({ open, onClose }) => {
     }
   }
 
-  useDidMount(() => {
-    getAndUpdateCategories()
-  })
-
   return (
-    <Drawer open={open} onClose={onClose} anchor="right">
+    <Drawer
+      open={open}
+      onClose={onClose}
+      anchor="right"
+      classes={{
+        paper: classes.drawerPaper,
+      }}
+    >
+      <Box display="flex" alignItems="center" my={3} mx={2}>
+        <img src={logoImg} alt="logo" className={classes.logo} />
+
+        <Spacing orientation="vertical" size={2} />
+
+        <Typography className={classes.brandName} variant="h5">
+          Flashcards
+        </Typography>
+
+        <IconButton onClick={onClose}>
+          <CloseIcon />
+        </IconButton>
+      </Box>
+
+      <Divider variant="middle" light />
+
       <List className={classes.list}>
-        <ListItem component={Link} to="/" button onClick={onClose}>
-          <ListItemIcon>
-            <HomeIcon />
-          </ListItemIcon>
-
-          <ListItemText primary="Home" />
-        </ListItem>
-
         <ListItem component={Link} to="/categories" button onClick={onClose}>
           <ListItemIcon>
             <CategoryIcon />
           </ListItemIcon>
 
           <ListItemText primary="Categories" />
-
-          <ListItemSecondaryAction>
-            <IconButton onClick={handleToggleOpenCategories}>
-              {openCategories ? <ExpandLessIcon /> : <ExpandMoreIcon />}
-            </IconButton>
-          </ListItemSecondaryAction>
         </ListItem>
 
-        <Collapse in={openCategories} timeout="auto" unmountOnExit>
-          <List component="div" disablePadding>
-            {categories.map((category) => (
-              <ListItem
-                key={category.id}
-                button
-                className={classes.nested}
-                component={Link}
-                to={`/categories/${category.id}`}
-                onClick={onClose}
-              >
-                <ListItemText primary={category.name} />
-              </ListItem>
-            ))}
-          </List>
-        </Collapse>
-
-        <ListItem
-          component={Link}
-          to="/dev/typography"
-          button
-          onClick={onClose}
-        >
+        <ListItem component={Link} to="/about" button onClick={onClose}>
           <ListItemIcon>
-            <TypographyIcon />
+            <AboutIcon />
           </ListItemIcon>
 
-          <ListItemText primary="Typography" />
-        </ListItem>
-
-        <ListItem component={Link} to="/dev/palette" button onClick={onClose}>
-          <ListItemIcon>
-            <PaletteIcon />
-          </ListItemIcon>
-
-          <ListItemText primary="Palette" />
-        </ListItem>
-
-        <ListItem button component={Link} to="/login" onClick={onClose}>
-          <ListItemIcon>
-            <LoginIcon />
-          </ListItemIcon>
-
-          <ListItemText primary="Login" />
-        </ListItem>
-
-        <ListItem button component={Link} to="/signup" onClick={onClose}>
-          <ListItemIcon>
-            <SignUpIcon />
-          </ListItemIcon>
-
-          <ListItemText primary="Sign Up" />
+          <ListItemText primary="About" />
         </ListItem>
 
         <ListItem button onClick={handleLogout}>
