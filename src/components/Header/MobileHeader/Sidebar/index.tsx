@@ -70,9 +70,7 @@ const Sidebar: React.FC<SidebarProps> = ({ open, onClose }) => {
 
         <Spacing orientation="vertical" size={2} />
 
-        <Typography className={classes.brandName} variant="h5">
-          Flashcards
-        </Typography>
+        <Typography variant="h5">Flashcards</Typography>
 
         <IconButton onClick={onClose}>
           <CloseIcon />
