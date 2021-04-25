@@ -44,6 +44,8 @@ const Sidebar: React.FC<SidebarProps> = ({ open, onClose }) => {
   const classes = useStyles()
   const userStore = useUserStore()
 
+  const isLoggedIn = Boolean(userStore.user.id)
+
   async function handleLogout() {
     try {
       await authService.logout()
@@ -104,7 +106,7 @@ const Sidebar: React.FC<SidebarProps> = ({ open, onClose }) => {
             </Grid>
 
             <Grid item>
-              {userStore.user.id ? (
+              {isLoggedIn ? (
                 <Button
                   fullWidth
                   onClick={handleLogout}

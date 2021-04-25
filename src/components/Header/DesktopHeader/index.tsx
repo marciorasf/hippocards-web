@@ -63,6 +63,8 @@ const DesktopHeader: React.FC<DesktopHeaderProps> = ({
 }) => {
   const userStore = useUserStore()
 
+  const isLoggedIn = Boolean(userStore.user.id)
+
   const { height: headerHeight, ref: headerRef } = useResizeDetector()
 
   const defaultHeight = isLandingPage ? 61 : 217
@@ -112,12 +114,14 @@ const DesktopHeader: React.FC<DesktopHeaderProps> = ({
                 </Grid>
 
                 <Grid item>
-                  <Grid container spacing={1}>
-                    <Grid item>
-                      <Button component={Link} to="/categories">
-                        Categories
-                      </Button>
-                    </Grid>
+                  <Grid container spacing={2}>
+                    {isLoggedIn && (
+                      <Grid item>
+                        <Button component={Link} to="/categories">
+                          Categories
+                        </Button>
+                      </Grid>
+                    )}
 
                     <Grid item>
                       <Button component={Link} to="/about">
@@ -126,7 +130,7 @@ const DesktopHeader: React.FC<DesktopHeaderProps> = ({
                     </Grid>
 
                     <Grid item>
-                      {userStore.user.id ? (
+                      {isLoggedIn ? (
                         <Button
                           color="primary"
                           variant="outlined"
