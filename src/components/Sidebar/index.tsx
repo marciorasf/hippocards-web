@@ -75,7 +75,7 @@ const Sidebar: React.FC<SidebarProps> = ({ open, onClose }) => {
   })
 
   return (
-    <Drawer open={open} onClose={onClose}>
+    <Drawer open={open} onClose={onClose} anchor="right">
       <List className={classes.list}>
         <ListItem component={Link} to="/" button onClick={onClose}>
           <ListItemIcon>
