@@ -124,7 +124,7 @@ const Sidebar: React.FC<SidebarProps> = ({ open, onClose }) => {
                   variant="outlined"
                   color="primary"
                 >
-                  Logout
+                  Log out
                 </Button>
               ) : (
                 <Button
@@ -134,7 +134,7 @@ const Sidebar: React.FC<SidebarProps> = ({ open, onClose }) => {
                   variant="contained"
                   color="primary"
                 >
-                  Login
+                  Log in
                 </Button>
               )}
             </Grid>

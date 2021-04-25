@@ -14,7 +14,6 @@ import {
   Container,
   Fab,
   Theme,
-  Button,
   Box,
 } from "@material-ui/core"
 import {
@@ -22,7 +21,6 @@ import {
   Add as AddIcon,
   Menu as MenuIcon,
 } from "@material-ui/icons"
-import { useUserStore } from "@stores/user"
 
 type MakeStylesProps = {
   hasFab: boolean
@@ -64,7 +62,6 @@ const MobileHeader: React.FC<MobileHeaderProps> = ({
   isLandingPage,
 }) => {
   const [openSidebar, setOpenSidebar] = useState(false)
-  const userStore = useUserStore()
 
   const { height: headerHeight, ref: headerRef } = useResizeDetector()
 
@@ -118,20 +115,9 @@ const MobileHeader: React.FC<MobileHeaderProps> = ({
                   justifyContent="flex-end"
                   paddingRight={isLandingPage ? 1 : 0}
                 >
-                  {isLandingPage ? (
-                    <Button
-                      variant="contained"
-                      color="primary"
-                      component={Link}
-                      to="/login"
-                    >
-                      {userStore.user.id ? "Start" : "Login"}
-                    </Button>
-                  ) : (
-                    <IconButton onClick={handleOpenSidebar} color="inherit">
-                      <MenuIcon />
-                    </IconButton>
-                  )}
+                  <IconButton onClick={handleOpenSidebar} color="inherit">
+                    <MenuIcon />
+                  </IconButton>
                 </Box>
               </Grid>
             </Grid>

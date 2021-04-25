@@ -97,8 +97,6 @@ const DesktopHeader: React.FC<DesktopHeaderProps> = ({
       >
         <Toolbar disableGutters>
           <Container maxWidth="md" disableGutters className={classes.container}>
-            <Spacing orientation="horizontal" size={1} />
-
             <Container maxWidth={false}>
               <Grid container justify="space-between" alignItems="center">
                 <Grid item xs>
@@ -136,7 +134,7 @@ const DesktopHeader: React.FC<DesktopHeaderProps> = ({
                           variant="outlined"
                           onClick={handleLogout}
                         >
-                          Logout
+                          Log out
                         </Button>
                       ) : (
                         <Button
@@ -145,7 +143,7 @@ const DesktopHeader: React.FC<DesktopHeaderProps> = ({
                           component={Link}
                           to="/login"
                         >
-                          Login
+                          Log in
                         </Button>
                       )}
                     </Grid>
