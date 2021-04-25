@@ -138,6 +138,14 @@ const Sidebar: React.FC<SidebarProps> = ({ open, onClose }) => {
                 </Button>
               )}
             </Grid>
+
+            <Grid item>
+              <Box display="flex" justifyContent="center">
+                <IconButton onClick={onClose}>
+                  <CloseIcon />
+                </IconButton>
+              </Box>
+            </Grid>
           </Grid>
         </Box>
       </Box>
