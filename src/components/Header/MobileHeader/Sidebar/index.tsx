@@ -1,7 +1,7 @@
 import React from "react"
 import { Link } from "react-router-dom"
 
-import logoImg from "@assets/images/lightning.png"
+import logoImg from "@assets/images/logo.png"
 import Spacing from "@components/Spacing"
 import {
   Box,
