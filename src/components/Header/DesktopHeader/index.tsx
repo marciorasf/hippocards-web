@@ -4,7 +4,6 @@ import { Link } from "react-router-dom"
 
 import logoImg from "@assets/images/lightning.png"
 import { Spacing } from "@components"
-import useIsMobile from "@hooks/useIsMobile"
 import {
   AppBar,
   Toolbar,
@@ -62,19 +61,11 @@ const DesktopHeader: React.FC<DesktopHeaderProps> = ({
   isLandingPage,
   title,
 }) => {
-  const isMobile = useIsMobile()
   const userStore = useUserStore()
 
   const { height: headerHeight, ref: headerRef } = useResizeDetector()
 
-  let defaultHeight = 52
-  if (!isLandingPage) {
-    if (isMobile) {
-      defaultHeight = 163
-    } else {
-      defaultHeight = 212
-    }
-  }
+  const defaultHeight = isLandingPage ? 61 : 217
 
   async function handleLogout() {
     try {

@@ -4,7 +4,6 @@ import { Link } from "react-router-dom"
 
 import { Spacing } from "@components"
 import Sidebar from "@components/Header/MobileHeader/Sidebar"
-import useIsMobile from "@hooks/useIsMobile"
 import {
   AppBar,
   Toolbar,
@@ -65,19 +64,11 @@ const MobileHeader: React.FC<MobileHeaderProps> = ({
   isLandingPage,
 }) => {
   const [openSidebar, setOpenSidebar] = useState(false)
-  const isMobile = useIsMobile()
   const userStore = useUserStore()
 
   const { height: headerHeight, ref: headerRef } = useResizeDetector()
 
-  let defaultHeight = 52
-  if (!isLandingPage) {
-    if (isMobile) {
-      defaultHeight = 163
-    } else {
-      defaultHeight = 212
-    }
-  }
+  const defaultHeight = isLandingPage ? 61 : 163
 
   const classes = useStyles({
     hasFab: Boolean(fabFn),
