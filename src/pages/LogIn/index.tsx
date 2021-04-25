@@ -80,6 +80,7 @@ const LogIn: React.FC = () => {
                   inputProps={{
                     type: "email",
                     required: true,
+                    autoFocus: true,
                   }}
                 />
               </Grid>

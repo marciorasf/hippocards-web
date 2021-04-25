@@ -78,6 +78,7 @@ const FlashcardDialog: React.FC<FlashcardDialogProps> = ({
                     inputProps={{
                       required: true,
                       multiline: true,
+                      autoFocus: true,
                     }}
                   />
                 </Grid>

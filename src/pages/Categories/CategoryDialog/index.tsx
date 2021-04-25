@@ -87,6 +87,7 @@ const CategoryDialog: React.FC<CategoryDialogProps> = ({
                     label="Name"
                     inputProps={{
                       required: true,
+                      autoFocus: true
                     }}
                   />
                 </Grid>
