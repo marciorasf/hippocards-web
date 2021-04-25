@@ -5,37 +5,33 @@ import logoImg from "@assets/images/lightning.png"
 import Spacing from "@components/Spacing"
 import {
   Box,
+  Button,
   Divider,
   Drawer,
   IconButton,
-  List,
-  ListItem,
-  ListItemIcon,
-  ListItemText,
   makeStyles,
   Typography,
+  Grid,
 } from "@material-ui/core"
-import {
-  FolderOutlined as CategoryIcon,
-  ExitToApp as LogoutIcon,
-  InfoOutlined as AboutIcon,
-  Close as CloseIcon,
-} from "@material-ui/icons"
+import { Close as CloseIcon } from "@material-ui/icons"
 import authService from "@services/auth"
 import errorService from "@services/error"
+import { useUserStore } from "@stores/user"
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme) => ({
   drawerPaper: {
     width: "100%",
   },
   logo: {
-    height: 40,
+    height: 32,
   },
-  list: {
-    width: "100%",
+  brandButton: {
+    padding: theme.spacing(1, 4),
   },
-  brandName: {
-    flex: 1,
+  closeButton: {
+    position: "absolute",
+    right: 0,
+    top: theme.spacing(1),
   },
 }))
 
@@ -46,6 +42,7 @@ type SidebarProps = {
 
 const Sidebar: React.FC<SidebarProps> = ({ open, onClose }) => {
   const classes = useStyles()
+  const userStore = useUserStore()
 
   async function handleLogout() {
     try {
@@ -65,47 +62,72 @@ const Sidebar: React.FC<SidebarProps> = ({ open, onClose }) => {
         paper: classes.drawerPaper,
       }}
     >
-      <Box display="flex" alignItems="center" my={3} mx={2}>
-        <img src={logoImg} alt="logo" className={classes.logo} />
-
-        <Spacing orientation="vertical" size={2} />
-
-        <Typography className={classes.brandName} variant="h5">
-          Flashcards
-        </Typography>
-
-        <IconButton onClick={onClose}>
+      <Box
+        width="100%"
+        height="100%"
+        display="flex"
+        alignItems="center"
+        justifyContent="center"
+      >
+        <IconButton className={classes.closeButton} onClick={onClose}>
           <CloseIcon />
         </IconButton>
+
+        <Box>
+          <Grid container direction="column" spacing={2}>
+            <Grid item>
+              <Button fullWidth className={classes.brandButton}>
+                <img src={logoImg} alt="logo" className={classes.logo} />
+
+                <Spacing orientation="vertical" size={2} />
+
+                <Typography variant="h6">Flashcards</Typography>
+              </Button>
+            </Grid>
+
+            <Grid item>
+              <Spacing orientation="horizontal" size={1} />
+              <Divider light />
+              <Spacing orientation="horizontal" size={1} />
+            </Grid>
+
+            <Grid item>
+              <Button fullWidth component={Link} to="/categories">
+                Categories
+              </Button>
+            </Grid>
+
+            <Grid item>
+              <Button fullWidth component={Link} to="/about">
+                About
+              </Button>
+            </Grid>
+
+            <Grid item>
+              {userStore.user.id ? (
+                <Button
+                  fullWidth
+                  onClick={handleLogout}
+                  variant="outlined"
+                  color="primary"
+                >
+                  Logout
+                </Button>
+              ) : (
+                <Button
+                  fullWidth
+                  component={Link}
+                  to="/login"
+                  variant="contained"
+                  color="primary"
+                >
+                  Login
+                </Button>
+              )}
+            </Grid>
+          </Grid>
+        </Box>
       </Box>
-
-      <Divider variant="middle" light />
-
-      <List className={classes.list}>
-        <ListItem component={Link} to="/categories" button onClick={onClose}>
-          <ListItemIcon>
-            <CategoryIcon />
-          </ListItemIcon>
-
-          <ListItemText primary="Categories" />
-        </ListItem>
-
-        <ListItem component={Link} to="/about" button onClick={onClose}>
-          <ListItemIcon>
-            <AboutIcon />
-          </ListItemIcon>
-
-          <ListItemText primary="About" />
-        </ListItem>
-
-        <ListItem button onClick={handleLogout}>
-          <ListItemIcon>
-            <LogoutIcon />
-          </ListItemIcon>
-
-          <ListItemText primary="Logout" />
-        </ListItem>
-      </List>
     </Drawer>
   )
 }
