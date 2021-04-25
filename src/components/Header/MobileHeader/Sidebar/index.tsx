@@ -78,7 +78,13 @@ const Sidebar: React.FC<SidebarProps> = ({ open, onClose }) => {
         <Box>
           <Grid container direction="column" spacing={2}>
             <Grid item>
-              <Button fullWidth className={classes.brandButton}>
+              <Button
+                fullWidth
+                className={classes.brandButton}
+                component={Link}
+                to="/categories"
+                onClick={onClose}
+              >
                 <img src={logoImg} alt="logo" className={classes.logo} />
 
                 <Spacing orientation="vertical" size={2} />
@@ -94,13 +100,18 @@ const Sidebar: React.FC<SidebarProps> = ({ open, onClose }) => {
             </Grid>
 
             <Grid item>
-              <Button fullWidth component={Link} to="/categories">
+              <Button
+                fullWidth
+                component={Link}
+                to="/categories"
+                onClick={onClose}
+              >
                 Categories
               </Button>
             </Grid>
 
             <Grid item>
-              <Button fullWidth component={Link} to="/about">
+              <Button fullWidth component={Link} to="/about" onClick={onClose}>
                 About
               </Button>
             </Grid>
