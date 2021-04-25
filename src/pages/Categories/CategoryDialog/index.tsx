@@ -13,6 +13,7 @@ import {
   Grid,
   IconButton,
   makeStyles,
+  CircularProgress,
 } from "@material-ui/core"
 import { Close as CloseIcon } from "@material-ui/icons"
 import { CreateCategoryInput, UpdateCategoryInput } from "@services/category"
@@ -87,7 +88,7 @@ const CategoryDialog: React.FC<CategoryDialogProps> = ({
                     label="Name"
                     inputProps={{
                       required: true,
-                      autoFocus: true
+                      autoFocus: true,
                     }}
                   />
                 </Grid>
@@ -108,6 +109,11 @@ const CategoryDialog: React.FC<CategoryDialogProps> = ({
                 variant="contained"
                 color="primary"
                 type="submit"
+                endIcon={
+                  isSubmitting && (
+                    <CircularProgress size={16} style={{ color: "white" }} />
+                  )
+                }
               >
                 {okButtonLabel}
               </Button>

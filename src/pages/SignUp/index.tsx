@@ -13,6 +13,7 @@ import {
   Grid,
   Container,
   Link as MuiLink,
+  CircularProgress,
 } from "@material-ui/core"
 import useStyles from "@pages/SignUp/styles"
 import authService, { LoginInput } from "@services/auth"
@@ -111,6 +112,11 @@ const SignUp: React.FC = () => {
                   fullWidth
                   type="submit"
                   disabled={isSubmitting}
+                  endIcon={
+                    isSubmitting && (
+                      <CircularProgress size={16} style={{ color: "white" }} />
+                    )
+                  }
                 >
                   sign up
                 </Button>

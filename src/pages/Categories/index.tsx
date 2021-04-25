@@ -140,8 +140,8 @@ const Categories: React.FC = () => {
 
   async function handleDeleteCategory(category: Category) {
     try {
-      await categoryService.delete(category.id)
       deleteCategoryOnCategories(category)
+      await categoryService.delete(category.id)
     } catch (err) {
       errorService.handle(err)
     }

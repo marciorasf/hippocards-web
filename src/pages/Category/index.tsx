@@ -172,8 +172,8 @@ const Categories: React.FC = () => {
 
   async function handleDeleteFlashcard(flashcard: Flashcard) {
     try {
-      await flashcardService.delete(flashcard.id)
       deleteFlashcardOnCategory(flashcard)
+      await flashcardService.delete(flashcard.id)
     } catch (err) {
       errorService.handle(err)
     }
