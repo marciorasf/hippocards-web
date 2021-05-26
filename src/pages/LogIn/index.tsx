@@ -49,7 +49,7 @@ const LogIn: React.FC = () => {
 
       <Spacing orientation="horizontal" size={0.5} />
 
-      <Typography variant="h3">Flashcards</Typography>
+      <Typography variant="h3">Hippocards</Typography>
 
       <Spacing orientation="horizontal" size={12} />
 

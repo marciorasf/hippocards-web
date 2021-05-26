@@ -89,7 +89,7 @@ const Sidebar: React.FC<SidebarProps> = ({ open, onClose }) => {
 
                 <Spacing orientation="vertical" size={2} />
 
-                <Typography variant="h6">Flashcards</Typography>
+                <Typography variant="h6">Hippocards</Typography>
               </Button>
             </Grid>
 

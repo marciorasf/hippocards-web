@@ -106,7 +106,7 @@ const DesktopHeader: React.FC<DesktopHeaderProps> = ({
                     <Spacing orientation="vertical" size={2} />
 
                     <Typography variant="h5">
-                      {title || "Flashcards"}
+                      {title || "Hippocards"}
                     </Typography>
                   </Box>
                 </Grid>

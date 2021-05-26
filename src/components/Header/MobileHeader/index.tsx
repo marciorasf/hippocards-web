@@ -105,7 +105,7 @@ const MobileHeader: React.FC<MobileHeaderProps> = ({
 
               <Grid item xs={6}>
                 <Typography variant="h5" align="center">
-                  {title || "Flashcards"}
+                  {title || "Hippocards"}
                 </Typography>
               </Grid>
 
