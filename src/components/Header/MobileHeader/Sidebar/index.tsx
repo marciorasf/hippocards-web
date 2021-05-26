@@ -110,11 +110,11 @@ const Sidebar: React.FC<SidebarProps> = ({ open, onClose }) => {
               </Button>
             </Grid>
 
-            <Grid item>
+            {/* <Grid item>
               <Button fullWidth component={Link} to="/about" onClick={onClose}>
                 About
               </Button>
-            </Grid>
+            </Grid> */}
 
             <Grid item>
               {isLoggedIn ? (

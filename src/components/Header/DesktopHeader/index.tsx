@@ -121,11 +121,11 @@ const DesktopHeader: React.FC<DesktopHeaderProps> = ({
                       </Grid>
                     )}
 
-                    <Grid item>
+                    {/* <Grid item>
                       <Button component={Link} to="/about">
                         About
                       </Button>
-                    </Grid>
+                    </Grid> */}
 
                     <Grid item>
                       {isLoggedIn ? (
