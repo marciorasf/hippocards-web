@@ -15,8 +15,9 @@ import {
   Theme,
   Button,
   Box,
+  IconButton,
 } from "@material-ui/core"
-import { Add as AddIcon } from "@material-ui/icons"
+import { Add as AddIcon, ArrowBackIosOutlined as BackIcon } from "@material-ui/icons"
 import authService from "@services/auth"
 import errorService from "@services/error"
 import { useUserStore } from "@stores/user"
@@ -53,6 +54,7 @@ type DesktopHeaderProps = {
   fabFn?: () => void
   children?: React.ReactNode
   isLandingPage?: boolean
+  goBackTo?: string
 }
 
 const DesktopHeader: React.FC<DesktopHeaderProps> = ({
@@ -60,6 +62,7 @@ const DesktopHeader: React.FC<DesktopHeaderProps> = ({
   children,
   isLandingPage,
   title,
+  goBackTo
 }) => {
   const userStore = useUserStore()
 
@@ -101,7 +104,16 @@ const DesktopHeader: React.FC<DesktopHeaderProps> = ({
               <Grid container justify="space-between" alignItems="center">
                 <Grid item xs>
                   <Box display="flex" alignItems="center">
-                    <img src={logoImg} alt="logo" className={classes.logo} />
+                    {goBackTo ? (
+                      <IconButton
+                        component={Link}
+                        to={goBackTo}
+                      >
+                        <BackIcon />
+                      </IconButton>
+                    ) : (
+                      <img src={logoImg} alt="logo" className={classes.logo} />
+                    )}
 
                     <Spacing orientation="vertical" size={2} />
 
