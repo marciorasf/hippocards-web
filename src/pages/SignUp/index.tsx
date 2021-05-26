@@ -58,9 +58,9 @@ const SignUp: React.FC = () => {
 
       <Typography variant="h3">Sign up</Typography>
 
-      <Spacing orientation="horizontal" size={0.5} />
+      <Spacing orientation="horizontal" size={1} />
 
-      <Typography variant="h3">Hippocards</Typography>
+      <Typography variant="h3" color="primary">Hippocards</Typography>
 
       <Spacing orientation="horizontal" size={12} />
 
