@@ -38,6 +38,11 @@ const useStyles = makeStyles<Theme, MakeStylesProps>((theme) => ({
     padding: theme.spacing(1, 0),
     position: "relative",
   },
+  titleRowContainer: {
+    minHeight: 48,
+    display: "flex",
+    alignItems: "center"
+  },
   logo: {
     height: 32,
   },
@@ -100,7 +105,7 @@ const DesktopHeader: React.FC<DesktopHeaderProps> = ({
       >
         <Toolbar disableGutters>
           <Container maxWidth="md" disableGutters className={classes.container}>
-            <Container maxWidth={false}>
+            <Container maxWidth={false} className={classes.titleRowContainer} >
               <Grid container justify="space-between" alignItems="center">
                 <Grid item xs>
                   <Box display="flex" alignItems="center">
