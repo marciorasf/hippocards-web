@@ -27,7 +27,7 @@ type UpdateFlashcardResponse = CreateFlashcardResponse
 
 const flashcardService = {
   async create(categoryId: number, inputData: CreateFlashcardInput) {
-    const response = await apiService.post("/flashcards", {
+    const response = await apiService.post("flashcards", {
       ...inputData,
       categoryId,
     })
@@ -49,7 +49,7 @@ const flashcardService = {
 
   async update(flashcardId: number, inputData: UpdateFlashcardInput) {
     const response = await apiService.put(
-      `/flashcards/${flashcardId}`,
+      `flashcards/${flashcardId}`,
       inputData
     )
     const data = response.data as UpdateFlashcardResponse
@@ -57,7 +57,7 @@ const flashcardService = {
   },
 
   async delete(flashcardId: number) {
-    await apiService.delete(`/flashcards/${flashcardId}`)
+    await apiService.delete(`flashcards/${flashcardId}`)
   },
 }
 

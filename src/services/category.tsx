@@ -27,7 +27,7 @@ type UpdateCategoryResponse = CreateCategoryResponse
 
 const categoryService = {
   async create(inputData: CreateCategoryInput) {
-    const response = await apiService.post("/categories", inputData)
+    const response = await apiService.post("categories", inputData)
     const data = response.data as CreateCategoryResponse
     const categoryWithFlashcardInfo: CategoryWithFlashcardsInfo = {
       ...data.category,

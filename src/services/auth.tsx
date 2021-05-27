@@ -18,7 +18,7 @@ type OkResponse = LoginResponse
 
 const authService = {
   async login(inputData: LoginInput) {
-    const response = await apiService.post("/login", inputData)
+    const response = await apiService.post("login", inputData)
     const data = response.data as LoginResponse
 
     Cookies.set(__auth_token_cookie__, data.token)
@@ -31,7 +31,7 @@ const authService = {
   },
 
   async ok() {
-    const response = await apiService.get("/ok")
+    const response = await apiService.get("ok")
     const data = response.data as OkResponse
     return data.user
   },
