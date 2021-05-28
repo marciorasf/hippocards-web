@@ -49,7 +49,9 @@ const LogIn: React.FC = () => {
 
       <Spacing orientation="horizontal" size={1} />
 
-      <Typography variant="h3" color="primary">Hippocards</Typography>
+      <Typography variant="h3" color="primary">
+        Hippocards
+      </Typography>
 
       <Spacing orientation="horizontal" size={12} />
 
@@ -96,6 +98,14 @@ const LogIn: React.FC = () => {
                     required: true,
                   }}
                 />
+
+                <Spacing orientation="horizontal" size={0.5} />
+
+                <Typography variant="body2" align="right">
+                  <MuiLink component={Link} to="/recover-password">
+                    Forgot your password?
+                  </MuiLink>
+                </Typography>
               </Grid>
 
               <Spacing orientation="horizontal" size={6} />
