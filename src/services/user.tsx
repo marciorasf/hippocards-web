@@ -15,6 +15,14 @@ const userService = {
     const data = response.data as CreateUserResponse
     return data.userId
   },
+
+  async requestRecoverPassword(email: string) {
+    await apiService.post("recover-password", {
+      email,
+    })
+
+    return true
+  },
 }
 
 export default userService

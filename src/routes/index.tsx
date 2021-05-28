@@ -9,6 +9,7 @@ import Categories from "@pages/Categories"
 import Category from "@pages/Category"
 import Landing from "@pages/Landing"
 import LogIn from "@pages/LogIn"
+import RecoverPassword from "@pages/RecoverPassword"
 import SignUp from "@pages/SignUp"
 import developmentRoutes from "@routes/development"
 import authService from "@services/auth"
@@ -97,6 +98,12 @@ const LoadDataComponent = () => {
           isLoggedIn={isLoggedIn}
           path="/signup"
           component={SignUp}
+        />
+        <NotLoggedInRoute
+          path="/recover-password"
+          isLoggedIn={isLoggedIn}
+          exact
+          component={RecoverPassword}
         />
         <Route path="/about" exact component={About} />
         <Route path="/" component={Landing} />
