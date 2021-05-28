@@ -30,7 +30,7 @@ const RecoverPassword: React.FC = () => {
       <Spacing orientation="horizontal" size={10} />
 
       <Typography variant="h6">
-        We'll send you a link to change your password.
+        We'll send you a link to change your password
       </Typography>
 
       <Spacing orientation="horizontal" size={6} />

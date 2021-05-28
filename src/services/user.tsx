@@ -20,7 +20,11 @@ const userService = {
     await apiService.post("recover-password", {
       email,
     })
+    return true
+  },
 
+  async verifyRecoverPasswordToken(token: string) {
+    await apiService.get(`recover-password-token/${token}`)
     return true
   },
 }

@@ -7,6 +7,7 @@ import useDidMount from "@hooks/useDidMount"
 import About from "@pages/About"
 import Categories from "@pages/Categories"
 import Category from "@pages/Category"
+import ChangePassword from "@pages/ChangePassword"
 import Landing from "@pages/Landing"
 import LogIn from "@pages/LogIn"
 import RecoverPassword from "@pages/RecoverPassword"
@@ -104,6 +105,11 @@ const LoadDataComponent = () => {
           isLoggedIn={isLoggedIn}
           exact
           component={RecoverPassword}
+        />
+        <Route
+          path="/change-password/:token"
+          exact
+          component={ChangePassword}
         />
         <Route path="/about" exact component={About} />
         <Route path="/" component={Landing} />
