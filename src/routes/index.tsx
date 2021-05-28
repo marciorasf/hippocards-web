@@ -4,6 +4,7 @@ import { Redirect, Route, Switch, RouteProps } from "react-router-dom"
 import { __is_dev_env__ } from "@/config"
 import { Loading } from "@components"
 import useDidMount from "@hooks/useDidMount"
+import { Grid, CircularProgress } from "@material-ui/core"
 import About from "@pages/About"
 import Categories from "@pages/Categories"
 import Category from "@pages/Category"
@@ -74,7 +75,22 @@ const LoadDataComponent = () => {
   })
 
   return (
-    <Loading loading={loading}>
+    <Loading
+      loading={loading}
+      customLoadingElement={
+        <Grid
+          container
+          justify="center"
+          alignItems="center"
+          style={{
+            height: "100%",
+            minHeight: "100vh",
+          }}
+        >
+          <CircularProgress color="secondary" />
+        </Grid>
+      }
+    >
       <Switch>
         <LoggedInRoute
           isLoggedIn={isLoggedIn}
