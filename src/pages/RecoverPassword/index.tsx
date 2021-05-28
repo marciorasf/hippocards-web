@@ -1,5 +1,5 @@
 import { Formik, Form } from "formik"
-import React from "react"
+import React, { useState } from "react"
 
 import { FormikInputField, Spacing } from "@components"
 import {
@@ -13,12 +13,19 @@ import errorService from "@services/error"
 import userService from "@services/user"
 
 const RecoverPassword: React.FC = () => {
+  const [emailSent, setEmailSent] = useState(false)
+
   async function handleRequestRecoverPassword(email: string) {
     try {
       await userService.requestRecoverPassword(email)
+
+      setEmailSent(true)
+
       return true
     } catch (err) {
       errorService.handle(err)
+
+      setEmailSent(false)
 
       const { message } = err.response.data
       return message as string
@@ -86,6 +93,22 @@ const RecoverPassword: React.FC = () => {
                   send email
                 </Button>
               </Grid>
+
+              {emailSent && (
+                <>
+                  <Spacing orientation="horizontal" size={2} />
+
+                  <Grid item>
+                    <Typography
+                      variant="h6"
+                      align="center"
+                      style={{ color: "#81c784" }}
+                    >
+                      Email sent successfully :)
+                    </Typography>
+                  </Grid>
+                </>
+              )}
             </Grid>
           </Form>
         )}
