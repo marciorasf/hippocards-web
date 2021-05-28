@@ -27,6 +27,15 @@ const userService = {
     await apiService.get(`recover-password-token/${token}`)
     return true
   },
+
+  async changePassword(password: string, token: string) {
+    await apiService.put("change-password", {
+      token,
+      password,
+    })
+
+    return true
+  },
 }
 
 export default userService
