@@ -7,7 +7,7 @@ Check also the api repo [hippocards-api](https://github.com/marciorasf/hippocard
 ## Prerequisites
 
 Before you begin, ensure you have met the following requirements:
-* You have installed Node.js version 12.22.0 or above
+* You have installed Node.js version 12.22.0 or above.
 * You have yarn installed.
 * You have the [hippocards-api](https://github.com/marciorasf/hippocards-api) running.
 
@@ -25,7 +25,7 @@ Install dependencies:
 yarn
 ```
 
-Copy the .env.example as .env
+Clone the .env.example as .env.
 
 ## Using hippocards-web
 
