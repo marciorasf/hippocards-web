@@ -29,7 +29,7 @@ const Landing: React.FC = () => {
             <Grid item md="auto" xs={12}>
               {widthSmallerThanMd ? (
                 <>
-                  <Spacing orientation="horizontal" size={6} />
+                  <Spacing orientation="horizontal" size={2} />
 
                   <Box
                     display="flex"
