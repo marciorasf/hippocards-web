@@ -17,7 +17,10 @@ import {
   Box,
   IconButton,
 } from "@material-ui/core"
-import { Add as AddIcon, ArrowBackIosOutlined as BackIcon } from "@material-ui/icons"
+import {
+  Add as AddIcon,
+  ArrowBackIosOutlined as BackIcon,
+} from "@material-ui/icons"
 import authService from "@services/auth"
 import errorService from "@services/error"
 import { useUserStore } from "@stores/user"
@@ -41,7 +44,7 @@ const useStyles = makeStyles<Theme, MakeStylesProps>((theme) => ({
   titleRowContainer: {
     minHeight: 48,
     display: "flex",
-    alignItems: "center"
+    alignItems: "center",
   },
   logo: {
     height: 32,
@@ -67,7 +70,7 @@ const DesktopHeader: React.FC<DesktopHeaderProps> = ({
   children,
   isLandingPage,
   title,
-  goBackTo
+  goBackTo,
 }) => {
   const userStore = useUserStore()
 
@@ -105,15 +108,12 @@ const DesktopHeader: React.FC<DesktopHeaderProps> = ({
       >
         <Toolbar disableGutters>
           <Container maxWidth="md" disableGutters className={classes.container}>
-            <Container maxWidth={false} className={classes.titleRowContainer} >
+            <Container maxWidth={false} className={classes.titleRowContainer}>
               <Grid container justify="space-between" alignItems="center">
                 <Grid item xs>
                   <Box display="flex" alignItems="center">
                     {goBackTo ? (
-                      <IconButton
-                        component={Link}
-                        to={goBackTo}
-                      >
+                      <IconButton component={Link} to={goBackTo}>
                         <BackIcon />
                       </IconButton>
                     ) : (
@@ -144,8 +144,8 @@ const DesktopHeader: React.FC<DesktopHeaderProps> = ({
                       </Button>
                     </Grid> */}
 
-                    <Grid item>
-                      {isLoggedIn ? (
+                    {isLoggedIn ? (
+                      <Grid item>
                         <Button
                           color="primary"
                           variant="outlined"
@@ -153,17 +153,32 @@ const DesktopHeader: React.FC<DesktopHeaderProps> = ({
                         >
                           Log out
                         </Button>
-                      ) : (
-                        <Button
-                          color="primary"
-                          variant="contained"
-                          component={Link}
-                          to="/login"
-                        >
-                          Log in
-                        </Button>
-                      )}
-                    </Grid>
+                      </Grid>
+                    ) : (
+                      <>
+                        <Grid item>
+                          <Button
+                            color="primary"
+                            variant="outlined"
+                            component={Link}
+                            to="/login"
+                          >
+                            Log in
+                          </Button>
+                        </Grid>
+
+                        <Grid item>
+                          <Button
+                            color="primary"
+                            variant="contained"
+                            component={Link}
+                            to="/signup"
+                          >
+                            sign up
+                          </Button>
+                        </Grid>
+                      </>
+                    )}
                   </Grid>
                 </Grid>
               </Grid>

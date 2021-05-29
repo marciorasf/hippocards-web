@@ -116,8 +116,8 @@ const Sidebar: React.FC<SidebarProps> = ({ open, onClose }) => {
               </Button>
             </Grid> */}
 
-            <Grid item>
-              {isLoggedIn ? (
+            {isLoggedIn ? (
+              <Grid item>
                 <Button
                   fullWidth
                   onClick={handleLogout}
@@ -126,18 +126,34 @@ const Sidebar: React.FC<SidebarProps> = ({ open, onClose }) => {
                 >
                   Log out
                 </Button>
-              ) : (
-                <Button
-                  fullWidth
-                  component={Link}
-                  to="/login"
-                  variant="contained"
-                  color="primary"
-                >
-                  Log in
-                </Button>
-              )}
-            </Grid>
+              </Grid>
+            ) : (
+              <>
+                <Grid item>
+                  <Button
+                    fullWidth
+                    component={Link}
+                    to="/login"
+                    variant="outlined"
+                    color="primary"
+                  >
+                    Log in
+                  </Button>
+                </Grid>
+
+                <Grid item>
+                  <Button
+                    fullWidth
+                    component={Link}
+                    to="/signup"
+                    variant="contained"
+                    color="primary"
+                  >
+                    sign up
+                  </Button>
+                </Grid>
+              </>
+            )}
 
             <Grid item>
               <Box display="flex" justifyContent="center">
