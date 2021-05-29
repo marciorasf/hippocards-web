@@ -2,6 +2,8 @@
 
 Hippocards is a tool that helps people studying with flashcards.
 
+Check also the api repo [hippocards-api](https://github.com/marciorasf/hippocards-api).
+.
 ## Prerequisites
 
 Before you begin, ensure you have met the following requirements:
