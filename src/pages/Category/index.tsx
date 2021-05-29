@@ -44,10 +44,8 @@ const Categories: React.FC = () => {
     isKnown: "both",
     isBookmarked: "both",
   })
-  const [
-    currentFlashcardOnEdition,
-    setCurrentFlashcardOnEdition,
-  ] = useState<Flashcard>()
+  const [currentFlashcardOnEdition, setCurrentFlashcardOnEdition] =
+    useState<Flashcard>()
   const [loading, setLoading] = useState(true)
 
   const isMobile = useIsMobile()
@@ -73,7 +71,7 @@ const Categories: React.FC = () => {
       return
     }
 
-    const updatedFlashcards = [...category?.flashcards, createdFlashcard]
+    const updatedFlashcards = [createdFlashcard, ...category?.flashcards]
 
     setCategory({
       ...category,

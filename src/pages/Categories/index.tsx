@@ -34,10 +34,8 @@ const Categories: React.FC = () => {
   const [categories, setCategories] = useState<CategoryWithFlashcardsInfo[]>([])
   const [openDialog, setOpenDialog] = useState<Dialog | null>(null)
   const [searchText, setSearchText] = useState("")
-  const [
-    currentCategoryOnEdition,
-    setCurrentCategoryOnEdition,
-  ] = useState<Category>()
+  const [currentCategoryOnEdition, setCurrentCategoryOnEdition] =
+    useState<Category>()
   const [loading, setLoading] = useState(true)
 
   const isMobile = useIsMobile()
@@ -78,7 +76,7 @@ const Categories: React.FC = () => {
       return
     }
 
-    setCategories([...categories, createdCategory])
+    setCategories([createdCategory, ...categories])
   }
 
   async function handleCreateCategory(categoryData: CreateCategoryInput) {
