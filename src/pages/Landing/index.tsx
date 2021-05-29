@@ -10,6 +10,7 @@ import {
   Link as MuiLink,
   useTheme,
   useMediaQuery,
+  Button,
 } from "@material-ui/core"
 
 const Landing: React.FC = () => {
@@ -24,30 +25,77 @@ const Landing: React.FC = () => {
 
       <Grid item xs={12}>
         <PageContentContainer>
-          <Grid container style={{ marginTop: "-32px" }}>
-            {widthSmallerThanMd && (
-              <Spacing orientation="horizontal" size={6} />
-            )}
+          <Grid container style={{ marginTop: "-32px" }} spacing={4}>
+            <Grid item md="auto" xs={12}>
+              {widthSmallerThanMd ? (
+                <>
+                  <Spacing orientation="horizontal" size={6} />
 
-            <Grid item md={6} xs={12}>
-              <Box
-                display="flex"
-                justifyContent="center"
-                alignItems={widthSmallerThanMd ? "center" : "flex-start"}
-                height="100%"
-                flexDirection="column"
-              >
-                <Typography variant="h2" color="primary">
-                  Hippocards
-                </Typography>
+                  <Box
+                    display="flex"
+                    justifyContent="center"
+                    alignItems="center"
+                    height="100%"
+                    flexDirection="column"
+                  >
+                    <Box>
+                      <Typography variant="h2" color="primary" align="center">
+                        Hippocards
+                      </Typography>
 
-                <Spacing orientation="horizontal" size={4} />
+                      <Spacing orientation="horizontal" size={4} />
 
-                <Typography variant="h5">Study more efficiently</Typography>
-              </Box>
+                      <Typography variant="h5" align="center">
+                        Study more efficiently
+                      </Typography>
+
+                      <Spacing orientation="horizontal" size={4} />
+
+                      <Button
+                        fullWidth
+                        color="secondary"
+                        variant="contained"
+                        component={Link}
+                        to="/signup"
+                        style={{ textAlign: "center" }}
+                      >
+                        Start Now
+                      </Button>
+                    </Box>
+                  </Box>
+                </>
+              ) : (
+                <Box
+                  display="flex"
+                  justifyContent="center"
+                  alignItems="flex-start"
+                  height="100%"
+                  flexDirection="column"
+                >
+                  <Typography variant="h2" color="primary">
+                    Hippocards
+                  </Typography>
+
+                  <Spacing orientation="horizontal" size={4} />
+
+                  <Typography variant="h5">Study more efficiently</Typography>
+
+                  <Spacing orientation="horizontal" size={4} />
+
+                  <Button
+                    fullWidth
+                    color="secondary"
+                    variant="contained"
+                    component={Link}
+                    to="/signup"
+                  >
+                    Start Now
+                  </Button>
+                </Box>
+              )}
             </Grid>
 
-            <Grid item md={6} xs={12}>
+            <Grid item md xs={12}>
               <Box display="flex" justifyContent="center" position="relative">
                 <img src={landingImage} alt="landing_image" />
 
@@ -60,7 +108,7 @@ const Landing: React.FC = () => {
             </Grid>
 
             {widthSmallerThanMd && (
-              <Spacing orientation="horizontal" size={2} />
+              <Spacing orientation="horizontal" size={1} />
             )}
           </Grid>
         </PageContentContainer>
