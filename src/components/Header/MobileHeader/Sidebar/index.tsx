@@ -82,7 +82,7 @@ const Sidebar: React.FC<SidebarProps> = ({ open, onClose }) => {
                 fullWidth
                 className={classes.brandButton}
                 component={Link}
-                to="/categories"
+                to="/"
                 onClick={onClose}
               >
                 <img src={logoImg} alt="logo" className={classes.logo} />

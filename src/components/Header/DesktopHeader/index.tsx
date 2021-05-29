@@ -117,7 +117,13 @@ const DesktopHeader: React.FC<DesktopHeaderProps> = ({
                         <BackIcon />
                       </IconButton>
                     ) : (
-                      <img src={logoImg} alt="logo" className={classes.logo} />
+                      <Link to="/">
+                        <img
+                          src={logoImg}
+                          alt="logo"
+                          className={classes.logo}
+                        />
+                      </Link>
                     )}
 
                     <Spacing orientation="vertical" size={2} />
