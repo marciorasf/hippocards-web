@@ -1,8 +1,9 @@
 import React from "react"
+import { Link } from "react-router-dom"
 
-import underConstructionImg from "@assets/images/under-construction.svg"
+import landingImage from "@assets/images/book-lover-animate.svg"
 import { Header, PageContentContainer, Spacing } from "@components"
-import { Box, Grid, Typography } from "@material-ui/core"
+import { Box, Grid, Typography, Link as MuiLink } from "@material-ui/core"
 
 const Landing: React.FC = () => {
   return (
@@ -13,20 +14,39 @@ const Landing: React.FC = () => {
 
       <Grid item xs={12}>
         <PageContentContainer>
-          <Typography variant="h3">Coming soon...</Typography>
+          <Grid container>
+            <Grid item xs={6}>
+              <Box
+                display="flex"
+                justifyContent="center"
+                height="100%"
+                flexDirection="column"
+              >
+                <Typography variant="h2" color="primary">
+                  Hippocards
+                </Typography>
 
-          <Spacing orientation="horizontal" size={8} />
+                <Spacing orientation="horizontal" size={4} />
 
-          <Box display="flex" justifyContent="center">
-            <img
-              src={underConstructionImg}
-              alt="under construction"
-              height={300}
-            />
-          </Box>
+                <Typography variant="h5">Study more efficiently</Typography>
+              </Box>
+            </Grid>
+
+            <Grid item xs={6}>
+              <Box display="flex" justifyContent="center" position="relative">
+                <img src={landingImage} alt="under construction" height={500} />
+
+                <Box position="absolute" bottom="0" right="0">
+                  <MuiLink component={Link} to="https://storyset.com/education">
+                    Illustration by Freepik Storyset
+                  </MuiLink>
+                </Box>
+              </Box>
+            </Grid>
+          </Grid>
         </PageContentContainer>
       </Grid>
-    </Grid> 
+    </Grid>
   )
 }
 
