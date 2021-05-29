@@ -25,6 +25,8 @@ Install dependencies:
 yarn
 ```
 
+Copy the .env.example as .env
+
 ## Using hippocards-web
 
 To use hippocards-web, just start the server:
