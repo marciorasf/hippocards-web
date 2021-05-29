@@ -31,6 +31,12 @@ To use hippocards-web, just start the server:
 yarn dev
 ```
 
+## Technologies used
+* TypeScript
+* React
+* Axios
+* Material-UI
+
 ## Contact
 
 If you want to contact me you can reach me at marciorasf@gmail.com.
