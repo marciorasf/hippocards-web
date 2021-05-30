@@ -356,8 +356,8 @@ const Categories: React.FC = () => {
                         flashcard={flashcard}
                         handleClickEdit={handleClickEditFlashcard}
                         handleClickDelete={handleDeleteFlashcard}
-                        handleClickMarkAsKnown={handleToggleIsFlashcardKnown}
-                        handleClickMarkAsBookmarked={
+                        handleClickToggleIsFlashcardKnown={handleToggleIsFlashcardKnown}
+                        handleClickToggleIsFlashcardBookmarked={
                           handleToggleIsFlashcardBookmarked
                         }
                       />
@@ -391,8 +391,8 @@ const Categories: React.FC = () => {
                 category={category}
                 active={true}
                 onClose={handleStopStudyMode}
-                handleClickMarkAsBookmarked={handleToggleIsFlashcardBookmarked}
-                handleClickMarkAsKnown={handleToggleIsFlashcardKnown}
+                handleClickToggleIsFlashcardBookmarked={handleToggleIsFlashcardBookmarked}
+                handleClickToggleIsFlashcardKnown={handleToggleIsFlashcardKnown}
               />
             )}
           </>

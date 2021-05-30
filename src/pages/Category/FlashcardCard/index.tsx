@@ -36,16 +36,18 @@ type FlashcardCardProps = {
   flashcard: Flashcard
   handleClickEdit?: (flashcard: Flashcard) => void
   handleClickDelete?: (flashcard: Flashcard) => Promise<void>
-  handleClickMarkAsKnown: (flashcard: Flashcard) => Promise<void>
-  handleClickMarkAsBookmarked: (flashcard: Flashcard) => Promise<void>
+  handleClickToggleIsFlashcardKnown: (flashcard: Flashcard) => Promise<void>
+  handleClickToggleIsFlashcardBookmarked: (
+    flashcard: Flashcard
+  ) => Promise<void>
 }
 
 const FlashcardCard: React.FC<FlashcardCardProps> = ({
   flashcard,
   handleClickEdit,
   handleClickDelete,
-  handleClickMarkAsKnown,
-  handleClickMarkAsBookmarked,
+  handleClickToggleIsFlashcardKnown,
+  handleClickToggleIsFlashcardBookmarked,
 }) => {
   const [menuAnchor, setMenuAnchor] =
     useState<(EventTarget & Element) | null>(null)
@@ -140,7 +142,9 @@ const FlashcardCard: React.FC<FlashcardCardProps> = ({
                 >
                   <IconButton
                     color={flashcard.isBookmarked ? "primary" : "default"}
-                    onClick={() => handleClickMarkAsBookmarked(flashcard)}
+                    onClick={() =>
+                      handleClickToggleIsFlashcardBookmarked(flashcard)
+                    }
                   >
                     {flashcard.isBookmarked ? (
                       <BookmarkedIcon />
@@ -161,7 +165,7 @@ const FlashcardCard: React.FC<FlashcardCardProps> = ({
                 >
                   <IconButton
                     color={flashcard.isKnown ? "primary" : "default"}
-                    onClick={() => handleClickMarkAsKnown(flashcard)}
+                    onClick={() => handleClickToggleIsFlashcardKnown(flashcard)}
                   >
                     {flashcard.isKnown ? <KnownIcon /> : <UnknownIcon />}
                   </IconButton>
