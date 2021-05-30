@@ -309,21 +309,21 @@ const Categories: React.FC = () => {
                             <Grid item>
                               <Button
                                 fullWidth
-                                variant="outlined"
+                                variant="contained"
                                 color="primary"
-                                onClick={handleSetAllFlashcardsAsUnknown}
                               >
-                                Set cards as not learned
+                                Study Mode
                               </Button>
                             </Grid>
 
                             <Grid item>
                               <Button
                                 fullWidth
-                                variant="contained"
+                                variant="outlined"
                                 color="primary"
+                                onClick={handleSetAllFlashcardsAsUnknown}
                               >
-                                Study Mode
+                                Set cards as not learned
                               </Button>
                             </Grid>
                           </Grid>
