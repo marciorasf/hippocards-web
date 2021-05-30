@@ -187,6 +187,27 @@ const Categories: React.FC = () => {
     }
   }
 
+  function setFlashcardsAsUnknownOnCategory() {
+    if (!category) {
+      return
+    }
+
+    const updatedFlashcards = category.flashcards.map((card) => ({
+      ...card,
+      isKnown: false,
+    }))
+
+    setCategory({
+      ...category,
+      flashcards: updatedFlashcards,
+    })
+  }
+
+  async function handleSetAllFlashcardsAsUnknown() {
+    await categoryService.setAllFlashcardsAsUnknown(+categoryId)
+    setFlashcardsAsUnknownOnCategory()
+  }
+
   function filterFlashcards(flashcard: Flashcard) {
     const normalizedQuestion = removeAccents(flashcard.question.toLowerCase())
     const normalizedId = flashcard.id.toString()
@@ -290,6 +311,7 @@ const Categories: React.FC = () => {
                                 fullWidth
                                 variant="outlined"
                                 color="primary"
+                                onClick={handleSetAllFlashcardsAsUnknown}
                               >
                                 Set cards as not learned
                               </Button>

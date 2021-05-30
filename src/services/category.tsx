@@ -64,6 +64,10 @@ const categoryService = {
   async delete(categoryId: number) {
     await apiService.delete(`/categories/${categoryId}`)
   },
+
+  async setAllFlashcardsAsUnknown(categoryId: number) {
+    await apiService.put(`/categories/${categoryId}/unknown`)
+  },
 }
 
 export default categoryService
