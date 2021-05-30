@@ -341,7 +341,7 @@ const Categories: React.FC = () => {
                                   color="primary"
                                   onClick={handleSetAllFlashcardsAsUnknown}
                                 >
-                                  Set cards as not learned
+                                  Set all as unlearned
                                 </Button>
                               </Grid>
                             </Grid>
