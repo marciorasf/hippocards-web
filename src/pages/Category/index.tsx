@@ -5,7 +5,14 @@ import { Header, PageContentContainer, Loading } from "@components"
 import useIsMobile from "@hooks/useIsMobile"
 import { CategoryWithFlashcards } from "@interfaces/category"
 import { Flashcard } from "@interfaces/flashcard"
-import { Grid } from "@material-ui/core"
+import {
+  Box,
+  Button,
+  Card,
+  CardContent,
+  CardHeader,
+  Grid,
+} from "@material-ui/core"
 import CategorySkeleton from "@pages/Category/CategorySkeleton"
 import DesktopFilters from "@pages/Category/DesktopFilters"
 import FlashcardCard from "@pages/Category/FlashcardCard"
@@ -14,6 +21,7 @@ import MobileFilters from "@pages/Category/MobileFilters"
 import categoryService from "@services/category"
 import errorService from "@services/error"
 import flashcardService, { CreateFlashcardInput } from "@services/flashcard"
+import useCommonStyles from "@styles/commonStyles"
 import handleBackButton, { newStateName } from "@utils/handleBackButton"
 import { removeAccents } from "@utils/removeAccents"
 import stringToBoolean from "@utils/stringToBoolean"
@@ -49,6 +57,8 @@ const Categories: React.FC = () => {
   const [loading, setLoading] = useState(true)
 
   const isMobile = useIsMobile()
+
+  const commonClasses = useCommonStyles()
 
   const { id: categoryId } = useParams<{ id: string }>()
 
@@ -255,6 +265,53 @@ const Categories: React.FC = () => {
             customLoadingElement={<CategorySkeleton />}
           >
             <Grid container spacing={2} alignItems="stretch">
+              <Grid item md={4} sm={6} xs={12}>
+                <Card className={commonClasses.fullHeight}>
+                  <Grid
+                    container
+                    direction="column"
+                    className={commonClasses.fullHeight}
+                  >
+                    <Grid item>
+                      <CardHeader title="Options" />
+                    </Grid>
+
+                    <Grid item xs>
+                      <Box
+                        display="flex"
+                        flexDirection="column"
+                        justifyContent="center"
+                        height="100%"
+                      >
+                        <CardContent>
+                          <Grid container direction="column" spacing={2}>
+                            <Grid item>
+                              <Button
+                                fullWidth
+                                variant="outlined"
+                                color="primary"
+                              >
+                                Set cards as not learned
+                              </Button>
+                            </Grid>
+
+                            <Grid item>
+                              <Button
+                                fullWidth
+                                variant="contained"
+                                color="primary"
+                              >
+                                Study Mode
+                              </Button>
+                            </Grid>
+                          </Grid>
+                        </CardContent>
+                      </Box>
+                    </Grid>
+                  </Grid>
+                </Card>
+              </Grid>
+
               {category?.flashcards
                 ?.filter(filterFlashcards)
                 ?.map((flashcard) => (

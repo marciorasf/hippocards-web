@@ -47,9 +47,8 @@ const FlashcardCard: React.FC<FlashcardCardProps> = ({
   handleClickMarkAsKnown,
   handleClickMarkAsBookmarked,
 }) => {
-  const [menuAnchor, setMenuAnchor] = useState<(EventTarget & Element) | null>(
-    null
-  )
+  const [menuAnchor, setMenuAnchor] =
+    useState<(EventTarget & Element) | null>(null)
   const [showAnswer, setShowAnswer] = useState(false)
 
   const commonClasses = useCommonStyles()
@@ -72,7 +71,7 @@ const FlashcardCard: React.FC<FlashcardCardProps> = ({
   }, [flashcard])
 
   return (
-    <Card className={classes.card}>
+    <Card className={commonClasses.fullHeight}>
       <Grid container direction="column" className={commonClasses.fullHeight}>
         <Grid item>
           <CardHeader
