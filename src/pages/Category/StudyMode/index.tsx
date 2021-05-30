@@ -10,17 +10,22 @@ type StudyModeProps = {
   category: CategoryWithFlashcards
   active: boolean
   onClose: () => void
+  handleClickMarkAsKnown: (flashcard: Flashcard) => Promise<void>
+  handleClickMarkAsBookmarked: (flashcard: Flashcard) => Promise<void>
 }
 
-const StudyMode: React.FC<StudyModeProps> = ({ category, active, onClose }) => {
-  console.log(category)
+const StudyMode: React.FC<StudyModeProps> = ({
+  category,
+  active,
+  onClose,
+  handleClickMarkAsBookmarked,
+  handleClickMarkAsKnown,
+}) => {
   const [flashcardsInRandomOrder, setFlashcardsInRandomOrder] = useState<
     Flashcard[]
   >([])
   const [currentFlashcardIndex, setCurrentFlashcardIndex] = useState(0)
   const classes = useStyles()
-
-  async function voidFunction() {}
 
   function handleNextFlashcard() {
     const flashcardsCount = flashcardsInRandomOrder.length
@@ -38,15 +43,19 @@ const StudyMode: React.FC<StudyModeProps> = ({ category, active, onClose }) => {
 
   return (
     <Modal open={active} onClose={onClose} className={classes.modal}>
-      <Container maxWidth="xs">
-        <Grid container direction="column" alignItems="center" spacing={2}>
+      <Container maxWidth="xs" disableGutters>
+        <Grid
+          container
+          direction="column"
+          alignItems="stretch"
+          spacing={2}
+          style={{ width: "100%" }}
+        >
           <Grid item>
             <FlashcardCard
               flashcard={category.flashcards[currentFlashcardIndex]}
-              handleClickEdit={voidFunction}
-              handleClickDelete={voidFunction}
-              handleClickMarkAsBookmarked={voidFunction}
-              handleClickMarkAsKnown={voidFunction}
+              handleClickMarkAsBookmarked={handleClickMarkAsBookmarked}
+              handleClickMarkAsKnown={handleClickMarkAsKnown}
             />
           </Grid>
 

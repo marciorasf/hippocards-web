@@ -34,8 +34,8 @@ import useCommonStyles from "@styles/commonStyles"
 
 type FlashcardCardProps = {
   flashcard: Flashcard
-  handleClickEdit: (flashcard: Flashcard) => void
-  handleClickDelete: (flashcard: Flashcard) => Promise<void>
+  handleClickEdit?: (flashcard: Flashcard) => void
+  handleClickDelete?: (flashcard: Flashcard) => Promise<void>
   handleClickMarkAsKnown: (flashcard: Flashcard) => Promise<void>
   handleClickMarkAsBookmarked: (flashcard: Flashcard) => Promise<void>
 }
@@ -77,9 +77,12 @@ const FlashcardCard: React.FC<FlashcardCardProps> = ({
           <CardHeader
             title={`Card ${flashcard.id}`}
             action={
-              <IconButton aria-label="settings" onClick={handleOpenMenu}>
-                <MoreVertIcon />
-              </IconButton>
+              handleClickEdit &&
+              handleClickDelete && (
+                <IconButton aria-label="settings" onClick={handleOpenMenu}>
+                  <MoreVertIcon />
+                </IconButton>
+              )
             }
           />
         </Grid>
@@ -177,21 +180,25 @@ const FlashcardCard: React.FC<FlashcardCardProps> = ({
         onClose={handleCloseMenu}
         onClick={handleCloseMenu}
       >
-        <MenuItem onClick={() => handleClickEdit(flashcard)}>
-          <ListItemIcon>
-            <EditIcon />
-          </ListItemIcon>
+        {handleClickEdit && (
+          <MenuItem onClick={() => handleClickEdit(flashcard)}>
+            <ListItemIcon>
+              <EditIcon />
+            </ListItemIcon>
 
-          <ListItemText primary="Edit" />
-        </MenuItem>
+            <ListItemText primary="Edit" />
+          </MenuItem>
+        )}
 
-        <MenuItem onClick={() => handleClickDelete(flashcard)}>
-          <ListItemIcon>
-            <DeleteIcon />
-          </ListItemIcon>
+        {handleClickDelete && (
+          <MenuItem onClick={() => handleClickDelete(flashcard)}>
+            <ListItemIcon>
+              <DeleteIcon />
+            </ListItemIcon>
 
-          <ListItemText primary="Delete" />
-        </MenuItem>
+            <ListItemText primary="Delete" />
+          </MenuItem>
+        )}
       </Menu>
     </Card>
   )

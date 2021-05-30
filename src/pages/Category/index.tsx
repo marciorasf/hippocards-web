@@ -26,6 +26,8 @@ import handleBackButton, { newStateName } from "@utils/handleBackButton"
 import { removeAccents } from "@utils/removeAccents"
 import stringToBoolean from "@utils/stringToBoolean"
 
+import StudyMode from "./StudyMode"
+
 async function getCategory(categoryId: number) {
   try {
     return categoryService.retrieveOne(categoryId)
@@ -55,6 +57,7 @@ const Categories: React.FC = () => {
   const [currentFlashcardOnEdition, setCurrentFlashcardOnEdition] =
     useState<Flashcard>()
   const [loading, setLoading] = useState(true)
+  const [isStudyModeActive, setIsStudyModeActive] = useState(false)
 
   const isMobile = useIsMobile()
 
@@ -240,6 +243,14 @@ const Categories: React.FC = () => {
     return true
   }
 
+  function handleStartStudyMode() {
+    setIsStudyModeActive(true)
+  }
+
+  function handleStopStudyMode() {
+    setIsStudyModeActive(false)
+  }
+
   useEffect(() => {
     async function getAndUpdateCategory() {
       setLoading(true)
@@ -281,97 +292,110 @@ const Categories: React.FC = () => {
 
       <Grid item xs={12}>
         <PageContentContainer>
-          <Loading
-            loading={loading}
-            customLoadingElement={<CategorySkeleton />}
-          >
-            <Grid container spacing={2} alignItems="stretch">
-              <Grid item md={4} sm={6} xs={12}>
-                <Card className={commonClasses.fullHeight}>
-                  <Grid
-                    container
-                    direction="column"
-                    className={commonClasses.fullHeight}
-                  >
-                    <Grid item>
-                      <CardHeader title="Options" />
-                    </Grid>
+          <>
+            <Loading
+              loading={loading}
+              customLoadingElement={<CategorySkeleton />}
+            >
+              <Grid container spacing={2} alignItems="stretch">
+                <Grid item md={4} sm={6} xs={12}>
+                  <Card className={commonClasses.fullHeight}>
+                    <Grid
+                      container
+                      direction="column"
+                      className={commonClasses.fullHeight}
+                    >
+                      <Grid item>
+                        <CardHeader title="Options" />
+                      </Grid>
 
-                    <Grid item xs>
-                      <Box
-                        display="flex"
-                        flexDirection="column"
-                        justifyContent="center"
-                        height="100%"
-                      >
-                        <CardContent>
-                          <Grid container direction="column" spacing={2}>
-                            <Grid item>
-                              <Button
-                                fullWidth
-                                variant="contained"
-                                color="primary"
-                              >
-                                Study Mode
-                              </Button>
-                            </Grid>
+                      <Grid item xs>
+                        <Box
+                          display="flex"
+                          flexDirection="column"
+                          justifyContent="center"
+                          height="100%"
+                        >
+                          <CardContent>
+                            <Grid container direction="column" spacing={2}>
+                              <Grid item>
+                                <Button
+                                  fullWidth
+                                  variant="contained"
+                                  color="primary"
+                                  onClick={handleStartStudyMode}
+                                >
+                                  Study Mode
+                                </Button>
+                              </Grid>
 
-                            <Grid item>
-                              <Button
-                                fullWidth
-                                variant="outlined"
-                                color="primary"
-                                onClick={handleSetAllFlashcardsAsUnknown}
-                              >
-                                Set cards as not learned
-                              </Button>
+                              <Grid item>
+                                <Button
+                                  fullWidth
+                                  variant="outlined"
+                                  color="primary"
+                                  onClick={handleSetAllFlashcardsAsUnknown}
+                                >
+                                  Set cards as not learned
+                                </Button>
+                              </Grid>
                             </Grid>
-                          </Grid>
-                        </CardContent>
-                      </Box>
+                          </CardContent>
+                        </Box>
+                      </Grid>
                     </Grid>
-                  </Grid>
-                </Card>
+                  </Card>
+                </Grid>
+
+                {category?.flashcards
+                  ?.filter(filterFlashcards)
+                  ?.map((flashcard) => (
+                    <Grid key={flashcard.id} item md={4} sm={6} xs={12}>
+                      <FlashcardCard
+                        key={flashcard.id}
+                        flashcard={flashcard}
+                        handleClickEdit={handleClickEditFlashcard}
+                        handleClickDelete={handleDeleteFlashcard}
+                        handleClickMarkAsKnown={handleToggleIsFlashcardKnown}
+                        handleClickMarkAsBookmarked={
+                          handleToggleIsFlashcardBookmarked
+                        }
+                      />
+                    </Grid>
+                  ))}
               </Grid>
+            </Loading>
 
-              {category?.flashcards
-                ?.filter(filterFlashcards)
-                ?.map((flashcard) => (
-                  <Grid key={flashcard.id} item md={4} sm={6} xs={12}>
-                    <FlashcardCard
-                      key={flashcard.id}
-                      flashcard={flashcard}
-                      handleClickEdit={handleClickEditFlashcard}
-                      handleClickDelete={handleDeleteFlashcard}
-                      handleClickMarkAsKnown={handleToggleIsFlashcardKnown}
-                      handleClickMarkAsBookmarked={
-                        handleToggleIsFlashcardBookmarked
-                      }
-                    />
-                  </Grid>
-                ))}
-            </Grid>
-          </Loading>
+            <FlashcardDialog
+              title="Add flashcard"
+              open={openDialog === "create"}
+              onClose={handleCloseDialog}
+              onOk={handleCreateFlashcard}
+              okButtonLabel="add"
+            />
 
-          <FlashcardDialog
-            title="Add flashcard"
-            open={openDialog === "create"}
-            onClose={handleCloseDialog}
-            onOk={handleCreateFlashcard}
-            okButtonLabel="add"
-          />
+            <FlashcardDialog
+              title="Edit flashcard"
+              open={openDialog === "edit"}
+              onClose={handleCloseDialog}
+              onOk={handleEditFlashcard}
+              okButtonLabel="save"
+              initialValues={{
+                question: currentFlashcardOnEdition?.question || "",
+                answer: currentFlashcardOnEdition?.answer || "",
+              }}
+            />
 
-          <FlashcardDialog
-            title="Edit flashcard"
-            open={openDialog === "edit"}
-            onClose={handleCloseDialog}
-            onOk={handleEditFlashcard}
-            okButtonLabel="save"
-            initialValues={{
-              question: currentFlashcardOnEdition?.question || "",
-              answer: currentFlashcardOnEdition?.answer || "",
-            }}
-          />
+            {isStudyModeActive && category && (
+              <StudyMode
+                category={category}
+                active={true}
+                onClose={handleStopStudyMode}
+                handleClickMarkAsBookmarked={handleToggleIsFlashcardBookmarked}
+                handleClickMarkAsKnown={handleToggleIsFlashcardKnown}
+              />
+            )}
+          </>
         </PageContentContainer>
       </Grid>
     </Grid>
