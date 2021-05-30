@@ -1,10 +1,21 @@
-import React, { useEffect, useState } from "react"
+import React, { useState } from "react"
 
+import useDidMount from "@hooks/useDidMount"
 import { CategoryWithFlashcards } from "@interfaces/category"
 import { Flashcard } from "@interfaces/flashcard"
-import { Button, Container, Grid, Modal } from "@material-ui/core"
+import {
+  Box,
+  Button,
+  Card,
+  CardContent,
+  Container,
+  Grid,
+  Modal,
+  Typography,
+} from "@material-ui/core"
 import FlashcardCard from "@pages/Category/FlashcardCard"
 import useStyles from "@pages/Category/StudyMode/styles"
+import useCommonStyles from "@styles/commonStyles"
 
 type StudyModeProps = {
   category: CategoryWithFlashcards
@@ -23,25 +34,28 @@ const StudyMode: React.FC<StudyModeProps> = ({
   handleClickToggleIsFlashcardBookmarked,
   handleClickToggleIsFlashcardKnown,
 }) => {
-  const [flashcardsInRandomOrder, setFlashcardsInRandomOrder] = useState<
-    Flashcard[]
-  >([])
-  const [currentFlashcardIndex, setCurrentFlashcardIndex] = useState(0)
+  const [currentFlashcardId, setCurrentFlashcardId] = useState<number>()
   const classes = useStyles()
+  const commonClasses = useCommonStyles()
 
   function handleNextFlashcard() {
-    const flashcardsCount = flashcardsInRandomOrder.length
-    const newIndex = (currentFlashcardIndex + 1) % flashcardsCount
-    setCurrentFlashcardIndex(newIndex)
-  }
-
-  useEffect(() => {
     const unknownFlashcards = category.flashcards.filter(
-      (flashcard) => !flashcard.isKnown
+      (flashcard) => !flashcard.isKnown && flashcard.id !== currentFlashcardId
     )
 
-    setFlashcardsInRandomOrder(unknownFlashcards)
-  }, [category])
+    if (unknownFlashcards.length === 0) {
+      setCurrentFlashcardId(undefined)
+      return
+    }
+
+    const flashcardsCount = unknownFlashcards.length
+    const newIndex = Math.floor(Math.random() * flashcardsCount)
+    setCurrentFlashcardId(unknownFlashcards[newIndex].id)
+  }
+
+  useDidMount(() => {
+    handleNextFlashcard()
+  })
 
   return (
     <Modal open={active} onClose={onClose} className={classes.modal}>
@@ -54,15 +68,36 @@ const StudyMode: React.FC<StudyModeProps> = ({
           style={{ width: "100%" }}
         >
           <Grid item>
-            <FlashcardCard
-              flashcard={category.flashcards[currentFlashcardIndex]}
-              handleClickToggleIsFlashcardBookmarked={
-                handleClickToggleIsFlashcardBookmarked
-              }
-              handleClickToggleIsFlashcardKnown={
-                handleClickToggleIsFlashcardKnown
-              }
-            />
+            {currentFlashcardId ? (
+              <FlashcardCard
+                flashcard={
+                  category.flashcards.find(
+                    (flashcard) => flashcard.id === currentFlashcardId
+                  ) as Flashcard
+                }
+                handleClickToggleIsFlashcardBookmarked={
+                  handleClickToggleIsFlashcardBookmarked
+                }
+                handleClickToggleIsFlashcardKnown={
+                  handleClickToggleIsFlashcardKnown
+                }
+              />
+            ) : (
+              <Card className={commonClasses.fullHeight}>
+                <Box
+                  display="flex"
+                  flexDirection="column"
+                  justifyContent="center"
+                  height="100%"
+                >
+                  <CardContent>
+                    <Typography variant="body1" style={{ fontWeight: "bold" }}>
+                      There is no more unlearned flashcards.
+                    </Typography>
+                  </CardContent>
+                </Box>
+              </Card>
+            )}
           </Grid>
 
           <Grid item>
