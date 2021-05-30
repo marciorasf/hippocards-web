@@ -11,7 +11,9 @@ type StudyModeProps = {
   active: boolean
   onClose: () => void
   handleClickToggleIsFlashcardKnown: (flashcard: Flashcard) => Promise<void>
-  handleClickToggleIsFlashcardBookmarked: (flashcard: Flashcard) => Promise<void>
+  handleClickToggleIsFlashcardBookmarked: (
+    flashcard: Flashcard
+  ) => Promise<void>
 }
 
 const StudyMode: React.FC<StudyModeProps> = ({
@@ -54,19 +56,39 @@ const StudyMode: React.FC<StudyModeProps> = ({
           <Grid item>
             <FlashcardCard
               flashcard={category.flashcards[currentFlashcardIndex]}
-              handleClickToggleIsFlashcardBookmarked={handleClickToggleIsFlashcardBookmarked}
-              handleClickToggleIsFlashcardKnown={handleClickToggleIsFlashcardKnown}
+              handleClickToggleIsFlashcardBookmarked={
+                handleClickToggleIsFlashcardBookmarked
+              }
+              handleClickToggleIsFlashcardKnown={
+                handleClickToggleIsFlashcardKnown
+              }
             />
           </Grid>
 
           <Grid item>
-            <Button
-              variant="contained"
-              color="primary"
-              onClick={handleNextFlashcard}
-            >
-              Next
-            </Button>
+            <Grid container spacing={2}>
+              <Grid item xs={6}>
+                <Button
+                  fullWidth
+                  variant="outlined"
+                  color="secondary"
+                  onClick={onClose}
+                >
+                  Quit
+                </Button>
+              </Grid>
+
+              <Grid item xs={6}>
+                <Button
+                  variant="contained"
+                  color="primary"
+                  onClick={handleNextFlashcard}
+                  fullWidth
+                >
+                  Next
+                </Button>
+              </Grid>
+            </Grid>
           </Grid>
         </Grid>
       </Container>
