@@ -1,7 +1,12 @@
 import React, { useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
 
-import { Header, PageContentContainer, Loading } from "@components"
+import {
+  Header,
+  PageContentContainer,
+  Loading,
+  Notification,
+} from "@components"
 import useIsMobile from "@hooks/useIsMobile"
 import { CategoryWithFlashcards } from "@interfaces/category"
 import { Flashcard } from "@interfaces/flashcard"
@@ -356,7 +361,9 @@ const Categories: React.FC = () => {
                         flashcard={flashcard}
                         handleClickEdit={handleClickEditFlashcard}
                         handleClickDelete={handleDeleteFlashcard}
-                        handleClickToggleIsFlashcardKnown={handleToggleIsFlashcardKnown}
+                        handleClickToggleIsFlashcardKnown={
+                          handleToggleIsFlashcardKnown
+                        }
                         handleClickToggleIsFlashcardBookmarked={
                           handleToggleIsFlashcardBookmarked
                         }
@@ -391,7 +398,9 @@ const Categories: React.FC = () => {
                 category={category}
                 active={true}
                 onClose={handleStopStudyMode}
-                handleClickToggleIsFlashcardBookmarked={handleToggleIsFlashcardBookmarked}
+                handleClickToggleIsFlashcardBookmarked={
+                  handleToggleIsFlashcardBookmarked
+                }
                 handleClickToggleIsFlashcardKnown={handleToggleIsFlashcardKnown}
               />
             )}
