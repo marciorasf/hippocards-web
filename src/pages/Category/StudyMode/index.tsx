@@ -1,5 +1,6 @@
 import React, { useState } from "react"
 
+import { Spacing } from "@components"
 import useDidMount from "@hooks/useDidMount"
 import { CategoryWithFlashcards } from "@interfaces/category"
 import { Flashcard } from "@interfaces/flashcard"
@@ -59,12 +60,11 @@ const StudyMode: React.FC<StudyModeProps> = ({
 
   return (
     <Modal open={active} onClose={onClose} className={classes.modal}>
-      <Container maxWidth="xs" disableGutters>
+      <Container maxWidth="xs">
         <Grid
           container
           direction="column"
           alignItems="stretch"
-          spacing={2}
           style={{ width: "100%" }}
         >
           <Grid item>
@@ -99,6 +99,8 @@ const StudyMode: React.FC<StudyModeProps> = ({
               </Card>
             )}
           </Grid>
+
+          <Spacing orientation="horizontal" size={2} />
 
           <Grid item>
             <Grid container spacing={2}>
