@@ -1,5 +1,6 @@
 import { Formik, Form } from "formik"
 import React, { useState } from "react"
+import { Link } from "react-router-dom"
 
 import { FormikInputField, Spacing } from "@components"
 import {
@@ -8,12 +9,15 @@ import {
   Grid,
   Container,
   CircularProgress,
+  Link as MuiLink,
 } from "@material-ui/core"
+import useStyles from "@pages/RecoverPassword/styles"
 import errorService from "@services/error"
 import userService from "@services/user"
 
 const RecoverPassword: React.FC = () => {
   const [emailSent, setEmailSent] = useState(false)
+  const classes = useStyles()
 
   async function handleRequestRecoverPassword(email: string) {
     try {
@@ -92,6 +96,17 @@ const RecoverPassword: React.FC = () => {
                 >
                   send email
                 </Button>
+              </Grid>
+
+              <Spacing orientation="horizontal" size={1.5} />
+
+              <Grid item className={classes.redirectLink}>
+                <Typography variant="body2">
+                  Go back to{" "}
+                  <MuiLink component={Link} to="/login">
+                    Log In
+                  </MuiLink>
+                </Typography>
               </Grid>
 
               {emailSent && (

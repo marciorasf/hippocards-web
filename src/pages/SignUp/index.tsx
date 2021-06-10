@@ -130,7 +130,7 @@ const SignUp: React.FC = () => {
                 <Typography variant="body2">
                   Already have an account?{" "}
                   <MuiLink component={Link} to="/login">
-                    Log in
+                    Log In
                   </MuiLink>
                 </Typography>
               </Grid>
