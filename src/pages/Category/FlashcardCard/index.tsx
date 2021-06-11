@@ -97,22 +97,21 @@ const FlashcardCard: React.FC<FlashcardCardProps> = ({
             <CardContent className={commonClasses.fullHeight}>
               <Grid container direction="column" spacing={4}>
                 <Grid item>
-                  <Typography variant="body1" className={classes.questionFont}>
+                  <Typography variant="body1" className={classes.titleFont}>
                     Question
                   </Typography>
 
                   <Spacing orientation="horizontal" size={1.25} />
 
-                  <Typography variant="body2">{flashcard.question}</Typography>
+                  <Typography variant="body2" className={classes.paragraph}>
+                    {flashcard.question}
+                  </Typography>
                 </Grid>
 
                 <Grid item>
                   <Grid container alignItems="center" spacing={2}>
                     <Grid item>
-                      <Typography
-                        variant="body1"
-                        className={classes.questionFont}
-                      >
+                      <Typography variant="body1" className={classes.titleFont}>
                         Answer
                       </Typography>
                     </Grid>
@@ -125,7 +124,9 @@ const FlashcardCard: React.FC<FlashcardCardProps> = ({
                   <Collapse in={showAnswer}>
                     <Spacing orientation="horizontal" size={1.25} />
 
-                    <Typography variant="body2">{flashcard.answer}</Typography>
+                    <Typography variant="body2" className={classes.paragraph}>
+                      {flashcard.answer}
+                    </Typography>
                   </Collapse>
                 </Grid>
               </Grid>
