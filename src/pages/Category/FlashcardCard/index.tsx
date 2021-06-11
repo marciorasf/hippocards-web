@@ -159,7 +159,7 @@ const FlashcardCard: React.FC<FlashcardCardProps> = ({
               <Grid item>
                 <Tooltip
                   title={
-                    flashcard.isKnown ? "Mark as learned" : "Mark as unlearned"
+                    flashcard.isKnown ? "Set as unlearned" : "Set as learned"
                   }
                 >
                   <IconButton
