@@ -6,7 +6,7 @@ const useStyles = makeStyles((_theme) => ({
     fontWeight: 700,
   },
   paragraph: {
-    whiteSpace: "pre",
+    whiteSpace: "pre-wrap",
   },
 }))
 
