@@ -46,7 +46,7 @@ const Landing: React.FC = () => {
                       <Spacing orientation="horizontal" size={4} />
 
                       <Typography variant="h5" align="center">
-                        Study more efficiently
+                        Study better, learn faster
                       </Typography>
 
                       <Spacing orientation="horizontal" size={4} />
